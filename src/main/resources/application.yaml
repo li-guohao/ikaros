@@ -71,7 +71,7 @@ spring:
   h2:
     console:
       path: /h2-console
-      enabled: true
+      enabled: false
   datasource:
     url: jdbc:h2:~/ikaros
     driver-class-name: org.h2.Driver

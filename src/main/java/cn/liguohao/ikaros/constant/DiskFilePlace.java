@@ -1,11 +1,10 @@
 package cn.liguohao.ikaros.constant;
 
-/**
- * @Description TODO 磁盘文件储存地区
+/**磁盘文件储存地区
  * @Author liguohao
  * @Date 2020/11/26 15:12
  */
-public enum  DiskFilePlace {
+  public enum  DiskFilePlace {
 
     /**
      * 本地文件存储

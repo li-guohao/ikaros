@@ -9,8 +9,7 @@ import org.springframework.util.StringUtils;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-/**
- * @Description TODO 应用服务配置
+/**应用服务配置
  * @Author liguohao
  * @Date 2020/11/25 20:10
  */
