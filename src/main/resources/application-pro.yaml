@@ -1,0 +1,79 @@
+# 线上生产环境配置
+# ikaros 应用配置
+ikaros:
+  author:
+    name: liguohao
+    email: liguohao_cn@qq.com
+    website: https://liguohao.cn
+  theme: simple
+  # 可直接访问的域名，如 <liguohao.cn> 如配置了反向代理，请去掉 <:${server.port}>
+  domain: liguohao.cn:${server.port}
+
+#内置Tomcat服务器
+server:
+  port: 8888
+  tomcat:
+    max-swallow-size: 5120MB #Tomcat允许的最大尺寸 5G
+    uri-encoding: UTF-8
+  servlet:
+    encoding:
+      charset: UTF-8
+
+#Spring
+spring:
+  #Servlet
+  servlet:
+    session:
+      cookie:
+        http-only: true
+    multipart:
+      max-file-size: 5120MB #文件上传的允许最大尺寸
+      max-request-size: 5120MB #请求的允许最大尺寸
+
+  #HTTP
+  # SpringMVC
+  mvc:
+    static-path-pattern: /**
+
+  # Spring Resource
+  resources:
+    static-locations:
+      - classpath:static/
+      - file:${user.home}/.ikaros/
+
+  #JACKSON时间格式化
+  jackson:
+    date-format: yyyy-MM-dd  HH:mm:ss
+    time-zone: GMT+8 #解决JSON传递8小时时差
+
+  #模板引擎thymeleaf
+  thymeleaf:
+    prefix: file:${user.home}/.ikaros/theme/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: true
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+
+  # Spring Data JPA
+  jpa:
+    database: h2
+    show-sql: true
+    platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      path: /h2-console
+      enabled: false
+  datasource:
+    url: jdbc:h2:~/ikaros
+    driver-class-name: org.h2.Driver
+    username: ikaros
+    password: liguohao.cn
+    initialization-mode: always
