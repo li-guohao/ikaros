@@ -1,13 +1,21 @@
 package cn.liguohao.ikaros.store.database;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**角色
- * @author liguohao
- * @Date 2020/12/29
+ * @author liguohao_cn
+ * @date 2020/12/29
  */
 @Entity
 @Table(name = "role")
 public class Role {
+
+
+    /**
+     * 角色ID
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "role_id")
+    private Long roleId;
 }

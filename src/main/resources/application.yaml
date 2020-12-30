@@ -1,4 +1,40 @@
+# 主配置文件
+
+#内置Tomcat服务器
+server:
+  port: 8888
+  tomcat:
+    max-swallow-size: 5120MB #Tomcat允许的最大尺寸 5G
+    uri-encoding: UTF-8
+  servlet:
+    encoding:
+      charset: UTF-8
+
+# Spring
 spring:
   profiles:
     # 环境 dev-开发环境 pro-生产环境
     active: dev
+  # Spring Resource
+  resources:
+    static-locations:
+      - classpath:static/
+      - file:${user.home}/.ikaros/
+  #Servlet
+  servlet:
+    session:
+      cookie:
+        http-only: true
+    multipart:
+      max-file-size: 5120MB #文件上传的允许最大尺寸
+      max-request-size: 5120MB #请求的允许最大尺寸
+  #HTTP
+  # SpringMVC
+  mvc:
+    static-path-pattern: /**
+  #JACKSON时间格式化
+  jackson:
+    date-format: yyyy-MM-dd  HH:mm:ss
+    time-zone: GMT+8 #解决JSON传递8小时时差
+
+

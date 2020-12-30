@@ -42,6 +42,11 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!--MySql 连接驱动-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
         <!--  SpirngBoot 测试依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

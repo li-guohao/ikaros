@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**用户
- * @author liguohao
- * @Date 2020/12/29
+ * @author liguohao_cn
+ * @date 2020/12/29
  */
 @Entity
 @Table(name = "user")

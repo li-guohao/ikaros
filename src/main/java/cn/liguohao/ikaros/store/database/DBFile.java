@@ -1,13 +1,11 @@
 package cn.liguohao.ikaros.store.database;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Date;
 
 /**文件
- * @author liguohao
- * @Date 2020/12/29
+ * @author liguohao_cn
+ * @date 2020/12/29
  */
 @Entity
 @Table(name = "file")
