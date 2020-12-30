@@ -51,11 +51,6 @@ public class User {
     private String email;
 
     /**
-     * 状态 0-已禁用 1-正常 删除的话直接从数据库移除该条用户信息
-     */
-    private Integer status;
-
-    /**
      * 个人简介
      */
     private String description;
@@ -90,10 +85,6 @@ public class User {
 
     public String getEmail() {
         return email;
-    }
-
-    public Integer getStatus() {
-        return status;
     }
 
     public String getDescription() {
@@ -131,11 +122,6 @@ public class User {
 
     public User setEmail(String email) {
         this.email = email;
-        return this;
-    }
-
-    public User setStatus(Integer status) {
-        this.status = status;
         return this;
     }
 
