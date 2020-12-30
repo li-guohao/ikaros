@@ -18,4 +18,16 @@ public class Resource {
     @Column(name = "resource_id")
     private Long resourceId;
 
+    public static Resource build(){
+        return new Resource();
+    }
+
+    public Long getResourceId() {
+        return resourceId;
+    }
+
+    public Resource setResourceId(Long resourceId) {
+        this.resourceId = resourceId;
+        return this;
+    }
 }

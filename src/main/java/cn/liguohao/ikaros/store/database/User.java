@@ -60,7 +60,7 @@ public class User {
     @Column(name = "create_date")
     private Date createDate;
 
-    public static User builder(){ return new User();}
+    public static User build(){ return new User();}
 
     public Long getUuid() {
         return uuid;
