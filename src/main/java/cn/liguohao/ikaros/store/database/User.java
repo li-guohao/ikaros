@@ -29,6 +29,12 @@ public class User {
     private String password;
 
     /**
+     * 手机号
+     */
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    /**
      * 头像地址
      */
     @Column(name = "avatar_url")
@@ -140,6 +146,15 @@ public class User {
 
     public User setCreateDate(Date createDate) {
         this.createDate = createDate;
+        return this;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public User setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
         return this;
     }
 }
