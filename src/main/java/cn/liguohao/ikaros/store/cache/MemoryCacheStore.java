@@ -25,9 +25,9 @@ public class MemoryCacheStore<T> implements CacheStore<T>{
     private  ConcurrentHashMap<String, CacheWrapper<T>> CACHE_CONTAINER = new ConcurrentHashMap<String, CacheWrapper<T>>();
 
     /**
-     * 默认缓存过期时间 5分钟
+     * 默认缓存过期时间 30分钟
      */
-    private final Integer DEFAULT_EXIRE_TIEM = 5*60;
+    private final Integer DEFAULT_EXIRE_TIEM = 30*60;
 
     @Override
     public void set(String key, T value) {
@@ -46,9 +46,9 @@ public class MemoryCacheStore<T> implements CacheStore<T>{
     }
 
     /**
-     * 定时任务 每隔1分钟清除失效的缓存
+     * 定时任务 每隔30分钟清除失效的缓存
      */
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 30*60000)
     private void clearExpireDate(){
         logger.info("[伊卡洛斯]正在清理失效缓存");
         // 待移除的列表
