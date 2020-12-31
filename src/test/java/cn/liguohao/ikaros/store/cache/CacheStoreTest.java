@@ -37,7 +37,7 @@ public class CacheStoreTest {
     }
 
     /**
-     * 测试缓存失效情况
+     * 测试缓存失效情况 注意线程睡眠时间要超过缓存清理定时器的时间间隔 就是要让定时器在下次查询时清理下失效缓存
      */
     @Test
     public void cacheExpireTime() throws InterruptedException {
