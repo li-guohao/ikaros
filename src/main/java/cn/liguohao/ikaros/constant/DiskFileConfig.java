@@ -4,22 +4,22 @@ package cn.liguohao.ikaros.constant;
  * @author liguohao_cn
  * @date 2020/12/30
  */
-public enum  DiskFilePlace {
+public enum DiskFileConfig {
 
     /**
      * 本地文件存储
      */
-    LOCAL("local","localDiskFileHandler","cn.liguohao.ikaros.file.disk.handler.LocalDiskFileHandler")
+    LOCAL("local","localDiskFileHandler","cn.liguohao.ikaros.store.diskfile.handler.LocalDiskFileHandler")
     ,
     /**
      * 阿里云对象存储-OSS
      */
-    ALIYUN_OSS("aliyun_oss","aliyunOSSDiskFileHandler","cn.liguohao.ikaros.file.disk.handler.AliyunOSSDiskFileHandler")
+    ALIYUN_OSS("aliyun_oss","aliyunOSSDiskFileHandler","cn.liguohao.ikaros.store.diskfile.handler.AliyunOSSDiskFileHandler")
     ,
     /**
      * 腾讯云对象存储-COS
      */
-    TENCENT_CLOUD_COS("tencent_cloud_cos","tencentCloudCOSDiskFileHandler","cn.liguohao.ikaros.file.disk.handler.TencentCloudCOSDiskFileHandler")
+    TENCENT_CLOUD_COS("tencent_cloud_cos","tencentCloudCOSDiskFileHandler","cn.liguohao.ikaros.store.diskfile.handler.TencentCloudCOSDiskFileHandler")
 
     ; //结束符
 
@@ -38,7 +38,7 @@ public enum  DiskFilePlace {
      */
     private String className;
 
-     DiskFilePlace(String name, String simpleClassName, String className) {
+     DiskFileConfig(String name, String simpleClassName, String className) {
         this.name = name;
         this.simpleClassName = simpleClassName;
         this.className = className;

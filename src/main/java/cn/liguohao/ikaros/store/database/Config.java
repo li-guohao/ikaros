@@ -3,7 +3,7 @@ package cn.liguohao.ikaros.store.database;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
+/**配置
  * @author liguohao_cn
  * @date 2020/12/30
  */
