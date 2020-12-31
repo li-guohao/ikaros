@@ -12,7 +12,15 @@ public interface CacheStore<T> {
      * @param value 缓存值
      * @return 是否成功
      */
-    boolean set(String key,T value);
+    void set(String key,T value);
+
+    /**
+     * 往缓存中保存值，键相同覆盖值，可设置有效时间(单位秒)
+     * @param key 缓存键
+     * @param value 缓存值
+     * @param expireSeconds 有效时间(单位秒)
+     */
+    void set(String key,T value,Integer expireSeconds);
 
     /**
      * 获取指定缓存值
@@ -26,11 +34,11 @@ public interface CacheStore<T> {
      * @param key 缓存键
      * @return
      */
-    boolean remove(String key);
+    T remove(String key);
 
     /**
      * 清楚所以缓存
      * @return
      */
-    boolean clear();
+    void clear();
 }

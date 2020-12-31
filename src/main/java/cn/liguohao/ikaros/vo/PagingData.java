@@ -27,9 +27,7 @@ public class PagingData<T> {
      */
     private List<T> dataArray;
 
-
-    private PagingData() {
-    }
+    public PagingData() {}
 
     public static PagingData build(){return new PagingData();}
 

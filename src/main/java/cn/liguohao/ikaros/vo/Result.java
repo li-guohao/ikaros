@@ -28,7 +28,7 @@ public class Result<T> {
     /**
      * 无参构造，链式设置返回值
      */
-    private Result() {
+    public Result() {
     }
 
     public static Result build(){return new Result();}

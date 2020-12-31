@@ -75,9 +75,7 @@ public class DBFile {
      */
     private Long size;
 
-    public static DBFile build(){
-        return new DBFile();
-    }
+    public static DBFile build(){return new DBFile();}
 
     public Long getFileId() {
         return fileId;
