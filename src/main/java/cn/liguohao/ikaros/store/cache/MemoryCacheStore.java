@@ -70,6 +70,7 @@ public class MemoryCacheStore<T> implements CacheStore<T>{
 
     @Override
     public T get(String key) {
+        logger.info("[伊卡洛斯]正在查询key为{}的缓存数据",key);
         return !CACHE_CONTAINER.isEmpty() && CACHE_CONTAINER.containsKey(key)?CACHE_CONTAINER.get(key).getData():null;
     }
 
