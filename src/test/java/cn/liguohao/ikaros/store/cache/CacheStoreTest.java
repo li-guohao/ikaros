@@ -37,7 +37,10 @@ public class CacheStoreTest {
     }
 
     /**
-     * 测试缓存失效情况 注意线程睡眠时间要超过缓存清理定时器的时间间隔 就是要让定时器在下次查询时清理下失效缓存
+     * <p>测试缓存失效情况</p>
+     * <p>注意线程睡眠时间要超过缓存清理定时器的时间间隔 就是要让定时器在下次查询前清理下失效缓存</p>
+     * <p>定时器时间间隔设置在cn.liguohao.ikaros.store.cache.MemoryCacheStore中的clearExpireDate方法注解值上</p>
+     * @see MemoryCacheStore#clearExpireDate()
      */
     @Test
     public void cacheExpireTime() throws InterruptedException {
