@@ -41,4 +41,11 @@ public interface CacheStore<T> {
      * @return
      */
     void clear();
+
+    /**
+     * 判断缓存是否存在
+     * @param key 缓存键
+     * @return 是否存在
+     */
+    Boolean containsKey(String key);
 }

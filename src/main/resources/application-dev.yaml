@@ -3,7 +3,7 @@
 spring:
   #模板引擎thymeleaf
   thymeleaf:
-    prefix: file:${user.home}/.ikaros/theme/
+    prefix: classpath:/template/simple/
     suffix: .html
     mode: HTML5
     encoding: UTF-8

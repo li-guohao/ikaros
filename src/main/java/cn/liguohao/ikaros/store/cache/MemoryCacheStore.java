@@ -85,4 +85,9 @@ public class MemoryCacheStore<T> implements CacheStore<T>{
         if(!CACHE_CONTAINER.isEmpty()) CACHE_CONTAINER.clear();
         logger.info("[伊卡洛斯]清楚全部缓存数据");
     }
+
+    @Override
+    public Boolean containsKey(String key) {
+        return CACHE_CONTAINER.containsKey(key);
+    }
 }

@@ -1,6 +1,7 @@
 package cn.liguohao.ikaros.store.database;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**用户
@@ -59,7 +60,12 @@ public class User {
      * 创建时间
      */
     @Column(name = "create_date")
-    private Date createDate;
+    private LocalDateTime createDate;
+
+    /**
+     * 登录令牌
+     */
+    private String token;
 
     public static User build(){return new User();}
 
@@ -91,7 +97,7 @@ public class User {
         return description;
     }
 
-    public Date getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
@@ -130,7 +136,7 @@ public class User {
         return this;
     }
 
-    public User setCreateDate(Date createDate) {
+    public User setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
         return this;
     }
@@ -141,6 +147,15 @@ public class User {
 
     public User setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public User setToken(String token) {
+        this.token = token;
         return this;
     }
 }
