@@ -6,19 +6,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**全局异常处理类
+/**[Controller]层 异常处理类
  * @author liguohao_cn
  * @date 2021/1/1
  */
 @ControllerAdvice
+@ResponseBody
 public class GlobalExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(IkarosException.class)
-    public Result ikarosException(HttpServletRequest request, IkarosException ikarosException){
+    public Result ikarosException(IkarosException ikarosException){
         String detail = "[伊卡洛斯]出现了异常情况 ==> "+ikarosException.getClass().getName()+"==>"+ikarosException.getMessage();
         logger.info(detail);
         ikarosException.printStackTrace();
@@ -30,7 +32,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public Result exception(HttpServletRequest request, Exception exception){
+    public Result exception(Exception exception){
         String detail = "[SpringBoot]出现了异常情况 ==> "+exception.getClass().getName()+"==>"+exception.getMessage();
         logger.info(detail);
         exception.printStackTrace();

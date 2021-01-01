@@ -1,5 +1,6 @@
 package cn.liguohao.ikaros.store.cache;
 
+import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -70,8 +71,15 @@ public class MemoryCacheStore<T> implements CacheStore<T>{
 
     @Override
     public T get(String key) {
-        logger.info("[伊卡洛斯]正在查询key为{}的缓存数据",key);
-        return !CACHE_CONTAINER.isEmpty() && CACHE_CONTAINER.containsKey(key)?CACHE_CONTAINER.get(key).getData():null;
+        logger.debug("[伊卡洛斯]正在查询key为{}的缓存数据",key);
+        if(!CACHE_CONTAINER.isEmpty() && CACHE_CONTAINER.containsKey(key)){
+            T vaule = CACHE_CONTAINER.get(key).getData();
+            logger.info("[伊卡洛斯]查询到key={}的缓存数据为==>{}",key, JSON.toJSON(vaule));
+            return vaule;
+        } else {
+            logger.debug("[伊卡洛斯]未查询到key为{}的缓存数据",key);
+            return null;
+        }
     }
 
     @Override

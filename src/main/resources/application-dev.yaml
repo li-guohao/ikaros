@@ -15,6 +15,9 @@ spring:
           enabled: true
           paths: /**
 
+  h2:
+    console:
+      enabled: false
   # Spring Data JPA
   jpa:
     database: MySQL

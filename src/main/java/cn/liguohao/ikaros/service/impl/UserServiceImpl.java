@@ -30,69 +30,89 @@ public class UserServiceImpl implements UserService {
     private CacheStore<User> cacheStore;
 
     @Override
-    public User login(@NotNull UserDTO userDTO) {
-        String cacheKey = User.class.getName()+":Info";
-        if(cacheStore.containsKey(cacheKey)) return cacheStore.get(cacheKey);
-        Optional<User> userOptional = null;
+    public User login(@NotNull UserDTO userDTO){
+        User user = null;
         switch (userDTO.getType()){
             case UserDTOType.USERNAME_PASSWORD: {
-                userOptional = userDao.findOne(
-                        Example.of(User.build()
-                                .setUsername(userDTO.getUsername())
-                                .setPassword(MD5Utils.md5(userDTO.getPassword())
-                                )
-                        )
-                );
+                String cacheKey = User.class.getName()+":Info"+"==>username="+userDTO.getUsername()+"==>password="+userDTO.getPassword();
+                if(cacheStore.containsKey(cacheKey)) {
+                    user = cacheStore.get(cacheKey);
+                }else {
+                    Optional<User> userOptional = userDao.findOne(
+                            Example.of(User.build()
+                                    .setUsername(userDTO.getUsername())
+                                    .setPassword(MD5Utils.md5(userDTO.getPassword())
+                                    )
+                            )
+                    );
+                    cacheStore.set(cacheKey,userOptional.isPresent()?user = userOptional.get():null);
+                }
+
                 break;
             }
             case UserDTOType.EMAil_PASSWORD: {
-                userOptional = userDao.findOne(
-                        Example.of(
-                                User.build()
-                                        .setEmail(userDTO.getEmail())
-                                        .setPassword(MD5Utils.md5(userDTO.getPassword()))
-                        )
-                );
+                String cacheKey = User.class.getName()+":Info"+"==>email="+userDTO.getEmail()+"==>password="+userDTO.getPassword();
+                if(cacheStore.containsKey(cacheKey)) {
+                    user = cacheStore.get(cacheKey);
+                }else {
+                    Optional<User>  userOptional = userDao.findOne(
+                            Example.of(User.build()
+                                    .setEmail(userDTO.getEmail())
+                                    .setPassword(MD5Utils.md5(userDTO.getPassword()))
+                                    )
+                    );
+                    cacheStore.set(cacheKey,userOptional.isPresent()?user = userOptional.get():null);
+                }
                 break;
             }
             case UserDTOType.PHONE_NUMBER_PASSWORD: {
-                userOptional = userDao.findOne(
-                        Example.of(
-                                User.build()
-                                        .setPhoneNumber(userDTO.getPhoneNumber())
-                                        .setPassword(MD5Utils.md5(userDTO.getPassword()))
-                        )
-                );
+                String cacheKey = User.class.getName()+":Info"+"==>phone_number="+userDTO.getPhoneNumber()+"==>password="+userDTO.getPassword();
+                if(cacheStore.containsKey(cacheKey)) {
+                    user = cacheStore.get(cacheKey);
+                }else {
+                    Optional<User>  userOptional = userDao.findOne(
+                            Example.of(User.build()
+                                    .setPhoneNumber(userDTO.getPhoneNumber())
+                                    .setPassword(MD5Utils.md5(userDTO.getPassword()))
+                            )
+                    );
+                    cacheStore.set(cacheKey,userOptional.isPresent()?user = userOptional.get():null);
+                }
                 break;
             }
             case UserDTOType.PNONE_NUMBER_CAPTCHA: {
-                break;
+                throw IkarosException.build("非常抱歉，目前不支持此种认证方式==>"+userDTO.getType());
             }
             default:
                 throw IkarosException.build("非常抱歉，目前不支持此种认证方式==>"+userDTO.getType());
         }
-        User user = userOptional.isPresent()?userOptional.get():null;
-        user.setToken(TokenUtils.gengerToken()); //每次登录更新Token
-        userDao.save(user);
-        cacheStore.set(cacheKey,user);
         return user;
     }
 
     @Override
-    public Boolean checkToken(UserDTO userDTO) {
-        if(UserDTOType.TOKEN.equals(userDTO.getType())) throw IkarosException.build("校验Token请指定类型为token");
+    public Boolean checkToken(UserDTO userDTO){
+        if(ObjectUtils.isEmpty(userDTO.getToken()) || !UserDTOType.TOKEN.equals(userDTO.getType())) throw IkarosException.build("校验Token请指定类型为token");
         if(ObjectUtils.isEmpty(userDTO.getUuid()) || ObjectUtils.isEmpty(userDTO.getToken())) throw IkarosException.build("校验Token需要传递UUID和Token值");
+        Boolean isCorrectToken = false; //校验标识符合
         String cacheKey = User.class.getName() + ":"+userDTO.getUuid()+":Token:Check";
         User user = null;
-        if(cacheStore.containsKey(cacheKey)) {
+        if(cacheStore.containsKey(cacheKey)) { //缓存查询
             user = cacheStore.get(cacheKey);
-        }else {
+            if(user==null) {
+                isCorrectToken =false;
+            }else {
+                isCorrectToken = userDTO.getToken().equals(user.getToken());
+            }
+        }else { // 数据库查询
             Optional<User> userOptional = userDao.findById(userDTO.getUuid());
-            if(userOptional.isEmpty()) throw IkarosException.build("未查询到用户 ==> uuid="+userDTO.getUuid());
-            user = userOptional.get();
-            cacheStore.set(cacheKey,user);
+            cacheStore.set(cacheKey,userOptional.isPresent()?userOptional.get():null);
+            if(userOptional.isEmpty()) {
+                isCorrectToken =false;
+            }else {
+                isCorrectToken = userDTO.getToken().equals(user.getToken());
+            }
         }
-        return userDTO.getToken().equals(user.getToken());
+        return isCorrectToken;
     }
 
 }

@@ -1,5 +1,6 @@
 package cn.liguohao.ikaros.controller;
 
+import cn.liguohao.ikaros.exception.IkarosException;
 import cn.liguohao.ikaros.vo.Result;
 import cn.liguohao.ikaros.vo.Status;
 import org.slf4j.Logger;
@@ -26,6 +27,10 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/ex")
+    public String exception(){
+        throw IkarosException.build("测试全局异常");
+    }
 
     /**
      * 应用初始化
