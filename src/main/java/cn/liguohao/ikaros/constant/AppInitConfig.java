@@ -6,6 +6,8 @@ package cn.liguohao.ikaros.constant;
  */
 public class AppInitConfig {
 
+    private AppInitConfig(){}
+
     /**
      * 是否已经安装过
      */

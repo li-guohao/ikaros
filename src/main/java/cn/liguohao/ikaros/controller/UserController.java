@@ -22,10 +22,11 @@ public class UserController {
     @PostMapping("/login")
     public Result login(@RequestBody UserDTO userDTO){
         User user = userService.login(userDTO);
+        Result result = Result.build().setData(user);
         if (user == null) {
-            return Result.build().setStatus(Status.forbidden).setMessage("登录失败");
+            return result.setStatus(Status.forbidden).setMessage("登录失败");
         }else {
-            return Result.build().setStatus(Status.success).setMessage("登录成功");
+            return result.setData(user).setStatus(Status.success).setMessage("登录成功");
         }
     }
 

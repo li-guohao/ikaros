@@ -34,7 +34,8 @@ public class DBFileServiceImpl implements DBFileService {
     @Override
     @IkarosCache
     public DBFile findOne(Example<DBFile> dbFileExample) {
-        return dbFileDao.findOne(dbFileExample).get();
+        Optional<DBFile> dbFileOptional = dbFileDao.findOne(dbFileExample);
+        return dbFileOptional.isPresent()?dbFileOptional.get():null;
     }
 
     @Override

@@ -21,4 +21,9 @@ public class ConfigType {
      * 初始化配置
      */
     public static final String APP_INIT_CONFIG = "app_init_config";
+
+    /**
+     * 缓存配置
+     */
+    public static final String CACHE_CONFIG = "cache_config";
 }
