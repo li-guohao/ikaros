@@ -23,13 +23,13 @@ ikaros是专为个人开发的个人主页系统
 
 
 # 技术栈
-- 项目架构: 微服务架构
+- 项目架构: 单体应用架构，好友系统去中心化分布式设计
 - 开发语言: Java
 - 后端框架: Spring, SpringMVC, SpringDataJpa, Hibernate
-- 数据库: H2
+- 数据库: H2，MySQL
 - 前端语言: HTML5, CSS3, JavaScript
 - 前端框架: Vue.js, Vuetify
 
 
 # 开发进度
-- 2020.12 ~ now: 开发通用微服务开发平台中
+- 2020.12 ~ now: 开发个人数据存储计划中
