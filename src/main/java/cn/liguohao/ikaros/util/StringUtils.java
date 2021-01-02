@@ -2,13 +2,11 @@ package cn.liguohao.ikaros.util;
 
 import java.util.regex.Pattern;
 
-/**
- * @ClassName: StringUtils
- * @Description: 字符串工具类
- * @author: liguohao
+/**字符串工具类
+ * @author: liguohao_cn
  * @date: 2020年9月2日 下午2:59:59
  */
-public class StringUtils {
+public class StringUtils extends org.springframework.util.StringUtils {
 
 	/**
 	 * @Title: isNumeric

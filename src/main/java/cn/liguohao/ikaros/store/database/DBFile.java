@@ -1,9 +1,10 @@
 package cn.liguohao.ikaros.store.database;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
-/**文件
+/**文件数据
  * @author liguohao_cn
  * @date 2020/12/29
  */
@@ -45,7 +46,7 @@ public class DBFile {
      * 文件上传时间
      */
     @Column(name = "upload_time")
-    private Date uploadTime;
+    private LocalDateTime uploadTime;
 
     /**
      * 文件路径 可直接通过HTTP访问到的
@@ -122,11 +123,11 @@ public class DBFile {
         return this;
     }
 
-    public Date getUploadTime() {
+    public LocalDateTime getUploadTime() {
         return uploadTime;
     }
 
-    public DBFile setUploadTime(Date uploadTime) {
+    public DBFile setUploadTime(LocalDateTime uploadTime) {
         this.uploadTime = uploadTime;
         return this;
     }

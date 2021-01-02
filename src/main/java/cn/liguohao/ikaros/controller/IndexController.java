@@ -29,7 +29,7 @@ public class IndexController {
 
     @GetMapping("/ex")
     public String exception(){
-        throw IkarosException.build("测试全局异常");
+        throw new IkarosException("测试全局异常");
     }
 
     /**

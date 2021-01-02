@@ -34,4 +34,9 @@ public class UserServiceTest {
         System.out.println(userService.checkToken(UserDTO.build().setUuid(1L).setToken("01ACE8A140EC482FA59AEE78BE3908D0A2A96DC4C66B4F84A412BD4286C0A31F")));
     }
 
+    @Test
+    public void findTokenByUuid(){
+        System.out.println(userService.findTokenByUuid(null));
+    }
+
 }

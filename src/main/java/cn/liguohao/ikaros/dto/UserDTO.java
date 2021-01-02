@@ -1,8 +1,9 @@
 package cn.liguohao.ikaros.dto;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
 
-/**
+/**用户 数据传输对象
  * @author liguohao_cn
  * @date 2021/1/1
  */
@@ -55,6 +56,7 @@ public class UserDTO {
      * </ul>
      * @see cn.liguohao.ikaros.constant.UserDTOType
      */
+    @NotBlank
     private String type;
 
     public UserDTO() {

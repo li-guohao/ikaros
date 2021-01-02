@@ -18,14 +18,4 @@ public class IkarosException extends RuntimeException{
         super(message, cause);
     }
 
-    public static IkarosException build(){
-        return new IkarosException();
-    }
-
-    public static IkarosException build(String message){
-        return new IkarosException(message);
-    }
-    public static IkarosException build(String message, Throwable cause){
-        return new IkarosException(message, cause);
-    }
 }

@@ -23,4 +23,11 @@ public interface UserService {
      * @return 校验是否成功
      */
     Boolean checkToken(@NotNull UserDTO userDTO);
+
+    /**
+     * 查询Token 根据用户ID
+     * @param uuid 用户ID
+     * @return Token信息
+     */
+    String findTokenByUuid(@NotNull Long uuid);
 }
