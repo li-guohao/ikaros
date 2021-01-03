@@ -1,5 +1,7 @@
 package cn.liguohao.ikaros.vo;
 
+import java.util.List;
+
 /**返回结果类
  * @author liguohao_cn
  * @date 2020/12/31
@@ -39,6 +41,37 @@ public class Result<T> {
 
     public Result<T> setData(T data) {
         this.data = data;
+        return this;
+    }
+
+    /**
+     * <p>根据所设置的数据 动态设置状态和消息</p>
+     * <p>DSM: Date Status Message</p>
+     * @param data 待设置的数据
+     * @param successMsg 操作成功返回的消息
+     * @param faildMsg 操作失败返回的消息
+     * @return 设置好数据和状态和消息的结果对象
+     */
+    public Result<T> setDSM(T data,String successMsg,String faildMsg){
+        this.data = data;
+        // 如是[List]集合数据
+        boolean isEmptyListData = false;
+        if(data instanceof List){
+            List dataList = (List) data;
+            if(dataList.isEmpty()) isEmptyListData = true;
+        }
+        // 如是[分页]数据
+        boolean isEmptyPagingData = false;
+        if(data instanceof PagingData){
+            PagingData pagingData = (PagingData) data;
+            if(pagingData.isEmpty()) isEmptyPagingData = true;
+        }
+        // 动态判断数据,返回对应的状态和
+        if(data==null || isEmptyListData || isEmptyPagingData) {
+            this.setStatus(Status.notFound).setMessage(faildMsg);
+        }else {
+            this.setStatus(Status.success).setMessage(successMsg);
+        }
         return this;
     }
 

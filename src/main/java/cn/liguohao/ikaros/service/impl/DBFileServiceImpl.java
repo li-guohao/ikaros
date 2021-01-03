@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.beans.Transient;
@@ -24,6 +25,7 @@ public class DBFileServiceImpl implements DBFileService {
 
     @Autowired
     private DBFileDao dbFileDao;
+
 
     @Override
     @Transactional
@@ -42,5 +44,11 @@ public class DBFileServiceImpl implements DBFileService {
     @IkarosCache
     public List<DBFile> findList(Example<DBFile> dbFileExample) {
         return dbFileDao.findAll(dbFileExample);
+    }
+
+    @Override
+    @IkarosCache
+    public DBFile upload(MultipartFile file) {
+        return null;
     }
 }

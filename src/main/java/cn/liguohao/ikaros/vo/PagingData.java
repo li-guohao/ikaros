@@ -31,6 +31,14 @@ public class PagingData<T> {
 
     public static PagingData build(){return new PagingData();}
 
+    /**
+     * 是否为空
+     * @return 是否为空
+     */
+    public boolean isEmpty(){
+        return this.total == 0;
+    }
+
     public PagingData(Integer currentPage, Integer pageSize) {
         this.currentPage = currentPage;
         this.pageSize = pageSize;
@@ -82,6 +90,7 @@ public class PagingData<T> {
 
     public PagingData setDataArray(List<T> dataArray) {
         this.dataArray = dataArray;
+        this.total = this.dataArray.size(); //设置dataArray的同时，设置总数
         return this;
     }
 }

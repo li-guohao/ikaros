@@ -21,13 +21,7 @@ public class UserController {
 
     @PostMapping("/login")
     public Result login(@RequestBody UserDTO userDTO){
-        User user = userService.login(userDTO);
-        Result result = Result.build().setData(user);
-        if (user == null) {
-            return result.setStatus(Status.forbidden).setMessage("登录失败");
-        }else {
-            return result.setData(user).setStatus(Status.success).setMessage("登录成功");
-        }
+        return Result.build().setDSM(userService.login(userDTO),"登录成功","登录失败");
     }
 
 }

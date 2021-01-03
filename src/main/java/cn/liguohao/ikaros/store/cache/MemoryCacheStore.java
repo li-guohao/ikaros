@@ -39,7 +39,7 @@ public class MemoryCacheStore<T> implements CacheStore<T>{
     public void set(String key, T value, Integer expireSeconds) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime expireTime = now.plusSeconds(expireSeconds);
-        logger.info("[伊卡洛斯]往缓存中存入 key={} || value={}",key,value);
+        logger.debug("[伊卡洛斯]往缓存中存入 key={} || value={}",key,value);
         CACHE_CONTAINER.put(key,new CacheWrapper<T>()
                 .setCreateTime(now)
                 .setExpireTime(expireTime)
@@ -74,10 +74,10 @@ public class MemoryCacheStore<T> implements CacheStore<T>{
         logger.debug("[伊卡洛斯]正在查询key为{}的缓存数据",key);
         if(!CACHE_CONTAINER.isEmpty() && CACHE_CONTAINER.containsKey(key)){
             T vaule = CACHE_CONTAINER.get(key).getData();
-            logger.info("[伊卡洛斯]查询到key={} || value={}",key, JSON.toJSON(vaule));
+            logger.debug("[伊卡洛斯]查询到key={} || value={}",key, JSON.toJSON(vaule));
             return vaule;
         } else {
-            logger.debug("[伊卡洛斯]未查询到key为{}的缓存数据",key);
+            logger.warn("[伊卡洛斯]未查询到key为{}的缓存数据",key);
             return null;
         }
     }

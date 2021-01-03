@@ -22,9 +22,19 @@ public class IndexController {
 
     private final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index(){
-        return "index";
+        // 判断是否已经初始化
+        if(isInited()) { // 已经初始化返回首页
+            return "index";
+        }else { // 未初始化则重定向到初始化
+            return " redirect:/application/init";
+        }
+    }
+
+    @GetMapping("/admin")
+    public String admin(){
+        return "redirect:/admin/index.html";
     }
 
     @GetMapping("/ex")
@@ -35,20 +45,30 @@ public class IndexController {
     /**
      * 应用初始化
      */
-    @GetMapping("/init")
-    public void init(HttpServletResponse response) throws IOException{
-
+    @GetMapping("/application/init")
+    public String applicationInit() throws IOException{
+        // 判断是否已经初始化 已经初始化不进行任何操作 这里又判断一遍是为了防止误操作
+        if(!isInited()) { // 未初始化进行初始化操作
+            if(!init()) throw new IOException("应用初始化失败"); // 初始化失败则抛出异常
+        }
+        // 操作完毕 重定向到首页
+        return "redirect:/";
     }
 
     /**
-     * 应用安装
+     * 应用初始化操作
+     * @return true-初始化成功 false-初始化失败
      */
-    @GetMapping("/install")
-    public void install(HttpServletResponse response) throws IOException {
-        // 判断是否已经安装
+    private boolean init(){
+        return true;
+    }
 
-        logger.info("安装成功");
-        response.sendRedirect("/");
+    /**
+     * 判断应用是否已经初始化
+     * @return true-已经初始化 false-未初始化
+     */
+    private boolean isInited(){
+        return true;
     }
 
 
