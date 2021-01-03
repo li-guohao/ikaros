@@ -37,6 +37,12 @@ public interface CacheStore<T> {
     T remove(String key);
 
     /**
+     * 移除key匹配前缀的所有key-value
+     * @param keyprofix key的前缀
+     */
+    void removeByKeyprofix(String keyprofix);
+
+    /**
      * 清楚所以缓存
      * @return
      */

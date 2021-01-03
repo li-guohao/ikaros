@@ -39,7 +39,7 @@ public class DBFileController {
 
     @PostMapping("/upload")
     public Result<DBFile> upload(MultipartFile file){
-        return Result.build().setDSM(dbFileService.upload(file),"上传文件成功","上传文件失败");
+        return Result.build().setDSM(dbFileService.upload(file),Status.created,"上传文件成功",Status.serverError,"上传文件失败");
     }
 
 }

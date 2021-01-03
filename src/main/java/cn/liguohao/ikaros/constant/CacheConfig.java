@@ -11,7 +11,7 @@ public class CacheConfig {
     /**
      * 缓存类型 默认内存
      */
-    public static final String TYPE = "memory";
+    public static final String MEMORY = "memory";
 
 
 

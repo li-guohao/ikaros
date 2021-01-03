@@ -9,9 +9,10 @@ public class AppInitConfig {
     private AppInitConfig(){}
 
     /**
-     * 是否已经安装过
+     * 是否已经初始化
+     * 1-已经初始化 0-未初始化
      */
-    public static final String IS_INSTALLED = "is_installed";
+    public static final String IS_INITED = "is_inited";
 
 
 

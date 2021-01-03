@@ -1,6 +1,7 @@
 package cn.liguohao.ikaros.annotation;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.lang.annotation.*;
 
@@ -32,6 +33,6 @@ import java.lang.annotation.*;
 @Inherited
 @Target({ElementType.METHOD})
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface IkarosCache {
+public @interface IkarosCache{
     String value() default "";
 }

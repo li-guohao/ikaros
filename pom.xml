@@ -6,8 +6,8 @@
 
     <groupId>cn.liguohao</groupId>
     <artifactId>ikaros</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <description>Master,伊卡洛斯陪您记录学习、记录生活.</description>
+    <version>0.1-SNAPSHOT</version>
+    <description>伊卡洛斯陪您记录学习、记录生活.</description>
 
     <!-- springBoot父依赖 -->
     <parent>
@@ -26,7 +26,7 @@
     </properties>
     <!-- 所有依赖 -->
     <dependencies>
-        <!--  SpingBoot 启动依赖 -->
+        <!--  SpringBoot 启动依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -52,7 +52,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <!--  SpirngBoot 测试依赖 -->
+        <!--  SpringBoot 测试依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -103,6 +103,29 @@
         </dependency>
 
     </dependencies>
+
+    <!-- 多环境配置方案 -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profileActive>dev</profileActive>
+            </properties>
+            <activation>
+                <!-- 默认情况下使用dev开发配置 如 打包时不包含 -p 参数-->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!-- 打包命令package -P pro -->
+        <profile>
+            <id>pro</id>
+            <properties>
+                <profileActive>pro</profileActive>
+            </properties>
+        </profile>
+    </profiles>
+
+
     <build>
         <plugins>
             <!--  SpringBoot-Maven 插件 -->
@@ -112,15 +135,35 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>11</source>
                     <target>11</target>
                 </configuration>
             </plugin>
-        </plugins>
-        <finalName>ikaros</finalName>
+        </plugins><!-- 打包后文件名称：项目名-环境-版本 -->
+        <finalName>${project.artifactId}-${profileActive}-${project.version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 开启过滤替换功能-->
+                <filtering>true</filtering>
+                <includes>
+                    <!-- 项目打包完成的包中只包含当前环境文件 -->
+                    <include>application.yml</include>
+                    <include>application-${profileActive}.yml</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
+
     <repositories>
         <repository>
             <id>aliyun</id>

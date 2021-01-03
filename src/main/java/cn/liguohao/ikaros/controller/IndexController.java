@@ -1,10 +1,12 @@
 package cn.liguohao.ikaros.controller;
 
 import cn.liguohao.ikaros.exception.IkarosException;
+import cn.liguohao.ikaros.service.ConfigService;
 import cn.liguohao.ikaros.vo.Result;
 import cn.liguohao.ikaros.vo.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,9 @@ import java.io.IOException;
 public class IndexController {
 
     private final Logger logger = LoggerFactory.getLogger(IndexController.class);
+
+    @Autowired
+    private ConfigService configService;
 
     @GetMapping("/")
     public String index(){
@@ -60,7 +65,7 @@ public class IndexController {
      * @return true-初始化成功 false-初始化失败
      */
     private boolean init(){
-        return true;
+        return configService.init();
     }
 
     /**
@@ -68,7 +73,7 @@ public class IndexController {
      * @return true-已经初始化 false-未初始化
      */
     private boolean isInited(){
-        return true;
+        return configService.isInited();
     }
 
 

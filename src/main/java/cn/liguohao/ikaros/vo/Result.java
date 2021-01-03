@@ -45,14 +45,23 @@ public class Result<T> {
     }
 
     /**
+     * @see #setDSM(Object, Status, String, Status, String)
+     */
+    public Result<T> setDSM(T data,String successMsg,String faildMsg){
+        return setDSM(data,Status.success,successMsg,Status.notFound,faildMsg);
+    }
+
+    /**
      * <p>根据所设置的数据 动态设置状态和消息</p>
      * <p>DSM: Date Status Message</p>
      * @param data 待设置的数据
+     * @param successStatus 操作成功返回的状态
      * @param successMsg 操作成功返回的消息
+     * @param faildStatus 操作失败返回的状态
      * @param faildMsg 操作失败返回的消息
      * @return 设置好数据和状态和消息的结果对象
      */
-    public Result<T> setDSM(T data,String successMsg,String faildMsg){
+    public Result<T> setDSM(T data,Status successStatus,String successMsg,Status faildStatus,String faildMsg){
         this.data = data;
         // 如是[List]集合数据
         boolean isEmptyListData = false;
@@ -68,9 +77,9 @@ public class Result<T> {
         }
         // 动态判断数据,返回对应的状态和
         if(data==null || isEmptyListData || isEmptyPagingData) {
-            this.setStatus(Status.notFound).setMessage(faildMsg);
+            this.setStatus(faildStatus).setMessage(faildMsg);
         }else {
-            this.setStatus(Status.success).setMessage(successMsg);
+            this.setStatus(successStatus).setMessage(successMsg);
         }
         return this;
     }

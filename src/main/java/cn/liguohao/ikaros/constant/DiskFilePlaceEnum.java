@@ -4,7 +4,7 @@ package cn.liguohao.ikaros.constant;
  * @author liguohao_cn
  * @date 2020/12/30
  */
-public enum DiskFileConfig {
+public enum DiskFilePlaceEnum {
 
     /**
      * 本地文件存储
@@ -38,7 +38,7 @@ public enum DiskFileConfig {
      */
     private String className;
 
-     DiskFileConfig(String name, String simpleClassName, String className) {
+     DiskFilePlaceEnum(String name, String simpleClassName, String className) {
         this.name = name;
         this.simpleClassName = simpleClassName;
         this.className = className;

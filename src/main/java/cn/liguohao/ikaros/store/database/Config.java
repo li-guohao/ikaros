@@ -1,6 +1,7 @@
 package cn.liguohao.ikaros.store.database;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**配置
@@ -34,7 +35,7 @@ public class Config {
      * 更新时间
      */
     @Column(name = "update_time")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     /**
      * 类型
@@ -75,11 +76,11 @@ public class Config {
         return this;
     }
 
-    public Date getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return updateTime;
     }
 
-    public Config setUpdateTime(Date updateTime) {
+    public Config setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
         return this;
     }

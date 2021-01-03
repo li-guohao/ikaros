@@ -89,6 +89,26 @@ public class MemoryCacheStore<T> implements CacheStore<T>{
     }
 
     @Override
+    public void removeByKeyprofix(String keyprofix) {
+        logger.debug("[伊卡洛斯]正在清理已更新数据缓存");
+        // 待移除的列表
+        List<String> keys = new ArrayList<String>();
+        CACHE_CONTAINER.forEach((k,v)->{
+            if(k.startsWith(keyprofix)) keys.add(k);
+        });
+        // 移除对应的key
+        int count = keys.size();
+        if(!keys.isEmpty()) {
+            // 根据列表移除失效的缓存元素
+            keys.forEach(key -> CACHE_CONTAINER.remove(key));
+            // 清空待移除列表
+            keys.clear();
+        }
+        logger.debug("[伊卡洛斯]清理已更新数据缓存完毕,本次共清理{}个已更新数据缓存",count);
+
+    }
+
+    @Override
     public void clear() {
         if(!CACHE_CONTAINER.isEmpty()) CACHE_CONTAINER.clear();
         logger.info("[伊卡洛斯]清楚全部缓存数据");

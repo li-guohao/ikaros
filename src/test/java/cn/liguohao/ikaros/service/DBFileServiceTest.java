@@ -1,6 +1,6 @@
 package cn.liguohao.ikaros.service;
 
-import cn.liguohao.ikaros.constant.DiskFileConfig;
+import cn.liguohao.ikaros.constant.DiskFilePlaceEnum;
 import cn.liguohao.ikaros.store.database.DBFile;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Example;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 /**数据库服务层测试
@@ -31,7 +30,7 @@ public class DBFileServiceTest {
                 DBFile.build()
                 .setOriginalName("test.png")
                 .setDescription("测试文件数据记录")
-                .setPlace(DiskFileConfig.LOCAL.getName())
+                .setPlace(DiskFilePlaceEnum.LOCAL.getName())
                 .setSuffix("png")
                 .setUploadTime(LocalDateTime.now())
         );

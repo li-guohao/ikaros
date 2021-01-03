@@ -21,7 +21,7 @@ public class UserController {
 
     @PostMapping("/login")
     public Result login(@RequestBody UserDTO userDTO){
-        return Result.build().setDSM(userService.login(userDTO),"登录成功","登录失败");
+        return Result.build().setDSM(userService.login(userDTO),Status.success,"登录成功",Status.unauthorized,"登录失败");
     }
 
 }

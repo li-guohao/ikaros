@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 /** 状态类，封装了状态的定义
  * @author liguohao_cn
- * @date 2020/12/31
+ * @version  2020/12/31
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Status {
