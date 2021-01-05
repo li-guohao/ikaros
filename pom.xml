@@ -150,18 +150,6 @@
             </plugin>
         </plugins><!-- 打包后文件名称：项目名-环境-版本 -->
         <finalName>${project.artifactId}-${profileActive}-${project.version}</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <!-- 开启过滤替换功能-->
-                <filtering>true</filtering>
-                <includes>
-                    <!-- 项目打包完成的包中只包含当前环境文件 -->
-                    <include>application.yml</include>
-                    <include>application-${profileActive}.yml</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
 
     <repositories>

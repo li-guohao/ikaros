@@ -1,6 +1,5 @@
 package cn.liguohao.ikaros.service;
 
-import cn.liguohao.ikaros.constant.UserDTOType;
 import cn.liguohao.ikaros.dto.UserDTO;
 import cn.liguohao.ikaros.store.database.User;
 import org.junit.Test;
@@ -23,7 +22,7 @@ public class UserServiceTest {
     @Test
     public void login(){
         User user = userService.login(UserDTO.build()
-                .setType(UserDTOType.USERNAME_PASSWORD)
+                .setType(UserDTO.Type.USERNAME_PASSWORD)
                 .setUsername("test").setPassword("123456")
         );
         System.out.println(user.getToken());

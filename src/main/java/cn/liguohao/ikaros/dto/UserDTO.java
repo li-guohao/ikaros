@@ -54,7 +54,7 @@ public class UserDTO {
      *     <li>phone_number_password-手机号密码</li>
      *     <li>phoneNumber_captcha-手机号验证码</li>
      * </ul>
-     * @see cn.liguohao.ikaros.constant.UserDTOType
+     * @see Type
      */
     @NotBlank
     private String type;
@@ -134,5 +134,38 @@ public class UserDTO {
     public UserDTO setType(String type) {
         this.type = type;
         return this;
+    }
+
+    /**
+     * <p>定义UserDTO类型字段常量</p>
+     * <p>调用方式 UserDTO.Type.Token</p>
+     */
+    public static class Type {
+        private Type(){}
+
+        /**
+         * token-通过用户ID
+         */
+        public static final String TOKEN = "token";
+
+        /**
+         * username_password-用户名密码
+         */
+        public static final String USERNAME_PASSWORD = "username_password";
+
+        /**
+         * email_password-邮箱密码
+         */
+        public static final String EMAil_PASSWORD = "email_password";
+
+        /**
+         * phone_number_password-手机号密码
+         */
+        public static final String PHONE_NUMBER_PASSWORD = "phone_number_password";
+
+        /**
+         * phone_number_captcha-手机号验证码
+         */
+        public static final String PNONE_NUMBER_CAPTCHA = "phone_number_captcha";
     }
 }

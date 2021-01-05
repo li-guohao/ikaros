@@ -1,12 +1,10 @@
 package cn.liguohao.ikaros.service.impl;
 
 import cn.liguohao.ikaros.annotation.IkarosCache;
-import cn.liguohao.ikaros.constant.UserDTOType;
 import cn.liguohao.ikaros.dao.UserDao;
 import cn.liguohao.ikaros.dto.UserDTO;
 import cn.liguohao.ikaros.exception.IkarosException;
 import cn.liguohao.ikaros.service.UserService;
-import cn.liguohao.ikaros.store.cache.CacheStore;
 import cn.liguohao.ikaros.store.database.User;
 import cn.liguohao.ikaros.util.IkarosAssert;
 import cn.liguohao.ikaros.util.MD5Utils;
@@ -15,8 +13,6 @@ import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
-import org.springframework.util.ObjectUtils;
 
 import java.util.Optional;
 
@@ -35,7 +31,7 @@ public class UserServiceImpl implements UserService {
     public User login(@NotNull UserDTO userDTO){
         Optional<User> userOptional = null;
         switch (userDTO.getType()){
-            case UserDTOType.USERNAME_PASSWORD: {
+            case UserDTO.Type.USERNAME_PASSWORD: {
                 IkarosAssert.isNotEmpty(userDTO.getUsername(),"用户名不能为空");
                 IkarosAssert.isNotEmpty(userDTO.getPassword(),"密码不能为空");
                 userOptional = userDao.findOne(
@@ -47,7 +43,7 @@ public class UserServiceImpl implements UserService {
                 );
                 break;
             }
-            case UserDTOType.EMAil_PASSWORD: {
+            case UserDTO.Type.EMAil_PASSWORD: {
                 IkarosAssert.isNotEmpty(userDTO.getEmail(),"邮箱不能为空");
                 IkarosAssert.isNotEmpty(userDTO.getPassword(),"密码不能为空");
                 userOptional = userDao.findOne(
@@ -58,7 +54,7 @@ public class UserServiceImpl implements UserService {
                 );
                 break;
             }
-            case UserDTOType.PHONE_NUMBER_PASSWORD: {
+            case UserDTO.Type.PHONE_NUMBER_PASSWORD: {
                 IkarosAssert.isNotEmpty(userDTO.getPhoneNumber(),"手机号不能为空");
                 IkarosAssert.isNotEmpty(userDTO.getPassword(),"密码不能为空");
                 userOptional = userDao.findOne(
@@ -69,7 +65,7 @@ public class UserServiceImpl implements UserService {
                 );
                 break;
             }
-            case UserDTOType.PNONE_NUMBER_CAPTCHA: {
+            case UserDTO.Type.PNONE_NUMBER_CAPTCHA: {
                 IkarosAssert.isNotEmpty(userDTO.getPhoneNumber(),"手机号不能为空");
                 IkarosAssert.isNotEmpty(userDTO.getCaptcha(),"验证码不能为空");
                 throw new IkarosException("非常抱歉，目前不支持此种认证方式==>"+userDTO.getType());
@@ -83,7 +79,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @IkarosCache
     public Boolean checkToken(UserDTO userDTO){
-        IkarosAssert.isTrue(UserDTOType.TOKEN.equals(userDTO.getType()),"校验Token请指定类型为token");
+        IkarosAssert.isTrue(UserDTO.Type.TOKEN.equals(userDTO.getType()),"校验Token请指定类型为token");
         IkarosAssert.isNotEmpty(userDTO.getUuid(),"uuid值不能为空");
         IkarosAssert.isNotEmpty(userDTO.getToken(),"token值不能为空");
 

@@ -21,7 +21,7 @@ import java.lang.annotation.*;
  *
  * @author liguohao_cn
  * @since  2021/1/2
- * @see cn.liguohao.ikaros.aspect.IkarosUpdateCacheAspect#after(ProceedingJoinPoint)
+ * @see cn.liguohao.ikaros.aspect.IkarosUpdateCacheAspect#around(ProceedingJoinPoint)
  */
 @Documented
 @Inherited

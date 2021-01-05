@@ -32,14 +32,18 @@ public class IkarosUpdateCacheAspect {
     @Pointcut("@annotation(cn.liguohao.ikaros.annotation.IkarosUpdateCache)")
     public void updateCache(){}
 
-    @After("updateCache()")
-    public void after(ProceedingJoinPoint joinPoint) throws Throwable {
-        // 获取对应实现类的信息 ，得到所有此实现类在缓存中的key前缀 执行的方法全路径名
+    @Around("updateCache()")
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+        Object result = joinPoint.proceed();
+
+        // 获取对应实现类的信息 ，得到所有此实现类在缓存中的key前缀 服务实现类的全路径名 不包括方法名
         String cacheKeyprofix = new StringBuffer()
-                .append(joinPoint.getTarget().getClass().getName()+"."+joinPoint.getSignature().getName())
+                .append(joinPoint.getTarget().getClass().getName())
                 .toString();
         // 移除所有包含此前缀的缓存
         cacheStore.removeByKeyprofix(cacheKeyprofix);
+
+        return result;
     }
 
 }

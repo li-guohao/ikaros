@@ -33,7 +33,7 @@ public class IndexController {
         if(isInited()) { // 已经初始化返回首页
             return "index";
         }else { // 未初始化则重定向到初始化
-            return " redirect:/application/init";
+            return "redirect:/application/init";
         }
     }
 

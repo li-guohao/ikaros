@@ -1,8 +1,6 @@
 package cn.liguohao.ikaros.filter;
 
-import cn.liguohao.ikaros.constant.UserDTOType;
 import cn.liguohao.ikaros.dto.UserDTO;
-import cn.liguohao.ikaros.exception.IkarosException;
 import cn.liguohao.ikaros.service.UserService;
 import cn.liguohao.ikaros.vo.Result;
 import cn.liguohao.ikaros.vo.Status;
@@ -25,7 +23,7 @@ import java.io.IOException;
 @Component
 public class GlobalFilter implements Filter {
 
-    private Logger logger = LoggerFactory.getLogger(GlobalFilter.class);
+    private final Logger logger = LoggerFactory.getLogger(GlobalFilter.class);
 
     @Autowired
     private UserService userService;
@@ -65,7 +63,7 @@ public class GlobalFilter implements Filter {
         if (requestURL.indexOf("api")>0){
             // 校验Token
             isAuth = userService.checkToken(UserDTO.build()
-                    .setType(UserDTOType.TOKEN)
+                    .setType(UserDTO.Type.TOKEN)
                     .setUuid(Long.valueOf(uuid==null?"-1":uuid))
                     .setToken(authorization==null?"authorization":authorization)
             );
