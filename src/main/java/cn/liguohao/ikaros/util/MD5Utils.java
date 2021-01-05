@@ -3,11 +3,9 @@ package cn.liguohao.ikaros.util;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-/**
- * @ClassName: MD5Utils
- * @Description: MD5加密工具类
+/**MD5加密工具类
  * @author: liguohao
- * @date: 2020-7-18 1:09:44
+ * @since 2020-7-18 1:09:44
  */
 public class MD5Utils {
 	/**

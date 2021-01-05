@@ -2,7 +2,7 @@ package cn.liguohao.ikaros.exception;
 
 /**
  * @author liguohao_cn
- * @date 2021/1/1
+ * @since 2021/1/1
  */
 public class IkarosException extends RuntimeException{
 

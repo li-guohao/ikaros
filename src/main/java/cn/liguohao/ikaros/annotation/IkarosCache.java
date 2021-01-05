@@ -26,7 +26,7 @@ import java.lang.annotation.*;
  * <p>如一个服务层实现类中的[A]方法调用的[B]方法, 此时缓存注解应该加在[A]方法上，注解加在[B]方法上无效。可参考[UserServiceImpl]中的[checkToken][A]方法和[findTokenByUuid][B]方法</p>
  *
  * @author liguohao_cn
- * @version  2021/1/2
+ * @since  2021/1/2
  * @see cn.liguohao.ikaros.aspect.IkarosCacheAspect#doAround(ProceedingJoinPoint)
  */
 @Documented

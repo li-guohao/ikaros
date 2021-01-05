@@ -12,7 +12,7 @@ import java.util.Base64;
 
 /**AES加密工具类
  * @Author liguohao
- * @Date 2020/12/8
+ * @since 2020/12/8
  */
 public class AESEncrptUtils {
 

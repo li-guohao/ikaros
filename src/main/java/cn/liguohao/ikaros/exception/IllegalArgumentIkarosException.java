@@ -2,7 +2,7 @@ package cn.liguohao.ikaros.exception;
 
 /**不合规定的参数
  * @author liguohao_cn
- * @date 2021/1/2
+ * @since 2021/1/2
  */
 public class IllegalArgumentIkarosException extends IkarosException{
 

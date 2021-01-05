@@ -2,11 +2,9 @@ package cn.liguohao.ikaros.util;
 
 import java.util.UUID;
 
-/**
- * @ClassName: UUIDUtils
- * @Description: UUID工具类
+/**UUID工具类
  * @author: liguohao
- * @date: 2020-7-18 1:10:12
+ * @token工具类 2020-7-18 1:10:12
  */
 public class UUIDUtils {
 	/**

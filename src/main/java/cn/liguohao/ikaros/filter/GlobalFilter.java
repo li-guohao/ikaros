@@ -20,7 +20,7 @@ import java.io.IOException;
 
 /**全局过滤器 如权限设置
  * @author liguohao_cn
- * @date 2021/1/1
+ * @since 2021/1/1
  */
 @Component
 public class GlobalFilter implements Filter {

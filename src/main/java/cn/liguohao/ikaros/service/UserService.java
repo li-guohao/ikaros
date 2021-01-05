@@ -6,7 +6,7 @@ import com.sun.istack.NotNull;
 
 /**
  * @author liguohao_cn
- * @date 2021/1/1
+ * @since 2021/1/1
  */
 public interface UserService {
 

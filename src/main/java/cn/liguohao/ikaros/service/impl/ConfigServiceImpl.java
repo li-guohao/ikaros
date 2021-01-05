@@ -2,9 +2,6 @@ package cn.liguohao.ikaros.service.impl;
 
 import cn.liguohao.ikaros.annotation.IkarosCache;
 import cn.liguohao.ikaros.annotation.IkarosUpdateCache;
-import cn.liguohao.ikaros.aspect.IkarosCacheAspect;
-import cn.liguohao.ikaros.constant.AppInitConfig;
-import cn.liguohao.ikaros.constant.CacheConfig;
 import cn.liguohao.ikaros.constant.ConfigType;
 import cn.liguohao.ikaros.dao.ConfigDao;
 import cn.liguohao.ikaros.service.ConfigService;
@@ -21,7 +18,7 @@ import java.util.Optional;
 
 /**服务层实现-系统配置
  * @author liguohao_cn
- * @version 2021/1/3
+ * @since 2021/1/3
  */
 @Service
 public class ConfigServiceImpl implements ConfigService {
@@ -39,7 +36,7 @@ public class ConfigServiceImpl implements ConfigService {
     public boolean isInited() {
         Optional<Config> configOptional = configDao.findOne(Example.of(
                 Config.build().setType(ConfigType.APP_INIT_CONFIG)
-                    .setName(AppInitConfig.IS_INITED)
+
         ));
         // 如果设置表有对应的记录，并且记录值为1，才代表已经初始化了
         if(configOptional.isPresent() && "1".equals(configOptional.get().getValue())) {
@@ -67,14 +64,14 @@ public class ConfigServiceImpl implements ConfigService {
         // 初始化完毕 更新数据库配置表对应记录
         Optional<Config> appInitConfigOptional = configDao.findOne(Example.of(
                 Config.build().setType(ConfigType.APP_INIT_CONFIG)
-                        .setName(AppInitConfig.IS_INITED)
+//                        .setName(AppInitConfig.IS_INITED)
         ));
         if(appInitConfigOptional.isEmpty()){
             configDao.save(Config.build()
                     .setType(ConfigType.APP_INIT_CONFIG) //app_init_config
                     .setDescription("应用初始化配置")
                     .setUpdateTime(LocalDateTime.now())
-                    .setName(AppInitConfig.IS_INITED)  //is_inited
+//                    .setName(AppInitConfig.IS_INITED)  //is_inited
                     .setValue("1") //1
             );
         }else {

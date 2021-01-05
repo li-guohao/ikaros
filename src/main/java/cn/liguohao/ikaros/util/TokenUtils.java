@@ -3,11 +3,9 @@ package cn.liguohao.ikaros.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * @ClassName: TokenUtils
- * @Description: token工具类
+/**token工具类
  * @author: liguohao
- * @date: 2020-7-18 1:10:00
+ * @since 2020-7-18 1:10:00
  */
 public class TokenUtils {
 

@@ -2,7 +2,7 @@ package cn.liguohao.ikaros.service;
 
 /**服务层-系统配置
  * @author liguohao_cn
- * @version 2021/1/3
+ * @since 2021/1/3
  */
 public interface ConfigService {
 

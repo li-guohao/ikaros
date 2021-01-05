@@ -12,10 +12,9 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-/**
- * @Description TODO HttpClient 工具类
+/**HttpClient 工具类
  * @Auther: liguohao
- * @Date: 2020/11/29 13:30
+ * @since 2020/11/29 13:30
  */
 public class HttpClientUtils {
 

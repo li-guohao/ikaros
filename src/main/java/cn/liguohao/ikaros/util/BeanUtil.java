@@ -2,11 +2,9 @@ package cn.liguohao.ikaros.util;
 
 import java.lang.reflect.Field;
 
-/**
- * @ClassName: BeanUtil
- * @Description: bean操作通用方法封装
+/**bean操作通用方法封装
  * @author: liguohao
- * @date: 2020-7-18 1:09:27
+ * @since: 2020-7-18 1:09:27
  */
 public class BeanUtil {
 	

@@ -4,7 +4,7 @@ import java.util.List;
 
 /**返回结果类
  * @author liguohao_cn
- * @date 2020/12/31
+ * @since 2020/12/31
  */
 public class Result<T> {
     /**

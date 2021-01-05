@@ -2,16 +2,22 @@ package cn.liguohao.ikaros.constant;
 
 /**配置 对应[config]表
  * @author liguohao_cn
- * @version 2021/1/3
+ * @since 2021/1/3
  */
 public enum ConfigEnum {
 
     /**
      * 应用初始化配置
      */
-    APP_INIT("app_init","is_inited","1")
+    APP_INIT_IS_INITED("app_init","is_inited","1")
     ,
-    CACHE("cache_config","default_strategy","memory")
+    /**
+     * <p>默认缓存策略</p>
+     * <ul>
+     *     <li>memory-内存缓存, 用一个HashMap缓存</li>
+     * </ul>
+     */
+    CACHE_DEFAULT_STRATEGY("cache_config","default_strategy","memory")
 
     ;//END
 

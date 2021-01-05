@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**文件数据
  * @author liguohao_cn
- * @date 2020/12/29
+ * @since 2020/12/29
  */
 @Entity
 @Table(name = "file")

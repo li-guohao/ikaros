@@ -2,7 +2,7 @@ package cn.liguohao.ikaros.store.cache;
 
 /**缓存仓库
  * @author liguohao_cn
- * @date 2020/12/30
+ * @since 2020/12/30
  */
 public interface CacheStore<T> {
 

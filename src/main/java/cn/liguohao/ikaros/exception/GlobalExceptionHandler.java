@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**[Controller]层 异常处理类
  * @author liguohao_cn
- * @date 2021/1/1
+ * @since 2021/1/1
  */
 @ControllerAdvice
 @ResponseBody

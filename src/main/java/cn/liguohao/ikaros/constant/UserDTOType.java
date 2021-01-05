@@ -2,7 +2,7 @@ package cn.liguohao.ikaros.constant;
 
 /**
  * @author liguohao_cn
- * @date 2021/1/1
+ * @since 2021/1/1
  */
 public class UserDTOType {
     private UserDTOType(){}

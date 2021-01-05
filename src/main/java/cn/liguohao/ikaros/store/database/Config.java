@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**配置
  * @author liguohao_cn
- * @date 2020/12/30
+ * @since 2020/12/30
  */
 @Entity
 @Table(name = "config")

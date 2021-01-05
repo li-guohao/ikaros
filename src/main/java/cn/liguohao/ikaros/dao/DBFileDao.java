@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**数据库文件DAO
  * @author liguohao_cn
- * @date 2020/12/31
+ * @since 2020/12/31
  */
 public interface DBFileDao extends JpaRepository<DBFile,Long> {
 

@@ -7,7 +7,7 @@ import org.springframework.util.ObjectUtils;
 
 /**伊卡洛斯断言
  * @author liguohao_cn
- * @date 2021/1/2
+ * @since 2021/1/2
  */
 public class IkarosAssert extends Assert {
 

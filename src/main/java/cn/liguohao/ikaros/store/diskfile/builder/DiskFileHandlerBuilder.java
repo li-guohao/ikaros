@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**动态指定磁盘文件处理器构建类
  * @author liguohao_cn
- * @date 2020/12/30
+ * @since 2020/12/30
  */
 @Component
 public class DiskFileHandlerBuilder  implements InitializingBean, ApplicationContextAware {

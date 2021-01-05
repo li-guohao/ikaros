@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 /**用户 数据传输对象
  * @author liguohao_cn
- * @date 2021/1/1
+ * @since 2021/1/1
  */
 public class UserDTO {
 

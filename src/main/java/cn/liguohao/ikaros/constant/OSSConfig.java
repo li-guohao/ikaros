@@ -2,7 +2,7 @@ package cn.liguohao.ikaros.constant;
 
 /**对象存储配置名称
  * @author liguohao_cn
- * @date 2020/12/31
+ * @since 2020/12/31
  */
 public class OSSConfig {
     private OSSConfig() {}

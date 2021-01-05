@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**系统配置DAO
  * @author liguohao_cn
- * @date 2020/12/31
+ * @since 2020/12/31
  */
 public interface ConfigDao extends JpaRepository<Config,Long> {
 

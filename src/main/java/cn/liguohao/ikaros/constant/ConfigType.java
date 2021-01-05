@@ -2,7 +2,7 @@ package cn.liguohao.ikaros.constant;
 
 /**配置类型 对应config表中的type字段
  * @author liguohao_cn
- * @date 2020/12/31
+ * @since 2020/12/31
  */
 public class ConfigType {
     private ConfigType(){}

@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**伊卡洛斯Web配置
  * @author liguohao_cn
- * @date 2021/1/1
+ * @since 2021/1/1
  */
 @Configuration
 public class IkarosWebConfig implements WebMvcConfigurer {
