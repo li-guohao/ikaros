@@ -28,7 +28,7 @@
 - 后端框架: Spring, SpringMVC, SpringDataJpa, Hibernate
 - 数据库: H2，MySQL
 - 前端语言: HTML5, CSS3, JavaScript
-- 前端框架: Vue.js, Vuetify
+- 前端框架: Vue.js, AntD
 
 
 # 开发进度
