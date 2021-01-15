@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**动态指定磁盘文件处理器构建类
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2020/12/30
  */
 @Component

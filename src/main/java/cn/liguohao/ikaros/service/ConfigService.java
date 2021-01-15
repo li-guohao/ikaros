@@ -4,7 +4,7 @@ import cn.liguohao.ikaros.store.database.Config;
 import org.springframework.data.domain.Example;
 
 /**服务层-系统配置
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/3
  */
 public interface ConfigService {

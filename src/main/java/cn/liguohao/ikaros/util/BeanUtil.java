@@ -3,8 +3,8 @@ package cn.liguohao.ikaros.util;
 import java.lang.reflect.Field;
 
 /**bean操作通用方法封装
- * @author: liguohao
- * @since: 2020-7-18 1:09:27
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
+ * @since 2020-7-18 1:09:27
  */
 public class BeanUtil {
 	

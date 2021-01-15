@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 /**缓存包装类
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2020/12/31
  */
 public class CacheWrapper<T> implements Serializable {

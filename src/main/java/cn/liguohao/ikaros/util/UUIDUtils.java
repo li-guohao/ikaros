@@ -3,8 +3,8 @@ package cn.liguohao.ikaros.util;
 import java.util.UUID;
 
 /**UUID工具类
- * @author: liguohao
- * @token工具类 2020-7-18 1:10:12
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
+ * @since  2020-7-18 1:10:12
  */
 public class UUIDUtils {
 	/**

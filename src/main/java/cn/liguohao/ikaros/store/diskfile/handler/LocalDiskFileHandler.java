@@ -6,16 +6,16 @@ import java.io.File;
 import java.io.IOException;
 
 /**本地磁盘文件处理器
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2020/12/30
  */
 @Component
 public class LocalDiskFileHandler extends AbstractDiskFileHandler{
     /**
-     * @see DiskFileHandler#uploadFile(Byte[]) 
+     * @see DiskFileHandler#uploadFile(byte[])
      */
     @Override
-    public File uploadFile(Byte[] fileBytes) throws IOException {
+    public File uploadFile(byte[] fileBytes) throws IOException {
         return null;
     }
     /**

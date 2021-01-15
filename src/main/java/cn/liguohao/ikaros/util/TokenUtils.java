@@ -4,7 +4,7 @@ package cn.liguohao.ikaros.util;
 import javax.servlet.http.HttpServletRequest;
 
 /**token工具类
- * @author: liguohao
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2020-7-18 1:10:00
  */
 public class TokenUtils {

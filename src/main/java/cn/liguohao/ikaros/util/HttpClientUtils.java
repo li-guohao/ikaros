@@ -13,7 +13,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**HttpClient 工具类
- * @Auther: liguohao
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2020/11/29 13:30
  */
 public class HttpClientUtils {

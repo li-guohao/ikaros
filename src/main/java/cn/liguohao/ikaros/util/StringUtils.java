@@ -3,7 +3,7 @@ package cn.liguohao.ikaros.util;
 import java.util.regex.Pattern;
 
 /**字符串工具类
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2020年9月2日 下午2:59:59
  */
 public class StringUtils extends org.springframework.util.StringUtils {

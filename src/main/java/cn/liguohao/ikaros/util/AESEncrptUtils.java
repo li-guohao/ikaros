@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 /**AES加密工具类
- * @Author liguohao
+ * @author  <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2020/12/8
  */
 public class AESEncrptUtils {

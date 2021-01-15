@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 
 /**用户 数据传输对象
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/1
  */
 public class UserDTO {

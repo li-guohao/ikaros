@@ -6,7 +6,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 /**伊卡洛斯断言
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/2
  */
 public class IkarosAssert extends Assert {

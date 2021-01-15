@@ -1,7 +1,7 @@
 package cn.liguohao.ikaros.constant;
 
 /**配置项枚举 对应[config]表
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/3
  */
 public enum ConfigItemEnum {

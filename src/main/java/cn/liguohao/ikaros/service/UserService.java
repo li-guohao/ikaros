@@ -5,7 +5,7 @@ import cn.liguohao.ikaros.store.database.User;
 import com.sun.istack.NotNull;
 
 /**
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/1
  */
 public interface UserService {

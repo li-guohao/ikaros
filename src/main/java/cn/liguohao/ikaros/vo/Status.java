@@ -3,7 +3,7 @@ package cn.liguohao.ikaros.vo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /** 状态类，封装了状态的定义
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since  2020/12/31
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)

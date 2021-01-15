@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**硬盘文件处理器 处理真实的文件操作
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2020/12/30
  */
 public interface DiskFileHandler {
@@ -16,7 +16,7 @@ public interface DiskFileHandler {
      * @return 数据库文件对象
      * @throws IOException
      */
-    File uploadFile(Byte[] fileBytes) throws IOException;
+    File uploadFile(byte[] fileBytes) throws IOException;
 
     /**
      * 删除文件

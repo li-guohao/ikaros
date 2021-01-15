@@ -4,10 +4,11 @@ import cn.liguohao.ikaros.store.database.DBFile;
 import org.springframework.data.domain.Example;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**文件数据服务层
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/2
  */
 public interface DBFileService {
@@ -37,5 +38,5 @@ public interface DBFileService {
      * @param file 待上传的文件[MultipartFile]格式
      * @return 文件记录
      */
-    DBFile upload(MultipartFile file);
+    DBFile upload(MultipartFile file) throws IOException;
 }

@@ -9,10 +9,11 @@ import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**数据库文件记录 控制层
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/2
  */
 @RestController
@@ -38,7 +39,7 @@ public class DBFileController {
     }
 
     @PostMapping("/upload")
-    public Result<DBFile> upload(MultipartFile file){
+    public Result<DBFile> upload(MultipartFile file) throws IOException {
         return Result.build().setDSM(dbFileService.upload(file),Status.created,"上传文件成功",Status.serverError,"上传文件失败");
     }
 

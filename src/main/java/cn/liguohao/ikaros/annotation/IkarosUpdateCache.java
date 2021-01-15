@@ -19,7 +19,7 @@ import java.lang.annotation.*;
  * <p>需要注意的是：此注解加在服务层实现类的调用方法上是无效的，切面切不到</p>
  * <p>如一个服务层实现类中的[A]方法调用的[B]方法, 此时缓存注解应该加在[A]方法上，注解加在[B]方法上无效。可参考[UserServiceImpl]中的[checkToken][A]方法和[findTokenByUuid][B]方法</p>
  *
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since  2021/1/2
  * @see cn.liguohao.ikaros.aspect.IkarosUpdateCacheAspect#around(ProceedingJoinPoint)
  */

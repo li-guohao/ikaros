@@ -1,7 +1,7 @@
 package cn.liguohao.ikaros.store.cache;
 
 /**缓存仓库
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2020/12/30
  */
 public interface CacheStore<T> {

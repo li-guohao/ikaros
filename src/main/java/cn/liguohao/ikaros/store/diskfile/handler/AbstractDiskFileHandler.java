@@ -8,7 +8,7 @@ import java.io.File;
 import java.util.Map;
 
 /**抽象磁盘文件处理器
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2020/12/30
  */
 public abstract class AbstractDiskFileHandler implements DiskFileHandler {

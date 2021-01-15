@@ -1,7 +1,7 @@
 package cn.liguohao.ikaros.exception;
 
 /**
- * @author liguohao_cn
+ * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/1
  */
 public class IkarosException extends RuntimeException{
