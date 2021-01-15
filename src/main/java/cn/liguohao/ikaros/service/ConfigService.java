@@ -1,5 +1,8 @@
 package cn.liguohao.ikaros.service;
 
+import cn.liguohao.ikaros.store.database.Config;
+import org.springframework.data.domain.Example;
+
 /**服务层-系统配置
  * @author liguohao_cn
  * @since 2021/1/3
@@ -17,4 +20,11 @@ public interface ConfigService {
      * @return true-初始化成功 false-初始化失败
      */
     boolean init();
+
+    /**
+     * 根据指定条件查询对应的配置信息
+     * @param configExample 查询添加对象
+     * @return 对应的配置信息
+     */
+    Config findOne(Example<Config> configExample);
 }

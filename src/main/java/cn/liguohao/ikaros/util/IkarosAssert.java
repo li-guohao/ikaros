@@ -1,7 +1,7 @@
 package cn.liguohao.ikaros.util;
 
 import cn.liguohao.ikaros.exception.IllegalArgumentIkarosException;
-import com.sun.istack.Nullable;
+import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 

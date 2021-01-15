@@ -89,24 +89,36 @@ public class ConfigServiceImpl implements ConfigService {
     }
 
     /**
+     * @see ConfigService#findOne(Example)
+     */
+    @Override
+    @IkarosCache
+    public Config findOne(Example<Config> configExample) {
+        Optional<Config> configOptional = configDao.findOne(configExample);
+        return configOptional.isPresent()?configOptional.get():null;
+    }
+
+    /**
      * 下载默认的主题文件
      */
     private void downloadDefaultTheme() {
 
+        // 获取主题文件URL
+        String themeSimpleZipUrl = configDao.findOne(Example.of(
+                Config.build().setType(ConfigItemEnum.DOWNLOAD_DEFAULT_THEME_URL.getType())
+                        .setName(ConfigItemEnum.DOWNLOAD_DEFAULT_THEME_URL.getName())
+        )).get().getValue();
+
         String ikarosUserHome = System.getProperty("user.home") + "/.ikaros";
         String iakrosThemeDir = ikarosUserHome + "/theme";
-        String iakrosThemeFilePath = iakrosThemeDir + "/simple.zip";
+        String iakrosThemeFilePath = iakrosThemeDir + themeSimpleZipUrl.substring(themeSimpleZipUrl.lastIndexOf("/"));
 
         // 默认主题ZIP文件
         File ikarosThemeDefaultFile = new File(iakrosThemeFilePath); // .ikaros/theme/simple.zip
         if(!ikarosThemeDefaultFile.getParentFile().exists()){
             ikarosThemeDefaultFile.getParentFile().mkdirs();
         }
-        // 获取主题文件URL
-        String themeSimpleZipUrl = configDao.findOne(Example.of(
-                Config.build().setType(ConfigItemEnum.DOWNLOAD_DEFAULT_THEME_URL.getType())
-                        .setName(ConfigItemEnum.DOWNLOAD_DEFAULT_THEME_URL.getName())
-        )).get().getValue();
+
         // 下载默认的主题文件 文件到错误目录之下
         iakrosThemeFilePath = iakrosThemeFilePath.replace("/","\\");
         try{
