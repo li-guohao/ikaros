@@ -47,11 +47,7 @@ public class ConfigServiceImpl implements ConfigService {
                     .setName(ConfigItemEnum.APP_INIT_IS_INITED.getName())
         ));
         // 如果设置表有对应的记录，并且记录值为1，才代表已经初始化了
-        if(configOptional.isPresent() && "1".equals(configOptional.get().getValue())) {
-            return true;
-        }else {
-            return false;
-        }
+        return configOptional.isPresent() && "1".equals(configOptional.get().getValue());
     }
 
     /**
