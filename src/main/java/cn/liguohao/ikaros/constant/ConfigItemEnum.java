@@ -23,15 +23,21 @@ public enum ConfigItemEnum {
     CACHE_DEFAULT_STRATEGY("cache","default_strategy","memory","默认缓存策略-内存缓存")
     ,
     /**
+     * 文件存储策略
+     * 查询用
+     */
+    DISK_FILE_PLACE_STRATEGY("disk_file","place",null,"文件存储策略")
+    ,
+    /**
      * <p>文件存储策略-本地</p>
      * <p>文件上传到本地服务器</p>
      */
-    DISK_FILE_PLACE_LOCAL("disk_file","place","local","文件存储策略-本地")
+    DISK_FILE_PLACE_LOCAL("disk_file","place",DiskFilePlaceEnum.LOCAL.getName(),"文件存储策略-本地")
     ,
     /**
      * <p>文件存储策略-阿里云对象存储</p>
      */
-    DISK_FILE_PLACE_ALIYUN_OSS("disk_file","place","aliyun_oss","文件存储策略-阿里云对象存储")
+    DISK_FILE_PLACE_ALIYUN_OSS("disk_file","place",DiskFilePlaceEnum.ALIYUN_OSS.getName(),"文件存储策略-阿里云对象存储")
     ,
     /**
      * 阿里云对象存储-拥有OSS控制权限的子账号[access_key_id]

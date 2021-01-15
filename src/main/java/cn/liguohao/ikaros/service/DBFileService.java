@@ -37,6 +37,14 @@ public interface DBFileService {
      * 上传文件
      * @param file 待上传的文件[MultipartFile]格式
      * @return 文件记录
+     * @throws IOException 文件操作异常
      */
     DBFile upload(MultipartFile file) throws IOException;
+
+    /**
+     * 移除文件
+     * @param fileId 数据库文件记录对象的ID
+     * @throws IOException 文件操作异常
+     */
+    void deleteFileById(Long fileId) throws IOException;
 }

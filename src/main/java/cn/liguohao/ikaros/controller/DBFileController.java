@@ -1,5 +1,6 @@
 package cn.liguohao.ikaros.controller;
 
+import cn.liguohao.ikaros.exception.IkarosNotFoundException;
 import cn.liguohao.ikaros.service.DBFileService;
 import cn.liguohao.ikaros.store.database.DBFile;
 import cn.liguohao.ikaros.vo.Result;
@@ -41,6 +42,12 @@ public class DBFileController {
     @PostMapping("/upload")
     public Result<DBFile> upload(MultipartFile file) throws IOException {
         return Result.build().setDSM(dbFileService.upload(file),Status.created,"上传文件成功",Status.serverError,"上传文件失败");
+    }
+
+    @DeleteMapping("/{id}")
+    public Result deleteFileByFileId(@PathVariable("id") Long fileId) throws IOException {
+        dbFileService.deleteFileById(fileId);
+        return Result.build().setStatus(Status.success).setMessage("删除ID为<"+fileId+">的文件成功");
     }
 
 }

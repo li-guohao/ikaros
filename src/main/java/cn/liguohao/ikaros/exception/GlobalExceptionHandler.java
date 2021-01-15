@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**[Controller]层 异常处理类
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
@@ -19,6 +20,20 @@ import javax.servlet.http.HttpServletRequest;
 public class GlobalExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+
+    @ExceptionHandler(IkarosNotFoundException.class)
+    public Result ikarosException(IkarosNotFoundException ikarosNotFoundException){
+        String detail = "[伊卡洛斯]出现了异常情况 ==> "+ikarosNotFoundException.getClass().getName()+"==>"+ikarosNotFoundException.getMessage();
+        logger.info(detail);
+        ikarosNotFoundException.printStackTrace();
+        return Result.build()
+                .setStatus(Status.serverError)
+                .setMessage(ikarosNotFoundException.getMessage())
+                .setDetail(detail)
+                ;//END
+    }
+
+
     @ExceptionHandler(IkarosException.class)
     public Result ikarosException(IkarosException ikarosException){
         String detail = "[伊卡洛斯]出现了异常情况 ==> "+ikarosException.getClass().getName()+"==>"+ikarosException.getMessage();
@@ -27,6 +42,19 @@ public class GlobalExceptionHandler {
         return Result.build()
                 .setStatus(Status.serverError)
                 .setMessage(ikarosException.getMessage())
+                .setDetail(detail)
+                ;//END
+    }
+
+
+    @ExceptionHandler(IOException.class)
+    public Result exception(IOException ioException){
+        String detail = "[伊卡洛斯]IO操作出现了异常情况 ==> "+ioException.getClass().getName()+"==>"+ioException.getMessage();
+        logger.info(detail);
+        ioException.printStackTrace();
+        return Result.build()
+                .setStatus(Status.serverError)
+                .setMessage(ioException.getMessage())
                 .setDetail(detail)
                 ;//END
     }

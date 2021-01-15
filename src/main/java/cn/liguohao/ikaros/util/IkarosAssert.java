@@ -33,13 +33,26 @@ public class IkarosAssert extends Assert {
     }
 
     /**
-     * 对象不能为空
+     * 对象应该不为空
      * @param obj 待校验的值-Object类型
-     * @param message 异常情况的消息
+     * @param message 对象为空时抛出的异常情况的消息
      * @see ObjectUtils#isEmpty(Object)
      */
     public static void isNotEmpty(Object obj,String message) {
         if(ObjectUtils.isEmpty(obj)) throw new IllegalArgumentIkarosException(message);
+    }
+
+
+
+    /**
+     * 对应的条件应该为false
+     * @param expression 表达式
+     * @param message 条件为true时抛出的异常消息
+     */
+    public static void isFalse(boolean expression, String message) {
+        if (expression) {
+            throw new IllegalArgumentException(message);
+        }
     }
 
 

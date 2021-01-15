@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 /**服务层实现-系统配置
@@ -92,6 +93,14 @@ public class ConfigServiceImpl implements ConfigService {
     public Config findOne(Example<Config> configExample) {
         Optional<Config> configOptional = configDao.findOne(configExample);
         return configOptional.isPresent()?configOptional.get():null;
+    }
+
+    /**
+     * @see ConfigService#findList(Example)
+     */
+    @Override
+    public List<Config> findList(Example<Config> configExample) {
+        return configDao.findAll(configExample);
     }
 
     /**

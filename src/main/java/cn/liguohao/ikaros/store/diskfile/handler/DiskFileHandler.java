@@ -1,5 +1,6 @@
 package cn.liguohao.ikaros.store.diskfile.handler;
 
+import cn.liguohao.ikaros.store.database.DBFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -12,11 +13,11 @@ import java.io.IOException;
 public interface DiskFileHandler {
     /**
      *  上传文件
-     * @param fileBytes 需要上传的文件数据
-     * @return 数据库文件对象
+     * @param multipartFile 文件对象，multipart格式的
+     * @return 数据库文件记录对象
      * @throws IOException
      */
-    File uploadFile(byte[] fileBytes) throws IOException;
+    DBFile uploadFile(MultipartFile multipartFile) throws IOException;
 
     /**
      * 删除文件
