@@ -4,15 +4,20 @@ import cn.liguohao.ikaros.annotation.IkarosCache;
 import cn.liguohao.ikaros.annotation.IkarosUpdateCache;
 import cn.liguohao.ikaros.constant.ConfigItemEnum;
 import cn.liguohao.ikaros.dao.ConfigDao;
+import cn.liguohao.ikaros.exception.IkarosException;
 import cn.liguohao.ikaros.service.ConfigService;
 import cn.liguohao.ikaros.store.database.Config;
+import cn.liguohao.ikaros.util.HttpClientUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -27,6 +32,9 @@ public class ConfigServiceImpl implements ConfigService {
 
     @Autowired
     private ConfigDao configDao;
+
+    @Value("${spring.profiles.active}")
+    private String springProfilesActive;
 
     /**
      * @see ConfigService#isInited()
@@ -56,6 +64,8 @@ public class ConfigServiceImpl implements ConfigService {
         logger.info("[伊卡洛斯]开始初始化操作");
         // 初始化应用初始化配置
         initConfigItem(ConfigItemEnum.APP_INIT_IS_INITED);
+        // 初始化默认主题文件URL地址
+        initConfigItem(ConfigItemEnum.DOWNLOAD_DEFAULT_THEME_URL);
         // 初始化缓存策略
         initConfigItem(ConfigItemEnum.CACHE_DEFAULT_STRATEGY);
         // 初始化文件存储策略
@@ -63,6 +73,8 @@ public class ConfigServiceImpl implements ConfigService {
         // 初始化阿里云对象存储配置项
         initAliyunOSSConfigItem();
 
+        // 生产环境 ==> 初始化下载默认的主题文件
+        if("pro".equals(springProfilesActive)) downloadDefaultTheme();
 
         // 初始化完毕 更新数据库配置表对应记录
         Optional<Config> appInitConfigOptional = configDao.findOne(Example.of(
@@ -74,6 +86,40 @@ public class ConfigServiceImpl implements ConfigService {
         }
         logger.info("[伊卡洛斯]初始化完毕");
         return true;
+    }
+
+    /**
+     * 下载默认的主题文件
+     */
+    private void downloadDefaultTheme() {
+
+        String ikarosUserHome = System.getProperty("user.home") + "/.ikaros";
+        String iakrosThemeDir = ikarosUserHome + "/theme";
+        String iakrosThemeFilePath = iakrosThemeDir + "/simple.zip";
+
+        // 默认主题ZIP文件
+        File ikarosThemeDefaultFile = new File(iakrosThemeFilePath); // .ikaros/theme/simple.zip
+        if(!ikarosThemeDefaultFile.getParentFile().exists()){
+            ikarosThemeDefaultFile.getParentFile().mkdirs();
+        }
+        // 获取主题文件URL
+        String themeSimpleZipUrl = configDao.findOne(Example.of(
+                Config.build().setType(ConfigItemEnum.DOWNLOAD_DEFAULT_THEME_URL.getType())
+                        .setName(ConfigItemEnum.DOWNLOAD_DEFAULT_THEME_URL.getName())
+        )).get().getValue();
+        // 下载默认的主题文件 文件到错误目录之下
+        iakrosThemeFilePath = iakrosThemeFilePath.replace("/","\\");
+        try{
+            HttpClientUtils.downloadFile(themeSimpleZipUrl,iakrosThemeFilePath);
+
+            // 解压缩到指定目录下
+            HttpClientUtils.unzip(new File(iakrosThemeFilePath),iakrosThemeDir);
+
+        }catch (IOException ioException){
+            ioException.printStackTrace();
+            logger.error(ioException.getMessage());
+            throw new IkarosException(ioException.getMessage());
+        }
     }
 
     /**

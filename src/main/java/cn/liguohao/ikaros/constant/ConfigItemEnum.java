@@ -12,6 +12,11 @@ public enum ConfigItemEnum {
     APP_INIT_IS_INITED("app_init","is_inited","0","应用初始化配置")
     ,
     /**
+     * 默认主题文件URL地址
+     */
+    DOWNLOAD_DEFAULT_THEME_URL("download","default_theme_url","https://static.liguohao.cn/.ikaros/theme/simple.zip","默认主题文件URL地址")
+    ,
+    /**
      * <p>默认缓存策略-内存缓存</p>
      * <p>用一个HashMap缓存</p>
      */
