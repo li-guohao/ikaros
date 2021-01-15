@@ -27,7 +27,7 @@ spring:
     console:
       enabled: false
   datasource:
-    url: jdbc:h2:~/ikaros
+    url: jdbc:h2:file:~/.ikaros/db/ikaros
     driver-class-name: org.h2.Driver
     username: ikaros
     password: liguohao.cn
