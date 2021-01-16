@@ -72,7 +72,7 @@ public interface BaseService<E> {
      * 构建具体的分页条件
      * @return 具体的分页添加对象
      */
-    default Specification<E> buildSpecification(){
+    default Specification<E> buildSpecification(E searchEntity){
         return new Specification<E>() {
             @Override
             public Predicate toPredicate(Root<E> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {

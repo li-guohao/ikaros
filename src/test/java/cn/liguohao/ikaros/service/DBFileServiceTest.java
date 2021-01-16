@@ -2,6 +2,8 @@ package cn.liguohao.ikaros.service;
 
 import cn.liguohao.ikaros.constant.DiskFilePlaceEnum;
 import cn.liguohao.ikaros.store.database.DBFile;
+import cn.liguohao.ikaros.vo.PageQuery;
+import cn.liguohao.ikaros.vo.PagingData;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,6 +54,19 @@ public class DBFileServiceTest {
                 DBFile.build()
                         .setSuffix("png")));
         System.out.println(JSON.toJSON(dbFileList));
+    }
+
+    @Test
+    public void findByPaging(){
+        PageQuery<DBFile> pageQuery = new PageQuery<>();
+        pageQuery.setCurrentPage(1);
+        pageQuery.setPageSize(5);
+        pageQuery.setOriginal(DBFile.build().setSuffix("jpg"));
+        dbFileService.findByPaging(pageQuery);
+        PagingData<DBFile> paging = dbFileService.findByPaging(pageQuery);
+        System.out.println(JSON.toJSON(paging));
+        PagingData<DBFile> pagingData = dbFileService.findByPaging(pageQuery.setOriginal(pageQuery.getOriginal().setSuffix("png")));
+        System.out.println(JSON.toJSON(pagingData));
     }
 
 }

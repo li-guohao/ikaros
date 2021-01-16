@@ -38,11 +38,4 @@ public interface DBFileService extends BaseService<DBFile> {
      */
     DBFile upload(MultipartFile file) throws IOException;
 
-
-    /**
-     * 分页查询数据库文件记录对象
-     * @param dbFilePageQuery 分页查询条件对象
-     * @return 分页对象
-     */
-    PagingData<DBFile> findDBFilesByPaging(PageQuery<DBFile> dbFilePageQuery);
 }

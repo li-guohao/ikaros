@@ -83,7 +83,7 @@ public class BaseServiceImpl<E> implements BaseService<E> {
         //校验合法性
         if(ObjectUtils.isEmpty(searchEntity) || ObjectUtils.isEmpty(currentPage) || ObjectUtils.isEmpty(pageSize) || currentPage<0 || pageSize<=0)  throw new UserOperateException("请传入正确的分页参数 ");
         //构建查询条件
-        Specification<E> fileSpecification = buildSpecification();
+        Specification<E> fileSpecification = buildSpecification(searchEntity);
 
         // 构建分页条件
         Pageable pageable = PageRequest.of(currentPage-1,pageSize);
