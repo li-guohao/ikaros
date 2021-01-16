@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**系统配置服务层测试
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
@@ -32,6 +33,12 @@ public class ConfigServiceTest {
         configService.findAll().forEach(e ->{
             System.out.println(JSON.toJSON(e));
         });
+    }
+
+    @Test
+    public void findAll(){
+        configService.findAll();
+        configService.findAll();
     }
 
 }

@@ -3,6 +3,7 @@ package cn.liguohao.ikaros.service;
 import cn.liguohao.ikaros.store.database.Config;
 import cn.liguohao.ikaros.vo.PageQuery;
 import cn.liguohao.ikaros.vo.PagingData;
+import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -32,6 +33,20 @@ public interface BaseService<E> {
      * @return 对应的实体类对象
      */
     E findById(Long id);
+
+    /**
+     * 条件查询单个
+     * @param example 查询条件
+     * @return 对应的实体类对象
+     */
+    E findOne(Example<E> example);
+
+    /**
+     * 条件查询多个
+     * @param example 查询条件
+     * @return 对应的实体类集合对象
+     */
+    List<E> findAll(Example<E> example);
 
     /**
      * 根据ID删除

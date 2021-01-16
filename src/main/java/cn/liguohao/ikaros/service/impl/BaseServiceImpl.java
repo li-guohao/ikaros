@@ -11,6 +11,7 @@ import cn.liguohao.ikaros.vo.PageQuery;
 import cn.liguohao.ikaros.vo.PagingData;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -52,6 +53,19 @@ public class BaseServiceImpl<E> implements BaseService<E> {
     }
 
     @Override
+    @IkarosCache
+    public E findOne(Example<E> example) {
+        Optional<E> optional = baseDao.findOne(example);
+        return optional.isPresent()?optional.get():null;
+    }
+
+    @Override
+    @IkarosCache
+    public List<E> findAll(Example<E> example) {
+        return baseDao.findAll(example);
+    }
+
+    @Override
     @Transactional
     @IkarosUpdateCache
     public boolean deleteById(Long id) throws IOException {
@@ -88,6 +102,7 @@ public class BaseServiceImpl<E> implements BaseService<E> {
     }
 
     @Override
+    @IkarosCache
     public List<E> findAll() {
         return baseDao.findAll();
     }
