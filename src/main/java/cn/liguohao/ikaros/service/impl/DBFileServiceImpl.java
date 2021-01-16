@@ -1,6 +1,7 @@
 package cn.liguohao.ikaros.service.impl;
 
 import cn.liguohao.ikaros.annotation.IkarosCache;
+import cn.liguohao.ikaros.annotation.IkarosUpdateCache;
 import cn.liguohao.ikaros.constant.ConfigItemEnum;
 import cn.liguohao.ikaros.constant.DiskFilePlaceEnum;
 import cn.liguohao.ikaros.dao.DBFileDao;
@@ -99,11 +100,13 @@ public class DBFileServiceImpl implements DBFileService {
     }
 
     @Override
+    @IkarosUpdateCache
     public DBFile upload(MultipartFile file) throws IOException {
         return dbFileDao.saveAndFlush(diskFileHandler.uploadFile(file));
     }
 
     @Override
+    @IkarosUpdateCache
     public void deleteFileById(Long fileId) throws IOException {
         // 根据id获取dbFile
         Optional<DBFile> dbFileOptional = dbFileDao.findById(fileId);
@@ -134,6 +137,7 @@ public class DBFileServiceImpl implements DBFileService {
      * @see DBFileService#findDBFilesByPaging(cn.liguohao.ikaros.vo.PageQuery)
      */
     @Override
+    @IkarosCache
     public PagingData<DBFile> findDBFilesByPaging(PageQuery<DBFile> dbFilePageQuery) {
         // 获取对象
         DBFile dbFileSearch = dbFilePageQuery.getOriginal();

@@ -40,7 +40,7 @@ public class DBFileController {
         return Result.build().setDSM(dbFileService.findList(Example.of(dbFile)),"查询文件记录成功","查询文件记录失败");
     }
 
-    @PostMapping("/upload")
+    @PutMapping("/upload")
     public Result<DBFile> upload(MultipartFile file) throws IOException {
         return Result.build().setDSM(dbFileService.upload(file),Status.created,"上传文件成功",Status.serverError,"上传文件失败");
     }
