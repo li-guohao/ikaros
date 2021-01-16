@@ -21,7 +21,7 @@ import java.util.Optional;
  * @since  2021/1/1
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 
     @Autowired
     private UserDao userDao;

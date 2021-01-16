@@ -1,15 +1,14 @@
 package cn.liguohao.ikaros.dao;
 
 import cn.liguohao.ikaros.store.database.Config;
-import cn.liguohao.ikaros.store.database.DBFile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.NoRepositoryBean;
 
-/**数据库文件DAO
+/**基础Dao层接口
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
- * @since 2020/12/31
+ * @since 2021/1/16
  */
-public interface DBFileDao extends BaseDao<DBFile> {
-
-
+@NoRepositoryBean
+public interface BaseDao<E> extends JpaRepository<E,Long>, JpaSpecificationExecutor<E> {
 }

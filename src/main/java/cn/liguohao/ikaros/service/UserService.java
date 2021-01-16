@@ -8,7 +8,7 @@ import com.sun.istack.NotNull;
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/1
  */
-public interface UserService {
+public interface UserService extends BaseService<User>{
 
     /**
      * 用户登录

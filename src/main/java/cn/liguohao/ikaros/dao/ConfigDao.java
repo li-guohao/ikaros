@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2020/12/31
  */
-public interface ConfigDao extends JpaRepository<Config,Long> {
+public interface ConfigDao extends BaseDao<Config> {
 
 
 }

@@ -13,13 +13,8 @@ import java.util.List;
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/2
  */
-public interface DBFileService {
+public interface DBFileService extends BaseService<DBFile> {
 
-    /**
-     * 保存
-     * @param dbFile 文件数据
-     */
-    void save(DBFile dbFile);
 
     /**
      * 查询文件数据
@@ -43,19 +38,6 @@ public interface DBFileService {
      */
     DBFile upload(MultipartFile file) throws IOException;
 
-    /**
-     * 移除文件
-     * @param fileId 数据库文件记录对象的ID
-     * @throws IOException 文件操作异常
-     */
-    void deleteFileById(Long fileId) throws IOException;
-
-    /**
-     * 根据ID查询
-     * @param fileId 文件记录ID
-     * @return 文件记录对象
-     */
-    DBFile findByFileId(Long fileId);
 
     /**
      * 分页查询数据库文件记录对象

@@ -40,7 +40,7 @@ import java.util.Optional;
  * @since 2021/1/2
  */
 @Service
-public class DBFileServiceImpl implements DBFileService {
+public class DBFileServiceImpl extends BaseServiceImpl<DBFile> implements DBFileService {
 
     @Autowired
     private DBFileDao dbFileDao;
@@ -52,11 +52,6 @@ public class DBFileServiceImpl implements DBFileService {
     private ConfigService configService;
 
 
-    @Override
-    @Transactional
-    public void save(DBFile dbFile) {
-        dbFileDao.save(dbFile);
-    }
 
     /**
      * 根据应用设置获取磁盘文件处理器的具体实现类
@@ -107,10 +102,10 @@ public class DBFileServiceImpl implements DBFileService {
 
     @Override
     @IkarosUpdateCache
-    public void deleteFileById(Long fileId) throws IOException {
+    public boolean deleteById(Long id) throws IOException {
         // 根据id获取dbFile
-        Optional<DBFile> dbFileOptional = dbFileDao.findById(fileId);
-        if(dbFileOptional.isEmpty()) throw new IkarosNotFoundException("查询不到该文件：fileId="+fileId);
+        Optional<DBFile> dbFileOptional = dbFileDao.findById(id);
+        if(dbFileOptional.isEmpty()) throw new IkarosNotFoundException("查询不到该文件：fileId="+id);
         DBFile dbFile = dbFileOptional.get();
 
         // 动态获取文件处理器
@@ -121,17 +116,11 @@ public class DBFileServiceImpl implements DBFileService {
 
         // 删除数据库对应文件项目
         dbFileDao.delete(dbFile);
+
+        return true;
     }
 
-    /**
-     * @see DBFileService#findByFileId(Long)
-     */
-    @Override
-    @IkarosCache
-    public DBFile findByFileId(Long fileId) {
-        Optional<DBFile> dbFileOptional = dbFileDao.findById(fileId);
-        return dbFileOptional.isPresent()?dbFileOptional.get():null;
-    }
+
 
     /**
      * @see DBFileService#findDBFilesByPaging(cn.liguohao.ikaros.vo.PageQuery)

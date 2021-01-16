@@ -8,6 +8,7 @@ import cn.liguohao.ikaros.exception.IkarosException;
 import cn.liguohao.ikaros.service.ConfigService;
 import cn.liguohao.ikaros.store.database.Config;
 import cn.liguohao.ikaros.util.HttpClientUtils;
+import cn.liguohao.ikaros.vo.PagingData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ import java.util.Optional;
  * @since 2021/1/3
  */
 @Service
-public class ConfigServiceImpl implements ConfigService {
+public class ConfigServiceImpl extends BaseServiceImpl<Config> implements ConfigService {
 
     private Logger logger = LoggerFactory.getLogger(ConfigServiceImpl.class);
 
@@ -102,6 +103,8 @@ public class ConfigServiceImpl implements ConfigService {
     public List<Config> findList(Example<Config> configExample) {
         return configDao.findAll(configExample);
     }
+
+
 
     /**
      * 下载默认的主题文件

@@ -1,6 +1,8 @@
 package cn.liguohao.ikaros.service;
 
 import cn.liguohao.ikaros.store.database.Config;
+import cn.liguohao.ikaros.store.database.DBFile;
+import cn.liguohao.ikaros.vo.PagingData;
 import org.springframework.data.domain.Example;
 
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/3
  */
-public interface ConfigService {
+public interface ConfigService extends BaseService<Config> {
 
     /**
      * 应用是否已经初始化
@@ -36,4 +38,5 @@ public interface ConfigService {
      * @return 配置信息集合
      */
     List<Config> findList(Example<Config> configExample);
+
 }
