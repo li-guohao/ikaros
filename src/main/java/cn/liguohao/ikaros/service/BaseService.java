@@ -52,6 +52,7 @@ public interface BaseService<E> {
      * 根据ID删除
      * @param id ID
      * @return 对应的实体类对象
+     * @throws IOException IO操作异常
      */
     boolean deleteById(Long id) throws IOException;
 

@@ -88,7 +88,7 @@ public class DBFileController {
             @RequestBody PageQuery<DBFile> dbFilePageQuery
             ){
         return Result.build().setDSM(
-                dbFileService.findDBFilesByPaging(dbFilePageQuery),
+                dbFileService.findByPaging(dbFilePageQuery),
                 Status.success,"分页查询成功",
                 Status.notFound,"查询无数据"
         );

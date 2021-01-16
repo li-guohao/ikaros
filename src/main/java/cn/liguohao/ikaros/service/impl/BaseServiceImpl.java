@@ -95,7 +95,7 @@ public class BaseServiceImpl<E> implements BaseService<E> {
         PagingData<E> pagingData = new PagingData<>();
         pagingData.setCurrentPage(currentPage);
         pagingData.setPageSize(pageSize);
-        pagingData.setTotal((int)page.getTotalElements());
+        pagingData.setTotal((int) baseDao.count());
         pagingData.setDataArray(page.getContent());
         // 返回结果
         return pagingData;
