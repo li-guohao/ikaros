@@ -35,27 +35,54 @@ public class DBFileController {
         return Result.build().setDSM(dbFileService.findOne(Example.of(dbFile)),"查询单个文件记录成功","查询单个文件记录失败");
     }
 
+    /**
+     * 查询文件列表
+     * @param dbFile 数据库文件记录对象
+     * @return 带数据的结果
+     */
     @PostMapping("/list")
-    public Result<List> findList(@RequestBody DBFile dbFile){
+    public Result<List<DBFile>> findList(@RequestBody DBFile dbFile){
         return Result.build().setDSM(dbFileService.findList(Example.of(dbFile)),"查询文件记录成功","查询文件记录失败");
     }
 
+    /**
+     * 上传文件
+     * @param file 待上传的文件
+     * @return 带数据库文件记录对象的结果
+     * @throws IOException IO读写异常
+     */
     @PutMapping("/upload")
     public Result<DBFile> upload(MultipartFile file) throws IOException {
         return Result.build().setDSM(dbFileService.upload(file),Status.created,"上传文件成功",Status.serverError,"上传文件失败");
     }
 
+    /**
+     * 移除文件
+     * @param fileId 文件记录ID
+     * @return 是否成功
+     * @throws IOException IO读写异常
+     */
     @DeleteMapping("/{id}")
     public Result deleteFileByFileId(@PathVariable("id") Long fileId) throws IOException {
         dbFileService.deleteFileById(fileId);
         return Result.build().setStatus(Status.success).setMessage("删除ID为<"+fileId+">的文件成功");
     }
 
+    /**
+     * 根据ID查询文件
+     * @param fileId 文件记录ID
+     * @return 带数据库文件记录的结果
+     */
     @GetMapping("/{id}")
     public Result<DBFile> findDBFileByFileId(@PathVariable("id") Long fileId){
         return Result.build().setDSM(dbFileService.findByFileId(fileId),Status.success,"查询成功",Status.notFound,"查询文件记录失败==>"+fileId);
     }
 
+    /**
+     * 分页查询文件
+     * @param dbFilePageQuery 分页查询对象
+     * @return 带分页数据的结果
+     */
     @PostMapping("/list/paging")
     public Result<PagingData<DBFile>> findDBFilesByPaging(
             @RequestBody PageQuery<DBFile> dbFilePageQuery
