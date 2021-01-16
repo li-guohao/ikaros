@@ -64,7 +64,7 @@ public class DBFileController {
      */
     @DeleteMapping("/{id}")
     public Result deleteFileByFileId(@PathVariable("id") Long fileId) throws IOException {
-        dbFileService.deleteFileById(fileId);
+        dbFileService.deleteById(fileId);
         return Result.build().setStatus(Status.success).setMessage("删除ID为<"+fileId+">的文件成功");
     }
 
@@ -75,7 +75,7 @@ public class DBFileController {
      */
     @GetMapping("/{id}")
     public Result<DBFile> findDBFileByFileId(@PathVariable("id") Long fileId){
-        return Result.build().setDSM(dbFileService.findByFileId(fileId),Status.success,"查询成功",Status.notFound,"查询文件记录失败==>"+fileId);
+        return Result.build().setDSM(dbFileService.findById(fileId),Status.success,"查询成功",Status.notFound,"查询文件记录失败==>"+fileId);
     }
 
     /**

@@ -31,7 +31,6 @@ import java.util.Optional;
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/16
  */
-@Service
 public class BaseServiceImpl<E> implements BaseService<E> {
 
     @Autowired
