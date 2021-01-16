@@ -1,8 +1,9 @@
 package cn.liguohao.ikaros.controller;
 
-import cn.liguohao.ikaros.exception.IkarosNotFoundException;
 import cn.liguohao.ikaros.service.DBFileService;
 import cn.liguohao.ikaros.store.database.DBFile;
+import cn.liguohao.ikaros.vo.PageQuery;
+import cn.liguohao.ikaros.vo.PagingData;
 import cn.liguohao.ikaros.vo.Result;
 import cn.liguohao.ikaros.vo.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,4 +51,19 @@ public class DBFileController {
         return Result.build().setStatus(Status.success).setMessage("删除ID为<"+fileId+">的文件成功");
     }
 
+    @GetMapping("/{id}")
+    public Result<DBFile> findDBFileByFileId(@PathVariable("id") Long fileId){
+        return Result.build().setDSM(dbFileService.findByFileId(fileId),Status.success,"查询成功",Status.notFound,"查询文件记录失败==>"+fileId);
+    }
+
+    @PostMapping("/list/paging")
+    public Result<PagingData<DBFile>> findDBFilesByPaging(
+            @RequestBody PageQuery<DBFile> dbFilePageQuery
+            ){
+        return Result.build().setDSM(
+                dbFileService.findDBFilesByPaging(dbFilePageQuery),
+                Status.success,"分页查询成功",
+                Status.notFound,"查询无数据"
+        );
+    }
 }

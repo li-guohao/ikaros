@@ -1,6 +1,8 @@
 package cn.liguohao.ikaros.service;
 
 import cn.liguohao.ikaros.store.database.DBFile;
+import cn.liguohao.ikaros.vo.PageQuery;
+import cn.liguohao.ikaros.vo.PagingData;
 import org.springframework.data.domain.Example;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,4 +49,18 @@ public interface DBFileService {
      * @throws IOException 文件操作异常
      */
     void deleteFileById(Long fileId) throws IOException;
+
+    /**
+     * 根据ID查询
+     * @param fileId 文件记录ID
+     * @return 文件记录对象
+     */
+    DBFile findByFileId(Long fileId);
+
+    /**
+     * 分页查询数据库文件记录对象
+     * @param dbFilePageQuery 分页查询条件对象
+     * @return 分页对象
+     */
+    PagingData<DBFile> findDBFilesByPaging(PageQuery<DBFile> dbFilePageQuery);
 }

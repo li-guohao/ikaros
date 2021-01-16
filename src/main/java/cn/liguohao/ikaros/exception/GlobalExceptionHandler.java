@@ -22,13 +22,26 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(IkarosNotFoundException.class)
-    public Result ikarosException(IkarosNotFoundException ikarosNotFoundException){
-        String detail = "[伊卡洛斯]出现了异常情况 ==> "+ikarosNotFoundException.getClass().getName()+"==>"+ikarosNotFoundException.getMessage();
+    public Result ikarosNotFoundException(IkarosNotFoundException ikarosNotFoundException){
+        String detail = "[伊卡洛斯]数据不存在异常 ==> "+ikarosNotFoundException.getClass().getName()+"==>"+ikarosNotFoundException.getMessage();
         logger.info(detail);
         ikarosNotFoundException.printStackTrace();
         return Result.build()
                 .setStatus(Status.serverError)
                 .setMessage(ikarosNotFoundException.getMessage())
+                .setDetail(detail)
+                ;//END
+    }
+
+
+    @ExceptionHandler(UserOperateException.class)
+    public Result userOperateException(UserOperateException userOperateException){
+        String detail = "[伊卡洛斯]用户请求异常 ==> "+userOperateException.getClass().getName()+"==>"+userOperateException.getMessage();
+        logger.info(detail);
+        userOperateException.printStackTrace();
+        return Result.build()
+                .setStatus(Status.serverError)
+                .setMessage(userOperateException.getMessage())
                 .setDetail(detail)
                 ;//END
     }
