@@ -89,7 +89,7 @@ public class DBFileServiceImpl extends BaseServiceImpl<DBFile> implements DBFile
     @Override
     @IkarosUpdateCache
     public DBFile upload(MultipartFile file) throws IOException {
-        return dbFileDao.saveAndFlush(diskFileHandler.uploadFile(file));
+        return dbFileDao.saveAndFlush(getApplicationSettingDiskFileHandler().uploadFile(file));
     }
 
     @Override
