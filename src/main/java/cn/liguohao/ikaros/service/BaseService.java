@@ -1,6 +1,5 @@
 package cn.liguohao.ikaros.service;
 
-import cn.liguohao.ikaros.store.database.Config;
 import cn.liguohao.ikaros.vo.PageQuery;
 import cn.liguohao.ikaros.vo.PagingData;
 import org.springframework.data.domain.Example;

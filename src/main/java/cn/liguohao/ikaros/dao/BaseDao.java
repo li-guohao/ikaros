@@ -1,6 +1,5 @@
 package cn.liguohao.ikaros.dao;
 
-import cn.liguohao.ikaros.store.database.Config;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
