@@ -81,4 +81,26 @@ public interface BaseService<E> {
             }
         };
     }
+
+    /**
+     * 根据ID获取
+     * @param id 主键ID
+     * @return 对应的实体类对象
+     */
+    E getOne(Long id);
+
+    /**
+     * 是否存在
+     * @param example 简单条件
+     * @return true-存在 false-不存在
+     */
+    boolean exists(Example<E> example);
+
+    /**
+     * 是否存在
+     * @param id 主键ID
+     * @return true-存在 false-不存在
+     */
+    boolean existsById(Long id);
+
 }

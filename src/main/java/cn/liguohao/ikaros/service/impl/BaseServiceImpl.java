@@ -106,4 +106,23 @@ public class BaseServiceImpl<E> implements BaseService<E> {
     public List<E> findAll() {
         return baseDao.findAll();
     }
+
+
+    @Override
+    @IkarosCache
+    public E getOne(Long id) {
+        return baseDao.getOne(id);
+    }
+
+    @Override
+    @IkarosCache
+    public boolean exists(Example<E> example) {
+        return baseDao.exists(example);
+    }
+
+    @Override
+    @IkarosCache
+    public boolean existsById(Long id) {
+        return baseDao.existsById(id);
+    }
 }
