@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "7ce58b9f-61ec-4f21-8c69-1a2657810ce8",
+		"name": "ikaros",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/user/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\":\"username_password\",\r\n    \"username\":\"test\",\r\n    \"password\":\"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8888/api/user/login"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/cache/clear",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": "http://localhost:8888/api/cache/clear",
+				"description": "缓存清空"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/config/list/paging",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"currentPage\":1,\r\n    \"pageSize\":20,\r\n    \"original\":{}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8888/api/config/list/paging"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/config/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8888/api/config/999",
+				"description": "根据ID删除"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/config/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8888/api/config/999",
+				"description": "根据ID查询数据"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/dbfile/one",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8888/api/dbfile/one"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/dbfile/list",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8888/api/dbfile/list"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/dbfile/upload",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/F:/Pictures/壁纸/wallhaven-odq5ml.jpg"
+						}
+					]
+				},
+				"url": "http://localhost:8888/api/dbfile/upload",
+				"description": "文件上传"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/dbfile/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8888/api/dbfile/999"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/dbfile/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8888/api/dbfile/999"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/dbfile/list/paging",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"currentPage\":1,\r\n    \"pageSize\":20,\r\n    \"original\":{}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8888/api/dbfile/list/paging"
+			},
+			"response": []
+		},
+		{
+			"name": "/application/init",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8888/application/init"
+			},
+			"response": []
+		},
+		{
+			"name": "/admin",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8888/admin"
+			},
+			"response": []
+		},
+		{
+			"name": "/ex",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8888/ex"
+			},
+			"response": []
+		}
+	]
+}

@@ -5,6 +5,7 @@ import cn.liguohao.ikaros.annotation.IkarosUpdateCache;
 import cn.liguohao.ikaros.dao.BaseDao;
 import cn.liguohao.ikaros.exception.UserOperateException;
 import cn.liguohao.ikaros.service.BaseService;
+import cn.liguohao.ikaros.util.IkarosAssert;
 import cn.liguohao.ikaros.vo.PageQuery;
 import cn.liguohao.ikaros.vo.PagingData;
 import org.apache.commons.lang3.ObjectUtils;
@@ -62,6 +63,7 @@ public class BaseServiceImpl<E> implements BaseService<E> {
     @Transactional
     @IkarosUpdateCache
     public boolean deleteById(Long id) throws IOException {
+        IkarosAssert.isTrue(baseDao.existsById(id),"对应的数据不存在 id=>"+id);
         baseDao.deleteById(id);
         return true;
     }
