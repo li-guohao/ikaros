@@ -2,9 +2,7 @@
 #Sl4j 默认是[INFO],开发环境设置成[DEBUG]
 logging:
   level:
-    cn:
-      liguohao:
-        ikaros: DEBUG
+    cn.liguohao.ikaros: DEBUG
 #Spring
 spring:
   #模板引擎thymeleaf

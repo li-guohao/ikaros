@@ -40,12 +40,3 @@ spring:
   jackson:
     date-format: yyyy-MM-dd  HH:mm:ss
     time-zone: GMT+8 #解决JSON传递8小时时差
-logging:
-  level:
-    cn.liguohao.ikaros: INFO
-    org.eclipse.jetty.server.HttpChannel: ERROR
-  file:
-    path: ${user.home}/.ikaros/logs
-    name: ${logging.file.path}/ikaros.log
-
-
