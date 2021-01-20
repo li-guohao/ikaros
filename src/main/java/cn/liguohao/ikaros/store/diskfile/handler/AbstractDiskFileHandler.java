@@ -70,6 +70,7 @@ public abstract class AbstractDiskFileHandler implements DiskFileHandler {
      */
     @Override
     public DBFile uploadFile(MultipartFile multipartFile) throws IOException {
+        IkarosAssert.isNotEmpty(multipartFile,"上传的文件不能为空");
         // 获取信息
         Map<String, String> objectStorageInfoMap = getDefiniteTypeObjectStorageInfoMap();
 
