@@ -7,15 +7,22 @@ import cn.liguohao.ikaros.dao.ConfigDao;
 import cn.liguohao.ikaros.exception.IkarosException;
 import cn.liguohao.ikaros.service.ConfigService;
 import cn.liguohao.ikaros.store.database.Config;
+import cn.liguohao.ikaros.store.database.DBFile;
 import cn.liguohao.ikaros.util.HttpClientUtils;
+import cn.liguohao.ikaros.util.StringUtils;
 import cn.liguohao.ikaros.vo.PagingData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
@@ -177,4 +184,25 @@ public class ConfigServiceImpl extends BaseServiceImpl<Config> implements Config
         initConfigItem(ConfigItemEnum.ALIYUN_OSS_ACCESS_DOMAIN);
     }
 
+    @Override
+    public Specification<Config> buildSpecification(Config searchEntity) {
+        return new Specification<Config>() {
+            @Override
+            public Predicate toPredicate(Root<Config> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                Predicate predicate = null;
+
+                // 根据类型精准查询
+                if(!StringUtils.isEmpty(searchEntity.getType())){
+                    Predicate originalNamePredicate = criteriaBuilder.equal(root.get("type"),searchEntity.getType());
+                    if(predicate==null){
+                        predicate = originalNamePredicate;
+                    }else {
+                        predicate = criteriaBuilder.and(predicate,originalNamePredicate);
+                    }
+                }
+
+                return predicate;
+            }
+        };
+    }
 }

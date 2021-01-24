@@ -90,7 +90,6 @@ public class PagingData<T> {
 
     public PagingData setDataArray(List<T> dataArray) {
         this.dataArray = dataArray;
-        this.total = this.dataArray.size(); //设置dataArray的同时，设置总数
         return this;
     }
 }
