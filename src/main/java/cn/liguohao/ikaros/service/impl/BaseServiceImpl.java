@@ -78,19 +78,19 @@ public class BaseServiceImpl<E> implements BaseService<E> {
         //校验合法性
         if(ObjectUtils.isEmpty(searchEntity) || ObjectUtils.isEmpty(currentPage) || ObjectUtils.isEmpty(pageSize) || currentPage<0 || pageSize<=0)  throw new UserOperateException("请传入正确的分页参数 ");
         //构建查询条件
-        Specification<E> fileSpecification = buildSpecification(searchEntity);
+        Specification<E> specification = buildSpecification(searchEntity);
 
         // 构建分页条件
         Pageable pageable = PageRequest.of(currentPage-1,pageSize);
 
         // 查询数据库
-        Page<E> page = baseDao.findAll(fileSpecification, pageable);
+        Page<E> page = baseDao.findAll(specification, pageable);
 
         // 构建返回条件
         PagingData<E> pagingData = new PagingData<>();
         pagingData.setCurrentPage(currentPage);
         pagingData.setPageSize(pageSize);
-        pagingData.setTotal((int) baseDao.count());
+        pagingData.setTotal((int) baseDao.count(specification));
         pagingData.setDataArray(page.getContent());
         // 返回结果
         return pagingData;
