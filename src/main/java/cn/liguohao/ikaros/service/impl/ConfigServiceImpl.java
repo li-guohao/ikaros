@@ -27,6 +27,7 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -204,5 +205,14 @@ public class ConfigServiceImpl extends BaseServiceImpl<Config> implements Config
                 return predicate;
             }
         };
+    }
+
+    @Override
+    @IkarosCache
+    public List<String> findTypes() {
+        List<Config> configs = configDao.findAll();
+        ArrayList<String> types = new ArrayList<>();
+        configs.forEach(config -> types.add(config.getType()));
+        return types;
     }
 }

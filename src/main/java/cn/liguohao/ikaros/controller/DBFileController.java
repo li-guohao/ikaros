@@ -51,7 +51,7 @@ public class DBFileController {
      * @return 带数据库文件记录对象的结果
      * @throws IOException IO读写异常
      */
-    @PutMapping("/upload")
+    @PutMapping("/one/upload")
     public Result<DBFile> upload(MultipartFile file) throws IOException {
         return Result.build().setDSM(dbFileService.upload(file),Status.created,"上传文件成功",Status.serverError,"上传文件失败");
     }
@@ -62,7 +62,7 @@ public class DBFileController {
      * @return 是否成功
      * @throws IOException IO读写异常
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/one/{id}")
     public Result deleteFileByFileId(@PathVariable("id") Long fileId) throws IOException {
         dbFileService.deleteById(fileId);
         return Result.build().setStatus(Status.success).setMessage("删除ID为<"+fileId+">的文件成功");
@@ -73,7 +73,7 @@ public class DBFileController {
      * @param fileId 文件记录ID
      * @return 带数据库文件记录的结果
      */
-    @GetMapping("/{id}")
+    @GetMapping("/one/{id}")
     public Result<DBFile> findDBFileByFileId(@PathVariable("id") Long fileId){
         return Result.build().setDSM(dbFileService.findById(fileId),Status.success,"查询成功",Status.notFound,"查询文件记录失败==>"+fileId);
     }

@@ -37,4 +37,9 @@ public interface ConfigService extends BaseService<Config> {
      */
     List<Config> findList(Example<Config> configExample);
 
+    /**
+     * 查询所有的配置类型
+     * @return 配置类型集合
+     */
+    List<String> findTypes();
 }
