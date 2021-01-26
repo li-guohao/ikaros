@@ -9,7 +9,7 @@ public enum ConfigItemEnum {
     /**
      * 应用初始化配置
      */
-    APP_INIT_IS_INITED("app_init","is_inited","0","应用初始化配置")
+    APP_INIT_IS_INITED("app_init","is_inited","0","应用初始化配置 1-已初始化 0-未初始化")
     ,
     /**
      * 默认主题文件URL地址
