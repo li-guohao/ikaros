@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 /**系统配置
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
@@ -39,7 +40,7 @@ public class ConfigController {
         );
     }
 
-    @PutMapping("/save")
+    @PutMapping("/one/save")
     public Result<Boolean> save(@RequestBody Config config){
         return Result.build().setDSM(
                 configService.save(config),
@@ -48,7 +49,7 @@ public class ConfigController {
         );
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/one/{id}")
     public Result<Boolean> deleteById(@PathVariable("id") Long id) throws IOException {
         return Result.build().setDSM(
                 configService.deleteById(id),
@@ -57,12 +58,21 @@ public class ConfigController {
         );
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/one/{id}")
     public Result<Boolean> findById(@PathVariable("id") Long id){
         return Result.build().setDSM(
                 configService.findById(id),
                 Status.success,"查询成功",
                 Status.notFound,"查询失败 => id="+id
+        );
+    }
+
+    @GetMapping("/types")
+    public Result<List<String>> findTypes(){
+        return Result.build().setDSM(
+                configService.findTypes(),
+                Status.success,"查询成功",
+                Status.notFound,"所有配置项不存在, 查询失败"
         );
     }
 
