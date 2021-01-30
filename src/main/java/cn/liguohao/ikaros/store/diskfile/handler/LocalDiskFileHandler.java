@@ -82,7 +82,7 @@ public class LocalDiskFileHandler extends AbstractDiskFileHandler{
         // 上传时间
         dbFile.setUploadTime(LocalDateTime.now());
         // 其它默认值设置
-        dbFile.setPlace(ConfigItemEnum.DISK_FILE_PLACE_LOCAL.getName());
+        dbFile.setPlace(ConfigItemEnum.DISK_FILE_PLACE_LOCAL.getValue());
 
         // 释放资源
         fileOutputStream.close();
