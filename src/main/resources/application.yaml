@@ -2,6 +2,7 @@
 ikaros:
   domain:
 
+
 #内置Tomcat服务器
 server:
   port: 8888

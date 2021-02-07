@@ -149,6 +149,16 @@ public class DBFileServiceImpl extends BaseServiceImpl<DBFile> implements DBFile
                     }
                 }
 
+                // 根据文件储存位置模糊查询
+                if(!StringUtils.isEmpty(searchEntity.getPlace())){
+                    Predicate placePredicate = criteriaBuilder.like(root.get("place"), "%" + searchEntity.getPlace() + "%");
+                    if(predicate==null){
+                        predicate = placePredicate;
+                    }else {
+                        predicate = criteriaBuilder.and(predicate,placePredicate);
+                    }
+                }
+
                 return predicate;
             }
         };

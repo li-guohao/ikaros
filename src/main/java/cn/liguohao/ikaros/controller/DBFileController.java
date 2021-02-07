@@ -57,6 +57,20 @@ public class DBFileController {
     }
 
     /**
+     * 保存或者更新文件
+     * @param dbFile 待保存或更新的文件
+     * @return 带数据库文件记录对象的结果
+     */
+    @PutMapping("/one/save")
+    public Result<DBFile> sava(@RequestBody DBFile dbFile){
+        return Result.build().setDSM(
+                dbFileService.save(dbFile),
+                Status.created,"保存或更新成功",
+                Status.serverError,"保存或更新失败"
+        );
+    }
+
+    /**
      * 移除文件
      * @param fileId 文件记录ID
      * @return 是否成功
