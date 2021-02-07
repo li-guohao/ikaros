@@ -52,7 +52,18 @@ public class DBFileController {
      * @throws IOException IO读写异常
      */
     @PutMapping("/one/upload")
-    public Result<DBFile> upload(MultipartFile file) throws IOException {
+    public Result<DBFile> uploadPut(MultipartFile file) throws IOException {
+        return Result.build().setDSM(dbFileService.upload(file),Status.created,"上传文件成功",Status.serverError,"上传文件失败");
+    }
+
+    /**
+     * 上传文件
+     * @param file 待上传的文件
+     * @return 带数据库文件记录对象的结果
+     * @throws IOException IO读写异常
+     */
+    @PostMapping("/one/upload")
+    public Result<DBFile> uploadPost(MultipartFile file) throws IOException {
         return Result.build().setDSM(dbFileService.upload(file),Status.created,"上传文件成功",Status.serverError,"上传文件失败");
     }
 
