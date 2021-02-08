@@ -8,13 +8,17 @@ import java.util.regex.Pattern;
  */
 public class StringUtils extends org.springframework.util.StringUtils {
 
+	/**
+	 * 正整数正则
+	 */
+	private final static Pattern positiveIntegerPattern = Pattern.compile("[0-9]*");
+
 	/**判断是否为正整数
 	 * @param string 待判断的字符串
 	 * @return: 是否为正整数
 	 */
 	public static boolean isNumeric(String string){
-	    Pattern pattern = Pattern.compile("[0-9]*");
-	    return pattern.matcher(string).matches();   
+	    return positiveIntegerPattern.matcher(string).matches();
 	}
 
 	/**
@@ -31,13 +35,13 @@ public class StringUtils extends org.springframework.util.StringUtils {
 				case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
 				case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
 					++ cnt;
-					if (32 <= cnt) return true;
+					if (32 <= cnt) {return true;}
 					break;
 				case '/':
 					if ((i + 10) < str.length()) {// "/storage/"
 						char ch1 = str.charAt(i+1);
 						char ch2 = str.charAt(i+8);
-						if ('/' == ch2 && ('s' == ch1 || 'S' == ch1)) return true;
+						if ('/' == ch2 && ('s' == ch1 || 'S' == ch1)) {return true;}
 					}
 				default:
 					cnt = 0;

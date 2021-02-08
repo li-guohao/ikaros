@@ -43,7 +43,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
                 );
                 break;
             }
-            case UserDTO.Type.EMAil_PASSWORD: {
+            case UserDTO.Type.EMAIL_PASSWORD: {
                 IkarosAssert.isNotEmpty(userDTO.getEmail(),"邮箱不能为空");
                 IkarosAssert.isNotEmpty(userDTO.getPassword(),"密码不能为空");
                 userOptional = userDao.findOne(

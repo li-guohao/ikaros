@@ -18,7 +18,7 @@ public class FileUtils {
      */
     public static byte[] toByteArray(File file) throws IOException {
         // 文件存在判断
-        if(!file.exists())  throw new FileNotFoundException(file.getPath());
+        if(!file.exists())  {throw new FileNotFoundException(file.getPath());}
 
         // 根据文件大小创建字节数组
         byte[] bytes = new byte[(int) file.length()];

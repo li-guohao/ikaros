@@ -44,7 +44,7 @@ public class IkarosCacheAspect {
             // 如果参数是与用户有关的如密码之类的，为了安全考虑，在执行方法前进行MD5加密
             if(args[i] instanceof UserDTO){
                 UserDTO userDTO = (UserDTO) args[i];
-                if(userDTO.getPassword() != null) args[i] = userDTO.setPassword(MD5Utils.md5(userDTO.getPassword()));
+                if(userDTO.getPassword() != null) {args[i] = userDTO.setPassword(MD5Utils.md5(userDTO.getPassword()));}
             }
         }
         // 特定的唯一的缓存键 执行的方法全路径名+查询参数JSON字符串

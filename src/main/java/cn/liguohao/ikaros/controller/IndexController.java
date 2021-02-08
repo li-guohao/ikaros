@@ -74,7 +74,7 @@ public class IndexController {
     public String applicationInit() throws IOException{
         // 判断是否已经初始化 已经初始化不进行任何操作 这里又判断一遍是为了防止误操作
         if(!isInited()) { // 未初始化进行初始化操作
-            if(!init()) throw new IOException("应用初始化失败"); // 初始化失败则抛出异常
+            if(!init()) {throw new IOException("应用初始化失败");} // 初始化失败则抛出异常
         }
         // 操作完毕 重定向到首页
         return "redirect:/";

@@ -52,10 +52,10 @@ public class TokenUtils {
         // 获取请求中的token
         String token = request.getHeader("Authorization");
         //非空判断
-        if(token==null || "".equals(token)) return false;
-        if(userToken==null || "".equals(userToken)) return false;
+        if(token==null || "".equals(token)) {return false;}
+        if(userToken==null || "".equals(userToken)) {return false;}
         //判断是否相等
-        if(userToken.equals(token)) return true;
+        if(userToken.equals(token)) {return true;}
         return false;
     }
 }

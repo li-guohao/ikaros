@@ -55,8 +55,9 @@ public class MemoryCacheStore<T> implements CacheStore<T>{
         // 待移除的列表
         List<String> keys = new ArrayList<String>();
         CACHE_CONTAINER.forEach((k,v)->{
-            if(LocalDateTime.now().isAfter(v.getExpireTime())) //超时缓存失效
+            if(LocalDateTime.now().isAfter(v.getExpireTime())){ //超时缓存失效
                 keys.add(k); //将key添加到待移除的列表中
+            }
         });
         int count = keys.size();
         if(!keys.isEmpty()) {
@@ -94,7 +95,7 @@ public class MemoryCacheStore<T> implements CacheStore<T>{
         // 待移除的列表
         List<String> keys = new ArrayList<String>();
         CACHE_CONTAINER.forEach((k,v)->{
-            if(k.startsWith(keyprofix)) keys.add(k);
+            if(k.startsWith(keyprofix)) {keys.add(k);}
         });
         // 移除对应的key
         int count = keys.size();
@@ -110,7 +111,7 @@ public class MemoryCacheStore<T> implements CacheStore<T>{
 
     @Override
     public void clear() {
-        if(!CACHE_CONTAINER.isEmpty()) CACHE_CONTAINER.clear();
+        if(!CACHE_CONTAINER.isEmpty()) {CACHE_CONTAINER.clear();}
         logger.info("[伊卡洛斯]清楚全部缓存数据");
     }
 

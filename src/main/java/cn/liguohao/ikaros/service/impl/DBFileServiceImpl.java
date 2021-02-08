@@ -97,7 +97,7 @@ public class DBFileServiceImpl extends BaseServiceImpl<DBFile> implements DBFile
     public boolean deleteById(Long id) throws IOException {
         // 根据id获取dbFile
         Optional<DBFile> dbFileOptional = dbFileDao.findById(id);
-        if(dbFileOptional.isEmpty()) throw new IkarosNotFoundException("查询不到该文件：fileId="+id);
+        if(dbFileOptional.isEmpty()) {throw new IkarosNotFoundException("查询不到该文件：fileId="+id);}
         DBFile dbFile = dbFileOptional.get();
 
         // 动态获取文件处理器

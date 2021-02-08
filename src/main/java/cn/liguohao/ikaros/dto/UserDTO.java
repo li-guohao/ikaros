@@ -156,7 +156,7 @@ public class UserDTO {
         /**
          * email_password-邮箱密码
          */
-        public static final String EMAil_PASSWORD = "email_password";
+        public static final String EMAIL_PASSWORD = "email_password";
 
         /**
          * phone_number_password-手机号密码

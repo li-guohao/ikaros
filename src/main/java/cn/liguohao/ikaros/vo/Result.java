@@ -67,13 +67,13 @@ public class Result<T> {
         boolean isEmptyListData = false;
         if(data instanceof List){
             List dataList = (List) data;
-            if(dataList.isEmpty()) isEmptyListData = true;
+            if(dataList.isEmpty()) {isEmptyListData = true;}
         }
         // 如是[分页]数据
         boolean isEmptyPagingData = false;
         if(data instanceof PagingData){
             PagingData pagingData = (PagingData) data;
-            if(pagingData.isEmpty()) isEmptyPagingData = true;
+            if(pagingData.isEmpty()) {isEmptyPagingData = true;}
         }
         // 动态判断数据,返回对应的状态和
         if(data==null || isEmptyListData || isEmptyPagingData) {

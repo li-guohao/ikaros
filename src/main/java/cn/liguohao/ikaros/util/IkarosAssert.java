@@ -19,7 +19,7 @@ public class IkarosAssert extends Assert {
      * @see StringUtils#isEmpty(Object)
      */
     public static void isNotEmpty(String str, String message) {
-        if(StringUtils.isEmpty(str)) throw new IllegalArgumentIkarosException(message);
+        if(StringUtils.isEmpty(str)) {throw new IllegalArgumentIkarosException(message);}
     }
 
     /**
@@ -39,7 +39,7 @@ public class IkarosAssert extends Assert {
      * @see ObjectUtils#isEmpty(Object)
      */
     public static void isNotEmpty(Object obj,String message) {
-        if(ObjectUtils.isEmpty(obj)) throw new IllegalArgumentIkarosException(message);
+        if(ObjectUtils.isEmpty(obj)) {throw new IllegalArgumentIkarosException(message);}
     }
 
 

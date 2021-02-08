@@ -3,12 +3,10 @@ package cn.liguohao.ikaros.store.diskfile.handler;
 import cn.liguohao.ikaros.config.ServerConfig;
 import cn.liguohao.ikaros.constant.ConfigItemEnum;
 import cn.liguohao.ikaros.store.database.DBFile;
-import cn.liguohao.ikaros.store.diskfile.builder.DiskFileHandlerBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,7 +50,7 @@ public class LocalDiskFileHandler extends AbstractDiskFileHandler{
      */
     @Override
     protected Map<String, String> getDefiniteTypeObjectStorageInfoMap() {
-        return getObjectStorageInfoMap(ConfigItemEnum.DISK_FILE_PLACE_LOCAL);
+        return getObjectStorageInfoMap();
     }
 
     /**
@@ -94,7 +92,7 @@ public class LocalDiskFileHandler extends AbstractDiskFileHandler{
     @Override
     protected void definiteObjectStorageFileDelete(Map<String, String> objectStorageInfoMap, String relativePath) throws FileNotFoundException {
         File destFile = new File(CUTTENT_USER_DIRECTORY_PATH + relativePath);
-        if(!destFile.exists()) throw new FileNotFoundException("文件为在磁盘上无法找到 路径 ==> "+relativePath);
+        if(!destFile.exists()) {throw new FileNotFoundException("文件为在磁盘上无法找到 路径 ==> "+relativePath);}
         destFile.delete();
         logger.info("文件删除成功，被删除的文件磁盘路径为 ==> "+relativePath);
     }

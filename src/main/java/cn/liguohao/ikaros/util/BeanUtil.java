@@ -1,5 +1,6 @@
 package cn.liguohao.ikaros.util;
 
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 
 /**bean操作通用方法封装
@@ -31,14 +32,12 @@ public class BeanUtil {
 		for (Field field : declaredFields) {
 			try {
 				//获取原来的访问权限
-				boolean accessible = field.isAccessible();
+				boolean accessible = field.canAccess(field);
 				field.setAccessible(true);
 				//String name = 
 						field.getName();
 				Object value = field.get(sourceObj);
-				//System.out.println(name+"-->"+value);
 				if(isExist(value)){	//字段存在
-					//System.out.println("if-->"+value);
 					field.set(targetObj, value);
 				}
 				//恢复原来发访问权限

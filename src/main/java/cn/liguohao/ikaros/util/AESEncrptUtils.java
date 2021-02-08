@@ -38,7 +38,7 @@ public class AESEncrptUtils {
      * @param aesKeyLength 密钥长度 AES算法要求密钥长度位 128 192 256
      * @return 已经用Base64编码的密钥字节数组
      */
-    public static byte[] generateKeyByteArray(int aesKeyLength)  {
+    public static byte[] generateKeyByteArray(int aesKeyLength) {
         // 获取密钥生成器
         KeyGenerator keyGenerator = null;
         try {
@@ -75,7 +75,7 @@ public class AESEncrptUtils {
      */
     public static void generateKeyFile(int aesKeyLength,File keyFile) throws IOException {
         // 父目录判断
-        if(!keyFile.getParentFile().exists()) keyFile.getParentFile().mkdirs();
+        if(!keyFile.getParentFile().exists()) {keyFile.getParentFile().mkdirs();}
 
         // 生成密钥
         byte[] bytes = generateKeyByteArray(aesKeyLength);
@@ -212,7 +212,7 @@ public class AESEncrptUtils {
      */
     public static void encrptFile(File keyFile, File dataFile, File encrptedFile) throws IOException {
         // 父目录不存在创建
-        if(!encrptedFile.getParentFile().exists()) encrptedFile.getParentFile().mkdirs();
+        if(!encrptedFile.getParentFile().exists()) {encrptedFile.getParentFile().mkdirs();}
 
         // 加密文件获取加密后字节数组
         byte[] enrptedFileBytes = encrptFile(keyFile, dataFile);
@@ -320,7 +320,7 @@ public class AESEncrptUtils {
      */
     public static void decryptFile(File keyFile, File dataFile, File decrptedFile) throws IOException{
         // 文件父目录不存在创建
-        if(!decrptedFile.getParentFile().exists()) decrptedFile.getParentFile().mkdirs();
+        if(!decrptedFile.getParentFile().exists()) {decrptedFile.getParentFile().mkdirs();}
 
         // 解密文件获取解密后字节数组
         byte[] decryptBytes = decryptFile(keyFile, dataFile);

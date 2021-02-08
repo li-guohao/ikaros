@@ -75,8 +75,8 @@ public class RSAEncrptUtils {
      */
     public static void generateKeyFile(int keySize, File publicKeyFile, File privateKeyFile) throws IOException {
         // 父目录不存在创建
-        if(!publicKeyFile.getParentFile().exists()) publicKeyFile.getParentFile().mkdirs();
-        if(!privateKeyFile.getParentFile().exists()) privateKeyFile.getParentFile().mkdirs();
+        if(!publicKeyFile.getParentFile().exists()) {publicKeyFile.getParentFile().mkdirs();}
+        if(!privateKeyFile.getParentFile().exists()) {privateKeyFile.getParentFile().mkdirs();}
 
         // 生成密钥对
         KeyPair keyPair = generateKey(keySize);
@@ -101,10 +101,10 @@ public class RSAEncrptUtils {
      */
     public static void encrptFileByPublicKeyFile(File publicKeyFile,File originalFile, File encryptedFile) throws IOException {
         // 文件存在判断
-        if(!originalFile.exists()) throw new FileNotFoundException(originalFile.getPath());
+        if(!originalFile.exists()) {throw new FileNotFoundException(originalFile.getPath());}
 
         // 加密文件父目录不存在创建
-        if(!encryptedFile.getParentFile().exists()) encryptedFile.getParentFile().mkdirs();
+        if(!encryptedFile.getParentFile().exists()) {encryptedFile.getParentFile().mkdirs();}
 
         // 获取公钥字节数组
         byte[] publicKeyBytes = FileUtils.toByteArray(publicKeyFile);
@@ -156,10 +156,10 @@ public class RSAEncrptUtils {
      */
     public static void decrptFileByPrivateKeyFile(File privateKeyFile, File encryptedFile, File decryptedFile) throws IOException {
         // 文件存在判断
-        if(!encryptedFile.exists()) throw new FileNotFoundException(encryptedFile.getPath());
+        if(!encryptedFile.exists()) {throw new FileNotFoundException(encryptedFile.getPath());}
 
         // 加密文件父目录不存在创建
-        if(!decryptedFile.getParentFile().exists()) decryptedFile.getParentFile().mkdirs();
+        if(!decryptedFile.getParentFile().exists()) {decryptedFile.getParentFile().mkdirs();}
 
         FileOutputStream fileOutputStream = null;
         try {

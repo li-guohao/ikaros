@@ -80,7 +80,7 @@ public class ConfigServiceImpl extends BaseServiceImpl<Config> implements Config
         initAliyunOSSConfigItem();
 
         // 生产环境 ==> 初始化下载默认的主题文件
-        if("pro".equals(springProfilesActive)) downloadDefaultTheme();
+        if("pro".equals(springProfilesActive)) {downloadDefaultTheme();}
 
         // 初始化完毕 更新数据库配置表对应记录
         Optional<Config> appInitConfigOptional = configDao.findOne(Example.of(

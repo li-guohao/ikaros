@@ -68,11 +68,11 @@ public class GlobalFilter implements Filter {
                     .setToken(authorization==null?"authorization":authorization)
             );
             // 如是用户登录则放行
-            if(requestURL.indexOf("login")>0) isAuth = true;
+            if(requestURL.indexOf("login")>0) {isAuth = true;}
         }
 
         // 测试环境放行
-        if("dev".equals(springProfilesActive)) isAuth = true;
+        if("dev".equals(springProfilesActive)) {isAuth = true;}
 
         // 根据结果处理
         if(isAuth){

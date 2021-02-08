@@ -2,20 +2,16 @@ package cn.liguohao.ikaros.store.diskfile.handler;
 
 import cn.liguohao.ikaros.annotation.IkarosCache;
 import cn.liguohao.ikaros.constant.ConfigItemEnum;
-import cn.liguohao.ikaros.constant.DiskFilePlaceEnum;
 import cn.liguohao.ikaros.service.ConfigService;
 import cn.liguohao.ikaros.store.database.Config;
 import cn.liguohao.ikaros.store.database.DBFile;
 import cn.liguohao.ikaros.util.IkarosAssert;
 import cn.liguohao.ikaros.util.StringUtils;
 import cn.liguohao.ikaros.util.UUIDUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
@@ -29,10 +25,6 @@ import java.util.Map;
  */
 public abstract class AbstractDiskFileHandler implements DiskFileHandler {
 
-    /**
-     * 日志对象
-     */
-    private static final Logger logger = LoggerFactory.getLogger(AbstractDiskFileHandler.class);
 
     @Autowired
     private ConfigService configService;
@@ -46,30 +38,32 @@ public abstract class AbstractDiskFileHandler implements DiskFileHandler {
 
     /**
      * 从数据库获取对应平台的对象存储相关连接信息
-     * @param diskFilePlaceConfig 磁盘文件储存策略配置信息 如ConfigItemEnum.DISK_FILE_PLACE_LOCAL
      * @return 对应存储策略的配置项信息
      */
     @IkarosCache
-    protected Map<String, String> getObjectStorageInfoMap(ConfigItemEnum diskFilePlaceConfig){
-        if(diskFilePlaceConfig == ConfigItemEnum.DISK_FILE_PLACE_LOCAL) return null;
-        HashMap<String, String> objectStorage = new HashMap<>();
+    protected Map<String, String> getObjectStorageInfoMap(){
+        HashMap<String, String> objectStorage = new HashMap<>(55);
         // 将储存策略的值作为类型 查询 多条对应策略的配置项
         List<Config> configs = configService.findList(Example.of(
-                Config.build().setType(diskFilePlaceConfig.getValue())
+                Config.build().setType(ConfigItemEnum.DISK_FILE_PLACE_LOCAL.getValue())
         ));
         // 将储存策略的配置项储存到集合中
-        for(Config config : configs) objectStorage.put(config.getName(),config.getValue());
+        for(Config config : configs) {objectStorage.put(config.getName(),config.getValue());}
 
         // 缺省提醒
         IkarosAssert.isFalse(StringUtils.isEmpty(objectStorage.get("access_protocol")) || StringUtils.isEmpty(objectStorage.get("access_domain")),"您还没有设置对象存储的相关信息");
         return objectStorage;
-    };
+    }
 
     /**
      * @see DiskFileHandler#uploadFile(MultipartFile)
      */
     @Override
     public DBFile uploadFile(MultipartFile multipartFile) throws IOException {
+
+        // 默认的文件描述
+        final String defaultDbfileDescription = "这是一段默认的对于该文件的描述QAQ";
+
         IkarosAssert.isNotEmpty(multipartFile,"上传的文件不能为空");
         // 获取信息
         Map<String, String> objectStorageInfoMap = getDefiniteTypeObjectStorageInfoMap();
@@ -81,12 +75,12 @@ public abstract class AbstractDiskFileHandler implements DiskFileHandler {
         dbFile.setOriginalName(originalName);
 
         // 获取文件的后缀格式
-        String suffix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1).toLowerCase();
+        String suffix = originalName==null?"":originalName.substring(originalName.lastIndexOf(".") + 1).toLowerCase();
         dbFile.setSuffix(suffix);
 
         //生成文件名 UUID
-        String diksFileName = UUIDUtils.getId() + "." + suffix;
-        dbFile.setDiskName(diksFileName);
+        String diskFileName = UUIDUtils.getId() + "." + suffix;
+        dbFile.setDiskName(diskFileName);
 
         // 文件大小
         long size = multipartFile.getSize();
@@ -95,15 +89,15 @@ public abstract class AbstractDiskFileHandler implements DiskFileHandler {
         //生成文件多层路径,日期 /2020/11/14
         Calendar now = Calendar.getInstance();
         String middle = "";
-        middle += "/" + now.get(Calendar.YEAR); // /2020
-        middle += "/" + (now.get(Calendar.MONTH) + 1);// /11
-        middle += "/" + now.get(Calendar.DAY_OF_MONTH); //14
-        middle += "/" + now.get(Calendar.HOUR_OF_DAY); //15
+        middle += "/" + now.get(Calendar.YEAR);
+        middle += "/" + (now.get(Calendar.MONTH) + 1);
+        middle += "/" + now.get(Calendar.DAY_OF_MONTH);
+        middle += "/" + now.get(Calendar.HOUR_OF_DAY);
 
         // 构建文件相对于upload目录的路径 /2020/11/14/simple.jpg
-        String realtivePath = middle + "/" + diksFileName;
+        String realtivePath = middle + "/" + diskFileName;
         dbFile.setRelativePath(realtivePath);
-        if(StringUtils.isEmpty(dbFile.getDescription())) dbFile.setDescription("这是一段默认的对于该文件的描述QAQ");
+        if(StringUtils.isEmpty(dbFile.getDescription())) {dbFile.setDescription(defaultDbfileDescription);}
 
         // 执行具体的文件上传
         return definiteObjectStorageFileUpload(objectStorageInfoMap,multipartFile.getBytes(),dbFile);
@@ -116,6 +110,7 @@ public abstract class AbstractDiskFileHandler implements DiskFileHandler {
      * @param bytes 文件数据
      * @param dbFile 数据库文件记录对象
      * @return 完整的数据库文件记录对象
+     * @throws IOException 操作文件时的IO异常
      */
     protected abstract DBFile definiteObjectStorageFileUpload(Map<String, String> objectStorageInfoMap, byte[] bytes, DBFile dbFile) throws IOException;
 
@@ -131,6 +126,7 @@ public abstract class AbstractDiskFileHandler implements DiskFileHandler {
      * 具体的文件移除操作
      * @param objectStorageInfoMap 储存策略配置项信息Map集合
      * @param relativePath 文件的相对路径
+     * @throws FileNotFoundException 删除操作文件未找到
      */
     protected abstract void definiteObjectStorageFileDelete(Map<String, String> objectStorageInfoMap, String relativePath) throws FileNotFoundException;
 }

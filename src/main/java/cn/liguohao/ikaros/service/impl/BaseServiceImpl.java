@@ -76,7 +76,7 @@ public class BaseServiceImpl<E> implements BaseService<E> {
         Integer currentPage = pageQuery.getCurrentPage();
         Integer pageSize = pageQuery.getPageSize();
         //校验合法性
-        if(ObjectUtils.isEmpty(searchEntity) || ObjectUtils.isEmpty(currentPage) || ObjectUtils.isEmpty(pageSize) || currentPage<0 || pageSize<=0)  throw new UserOperateException("请传入正确的分页参数 ");
+        if(ObjectUtils.isEmpty(searchEntity) || ObjectUtils.isEmpty(currentPage) || ObjectUtils.isEmpty(pageSize) || currentPage<0 || pageSize<=0)  {throw new UserOperateException("请传入正确的分页参数 ");}
         //构建查询条件
         Specification<E> specification = buildSpecification(searchEntity);
 
