@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/dbfile")
-public class DBFileController {
+public class DBFileController extends BaseController<DBFile>{
 
     @Autowired
     private DBFileService dbFileService;
@@ -77,55 +77,4 @@ public class DBFileController {
         return result;
     }
 
-    /**
-     * 保存或者更新文件
-     * @param dbFile 待保存或更新的文件
-     * @return 带数据库文件记录对象的结果
-     */
-    @PutMapping("/one/save")
-    public Result<DBFile> sava(@RequestBody DBFile dbFile){
-        return Result.build().setDSM(
-                dbFileService.save(dbFile),
-                Status.created,"保存或更新成功",
-                Status.serverError,"保存或更新失败"
-        );
-    }
-
-    /**
-     * 移除文件
-     * @param fileId 文件记录ID
-     * @return 是否成功
-     * @throws IOException IO读写异常
-     */
-    @DeleteMapping("/one/{id}")
-    public Result deleteFileByFileId(@PathVariable("id") Long fileId) throws IOException {
-        dbFileService.deleteById(fileId);
-        return Result.build().setStatus(Status.success).setMessage("删除ID为<"+fileId+">的文件成功");
-    }
-
-    /**
-     * 根据ID查询文件
-     * @param fileId 文件记录ID
-     * @return 带数据库文件记录的结果
-     */
-    @GetMapping("/one/{id}")
-    public Result<DBFile> findDBFileByFileId(@PathVariable("id") Long fileId){
-        return Result.build().setDSM(dbFileService.findById(fileId),Status.success,"查询成功",Status.notFound,"查询文件记录失败==>"+fileId);
-    }
-
-    /**
-     * 分页查询文件
-     * @param dbFilePageQuery 分页查询对象
-     * @return 带分页数据的结果
-     */
-    @PostMapping("/list/paging")
-    public Result<PagingData<DBFile>> findDBFilesByPaging(
-            @RequestBody PageQuery<DBFile> dbFilePageQuery
-            ){
-        return Result.build().setDSM(
-                dbFileService.findByPaging(dbFilePageQuery),
-                Status.success,"分页查询成功",
-                Status.notFound,"查询无数据"
-        );
-    }
 }
