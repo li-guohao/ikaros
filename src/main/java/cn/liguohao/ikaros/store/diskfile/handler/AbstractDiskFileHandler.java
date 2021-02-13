@@ -44,14 +44,17 @@ public abstract class AbstractDiskFileHandler implements DiskFileHandler {
     protected Map<String, String> getObjectStorageInfoMap(){
         HashMap<String, String> objectStorage = new HashMap<>(55);
         // 将储存策略的值作为类型 查询 多条对应策略的配置项
+        ConfigItemEnum diskFilePlacePolicy = ConfigItemEnum.DISK_FILE_PLACE_LOCAL;
         List<Config> configs = configService.findList(Example.of(
-                Config.build().setType(ConfigItemEnum.DISK_FILE_PLACE_LOCAL.getValue())
+                Config.build().setType(diskFilePlacePolicy.getValue())
         ));
         // 将储存策略的配置项储存到集合中
         for(Config config : configs) {objectStorage.put(config.getName(),config.getValue());}
 
         // 缺省提醒
-        IkarosAssert.isFalse(StringUtils.isEmpty(objectStorage.get("access_protocol")) || StringUtils.isEmpty(objectStorage.get("access_domain")),"您还没有设置对象存储的相关信息");
+        if(diskFilePlacePolicy != ConfigItemEnum.DISK_FILE_PLACE_LOCAL) {
+            IkarosAssert.isFalse(StringUtils.isEmpty(objectStorage.get("access_protocol")) || StringUtils.isEmpty(objectStorage.get("access_domain")),"您还没有设置对象存储的相关信息");
+        }
         return objectStorage;
     }
 

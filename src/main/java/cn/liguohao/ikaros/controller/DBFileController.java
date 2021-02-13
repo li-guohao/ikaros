@@ -11,6 +11,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -63,8 +64,16 @@ public class DBFileController {
      * @throws IOException IO读写异常
      */
     @PostMapping("/one/upload")
-    public Result<DBFile> uploadPost(MultipartFile file) throws IOException {
-        return Result.build().setDSM(dbFileService.upload(file),Status.created,"上传文件成功",Status.serverError,"上传文件失败");
+    public Result<DBFile> uploadPost(MultipartFile file, HttpServletResponse response) throws IOException {
+        Result result = Result.build();
+        try {
+            result.setData(dbFileService.upload(file));
+            result.setStatus(Status.created).setMessage("上传文件成功");
+        }catch (Exception exception){
+            response.setStatus(500);
+            result.setStatus(Status.serverError).setMessage("上传文件失败 ==> "+exception.getMessage());
+        }
+        return result;
     }
 
     /**
