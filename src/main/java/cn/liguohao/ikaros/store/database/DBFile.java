@@ -67,7 +67,8 @@ public class DBFile {
     private String relativePath;
 
     /**
-     * 文件储存的地方 具体请查看 cn.liguohao.ikaros.constant.DiskFilePlace
+     * 文件储存的地方 具体请查看
+     * @see cn.liguohao.ikaros.constant.DiskFilePlaceEnum
      */
     private String place;
 

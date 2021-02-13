@@ -160,16 +160,16 @@ public class ConfigServiceImpl extends BaseServiceImpl<Config> implements Config
                 Config.build().setType(configItemEnum.getType())
                         .setName(configItemEnum.getName())
         ));
+        // 获取配置项
+        Config config = cacheConfigOptional.isEmpty()?Config.build():cacheConfigOptional.get();
         // 更新配置项
-        if(cacheConfigOptional.isEmpty()){ //配置项不存在 添加配置项
-            configDao.save(
-                    Config.build().setType(configItemEnum.getType())
-                            .setName(configItemEnum.getName())
-                            .setValue(configItemEnum.getValue())
-                            .setDescription(configItemEnum.getDescription())
-                            .setUpdateTime(LocalDateTime.now())
-            );
-        }
+        configDao.save(
+                config.setType(configItemEnum.getType())
+                        .setName(configItemEnum.getName())
+                        .setValue(configItemEnum.getValue())
+                        .setDescription(configItemEnum.getDescription())
+                        .setUpdateTime(LocalDateTime.now())
+        );
     }
 
     /**

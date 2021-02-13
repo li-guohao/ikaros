@@ -28,6 +28,7 @@ public interface ConfigService extends BaseService<Config> {
      * @param configExample 查询添加对象
      * @return 对应的配置信息
      */
+    @Override
     Config findOne(Example<Config> configExample);
 
     /**

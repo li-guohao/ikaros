@@ -19,6 +19,7 @@ public interface DBFileService extends BaseService<DBFile> {
      * @param dbFileExample 查询条件
      * @return 文件数据
      */
+    @Override
     DBFile findOne(Example<DBFile> dbFileExample);
 
     /**

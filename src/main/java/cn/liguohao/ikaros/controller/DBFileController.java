@@ -71,6 +71,7 @@ public class DBFileController {
             result.setStatus(Status.created).setMessage("上传文件成功");
         }catch (Exception exception){
             response.setStatus(500);
+            exception.printStackTrace();
             result.setStatus(Status.serverError).setMessage("上传文件失败 ==> "+exception.getMessage());
         }
         return result;

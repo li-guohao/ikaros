@@ -32,7 +32,7 @@ public enum ConfigItemEnum {
      * <p>文件存储策略-本地</p>
      * <p>文件上传到本地服务器</p>
      */
-    DISK_FILE_PLACE_LOCAL("disk_file","place",DiskFilePlaceEnum.LOCAL.getName(),"文件存储策略-本地")
+    DISK_FILE_PLACE_LOCAL("disk_file","place",DiskFilePlaceEnum.LOCAL.getName(),"文件存储策略：local-本地 aliyun_oss-阿里云对象存储")
     ,
     /**
      * <p>文件存储策略-阿里云对象存储</p>
