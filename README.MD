@@ -27,12 +27,13 @@
 - 后端框架: Spring, SpringMVC, SpringDataJpa, Hibernate
 - 数据库: H2，MySQL
 - 前端语言: HTML5, CSS3, JavaScript
-- 前端框架: Vue.js, AntD
+- 前端框架: Vue.js, Element-ui
 
 
 # 开发进度
 - 2020.12 ~ now: 开发个人数据存储计划中
   - 2021.1.26: 完成系统配置模块的前后端开发和联调
+  - 2021.2.13: 完成文件模块的CRUD
 
 # 灵感参考
 - 系统架构设计参考优秀的开源博客项目halo 
