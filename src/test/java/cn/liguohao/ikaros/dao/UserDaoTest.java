@@ -4,6 +4,9 @@ import cn.liguohao.ikaros.store.database.User;
 import cn.liguohao.ikaros.util.MD5Utils;
 import cn.liguohao.ikaros.util.Md5UtilsTest;
 import cn.liguohao.ikaros.util.TokenUtils;
+import com.alibaba.fastjson.JSON;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,20 +27,11 @@ public class UserDaoTest {
     private UserDao userDao;
 
     @Test
-    public void add(){
-        User user = User.build()
-                .setUsername("test")
-                .setCreateDate(LocalDateTime.now())
-                .setToken(TokenUtils.gengerToken())
-                .setEmail("test@liguohao.cn")
-                .setPassword(MD5Utils.md5("123456"))
-                .setPhoneNumber("121212121");
-        userDao.save(user);
+    public void findAll(){
+        System.out.println(
+                JSON.toJSON(userDao.findAll())
+        );
     }
 
-    @Test
-    public void deleteById(){
-        userDao.deleteById(1L);
-    }
 
 }
