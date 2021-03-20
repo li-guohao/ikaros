@@ -1,4 +1,7 @@
 # 本地开发环境配置
+ikaros:
+  domain: localhost:8888
+
 #Sl4j 默认是[INFO],开发环境设置成[DEBUG]
 logging:
   level:

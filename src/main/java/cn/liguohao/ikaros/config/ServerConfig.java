@@ -35,9 +35,8 @@ public class ServerConfig implements ApplicationListener<WebServerInitializedEve
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        // 纯粹为了解决在Linux部署的问题，如阿里云获取的IP是内网IP，外网根本无法访问
-        // 条件是当自定义域名不为空并且当前操作系统为linux
-        if(!StringUtils.isEmpty(ikarosDomain) && System.getProperty("os.name").indexOf("Linux")>=0) {
+        // 条件是当自定义域名不为空
+        if(!StringUtils.isEmpty(ikarosDomain)) {
             return "http://"+ikarosDomain;
         }else {
             return "http://"+address.getHostAddress() +":"+this.serverPort;

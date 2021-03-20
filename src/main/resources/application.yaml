@@ -1,7 +1,4 @@
 # 主配置文件
-ikaros:
-  domain:
-
 
 #内置Tomcat服务器
 server:
