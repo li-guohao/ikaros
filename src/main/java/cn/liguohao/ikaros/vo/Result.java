@@ -1,5 +1,6 @@
 package cn.liguohao.ikaros.vo;
 
+import java.util.Collection;
 import java.util.List;
 
 /**返回结果类
@@ -63,11 +64,11 @@ public class Result<T> {
      */
     public Result<T> setDSM(T data,Status successStatus,String successMsg,Status faildStatus,String faildMsg){
         this.data = data;
-        // 如是[List]集合数据
+        // 如是[Collection]集合数据
         boolean isEmptyListData = false;
-        if(data instanceof List){
-            List dataList = (List) data;
-            if(dataList.isEmpty()) {isEmptyListData = true;}
+        if(data instanceof Collection){
+            Collection dataList = (Collection) data;
+            if(dataList.size() == 0) {isEmptyListData = true;}
         }
         // 如是[分页]数据
         boolean isEmptyPagingData = false;

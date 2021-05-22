@@ -7,10 +7,8 @@ import cn.liguohao.ikaros.dao.ConfigDao;
 import cn.liguohao.ikaros.exception.IkarosException;
 import cn.liguohao.ikaros.service.ConfigService;
 import cn.liguohao.ikaros.store.database.Config;
-import cn.liguohao.ikaros.store.database.DBFile;
 import cn.liguohao.ikaros.util.HttpClientUtils;
 import cn.liguohao.ikaros.util.StringUtils;
-import cn.liguohao.ikaros.vo.PagingData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +25,7 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**服务层实现-系统配置
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
@@ -209,9 +205,9 @@ public class ConfigServiceImpl extends BaseServiceImpl<Config> implements Config
 
     @Override
     @IkarosCache
-    public List<String> findTypes() {
+    public Set<String> findTypes() {
         List<Config> configs = configDao.findAll();
-        ArrayList<String> types = new ArrayList<>();
+        Set<String> types = new HashSet<>();
         configs.forEach(config -> types.add(config.getType()));
         return types;
     }

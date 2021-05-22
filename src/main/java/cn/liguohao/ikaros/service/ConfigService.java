@@ -4,6 +4,7 @@ import cn.liguohao.ikaros.store.database.Config;
 import org.springframework.data.domain.Example;
 
 import java.util.List;
+import java.util.Set;
 
 /**服务层-系统配置
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
@@ -42,5 +43,5 @@ public interface ConfigService extends BaseService<Config> {
      * 查询所有的配置类型
      * @return 配置类型集合
      */
-    List<String> findTypes();
+    Set<String> findTypes();
 }

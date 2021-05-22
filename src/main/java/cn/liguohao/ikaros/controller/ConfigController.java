@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 /**系统配置
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
@@ -26,7 +27,7 @@ public class ConfigController extends BaseController<Config>{
     private ConfigService configService;
 
     @GetMapping("/types")
-    public Result<List<String>> findTypes(){
+    public Result<Set<String>> findTypes(){
         return Result.build().setDSM(
                 configService.findTypes(),
                 Status.success,"查询成功",
