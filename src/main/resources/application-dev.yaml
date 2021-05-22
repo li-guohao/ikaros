@@ -10,7 +10,7 @@ logging:
 spring:
   #模板引擎thymeleaf
   thymeleaf:
-    prefix: classpath:/template/simple/
+    prefix: classpath:/template/
     suffix: .html
     mode: HTML5
     encoding: UTF-8

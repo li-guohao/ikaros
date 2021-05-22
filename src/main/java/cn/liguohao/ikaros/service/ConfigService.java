@@ -44,4 +44,10 @@ public interface ConfigService extends BaseService<Config> {
      * @return 配置类型集合
      */
     Set<String> findTypes();
+
+    /**
+     * 查询DB获取主题名称
+     * @return 主题名称
+     */
+    String getThemeName();
 }

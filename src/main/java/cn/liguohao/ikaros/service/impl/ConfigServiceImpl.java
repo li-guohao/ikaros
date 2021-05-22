@@ -8,6 +8,7 @@ import cn.liguohao.ikaros.exception.IkarosException;
 import cn.liguohao.ikaros.service.ConfigService;
 import cn.liguohao.ikaros.store.database.Config;
 import cn.liguohao.ikaros.util.HttpClientUtils;
+import cn.liguohao.ikaros.util.IkarosAssert;
 import cn.liguohao.ikaros.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,8 @@ public class ConfigServiceImpl extends BaseServiceImpl<Config> implements Config
 
     @Autowired
     private ConfigDao configDao;
+    @Autowired
+    private ConfigService configService;
 
     @Value("${spring.profiles.active}")
     private String springProfilesActive;
@@ -222,5 +225,32 @@ public class ConfigServiceImpl extends BaseServiceImpl<Config> implements Config
         Set<String> types = new HashSet<>();
         configs.forEach(config -> types.add(config.getType()));
         return types;
+    }
+
+
+    /**
+     * 主题名称
+     */
+    private volatile String themeName = "";
+
+    /**
+     * 查询DB获取主题名称
+     * @return 主题名称
+     */
+    @Override
+    @IkarosCache
+    public String getThemeName(){
+        String themeName = "";
+        if(StringUtils.isEmpty(themeName)) {
+            // 获取主题文件URL
+            Config config = configService.findOne(Example.of(
+                    Config.build().setType(ConfigItemEnum.DOWNLOAD_DEFAULT_THEME_URL.getType())
+                            .setName(ConfigItemEnum.DOWNLOAD_DEFAULT_THEME_URL.getName())
+            ));
+            String themeSimpleZipUrl = config.getValue();
+            themeName = themeSimpleZipUrl.substring(themeSimpleZipUrl.lastIndexOf("/")+1,themeSimpleZipUrl.lastIndexOf("."));
+            IkarosAssert.isNotEmpty(config,"未查询到默认的主题配置，请重新初始化后再次尝试");
+        }
+        return themeName;
     }
 }
