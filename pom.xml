@@ -7,7 +7,14 @@
     <groupId>cn.liguohao</groupId>
     <artifactId>ikaros</artifactId>
     <version>0.1-SNAPSHOT</version>
-    <description>伊卡洛斯陪您记录学习、记录生活.</description>
+    <description>伊卡洛斯是面向个人的资源管理应用</description>
+    <developers>
+        <developer>
+            <name>liguohao</name>
+            <email>liguohao_cn@qq.com</email>
+            <url>https://liguohao.cn</url>
+        </developer>
+    </developers>
 
     <!-- springBoot父依赖 -->
     <parent>
