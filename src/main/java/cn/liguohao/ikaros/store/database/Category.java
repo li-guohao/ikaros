@@ -25,7 +25,7 @@ public class Category {
 
     /**
      * 类型
-     * @see cn.liguohao.ikaros.constant.CategoryTypeEnum
+     * @see cn.liguohao.ikaros.enums.CategoryTypeEnum
      */
     private String type;
 

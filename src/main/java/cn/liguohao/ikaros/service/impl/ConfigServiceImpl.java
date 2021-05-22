@@ -2,7 +2,7 @@ package cn.liguohao.ikaros.service.impl;
 
 import cn.liguohao.ikaros.annotation.IkarosCache;
 import cn.liguohao.ikaros.annotation.IkarosUpdateCache;
-import cn.liguohao.ikaros.constant.ConfigItemEnum;
+import cn.liguohao.ikaros.enums.ConfigItemEnum;
 import cn.liguohao.ikaros.dao.ConfigDao;
 import cn.liguohao.ikaros.exception.IkarosException;
 import cn.liguohao.ikaros.service.ConfigService;

@@ -1,4 +1,4 @@
-package cn.liguohao.ikaros.controller;
+package cn.liguohao.ikaros.rest.controller;
 
 import cn.liguohao.ikaros.service.BaseService;
 import cn.liguohao.ikaros.store.database.Config;
@@ -17,7 +17,7 @@ import java.io.IOException;
  * @since 2021/2/13
  */
 @RestController
-public abstract class BaseController<E> {
+public abstract class BaseRestController<E> {
 
     @Autowired
     private BaseService<E> baseService;

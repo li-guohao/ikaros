@@ -2,8 +2,8 @@ package cn.liguohao.ikaros.service.impl;
 
 import cn.liguohao.ikaros.annotation.IkarosCache;
 import cn.liguohao.ikaros.annotation.IkarosUpdateCache;
-import cn.liguohao.ikaros.constant.ConfigItemEnum;
-import cn.liguohao.ikaros.constant.DiskFilePlaceEnum;
+import cn.liguohao.ikaros.enums.ConfigItemEnum;
+import cn.liguohao.ikaros.enums.DiskFilePlaceEnum;
 import cn.liguohao.ikaros.dao.DBFileDao;
 import cn.liguohao.ikaros.exception.IkarosNotFoundException;
 import cn.liguohao.ikaros.service.ConfigService;

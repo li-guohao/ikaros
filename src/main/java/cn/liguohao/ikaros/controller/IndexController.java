@@ -1,12 +1,10 @@
 package cn.liguohao.ikaros.controller;
 
-import cn.liguohao.ikaros.constant.ConfigItemEnum;
+import cn.liguohao.ikaros.enums.ConfigItemEnum;
 import cn.liguohao.ikaros.exception.IkarosException;
 import cn.liguohao.ikaros.service.ConfigService;
 import cn.liguohao.ikaros.store.database.Config;
 import cn.liguohao.ikaros.util.IkarosAssert;
-import cn.liguohao.ikaros.vo.Result;
-import cn.liguohao.ikaros.vo.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**首页
@@ -62,10 +57,6 @@ public class IndexController {
         return "redirect:/admin/index.html";
     }
 
-    @GetMapping("/ex")
-    public String exception(){
-        throw new IkarosException("测试全局异常");
-    }
 
     /**
      * 应用初始化

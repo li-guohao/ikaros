@@ -1,4 +1,4 @@
-package cn.liguohao.ikaros.controller;
+package cn.liguohao.ikaros.rest.controller;
 
 import cn.liguohao.ikaros.store.cache.CacheStore;
 import cn.liguohao.ikaros.vo.Result;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/cache")
-public class CacheController {
+public class CacheRestController {
 
     @Autowired
     public CacheStore cacheStore;

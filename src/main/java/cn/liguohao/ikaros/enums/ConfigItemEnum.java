@@ -1,4 +1,4 @@
-package cn.liguohao.ikaros.constant;
+package cn.liguohao.ikaros.enums;
 
 /**配置项枚举 对应[config]表
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>

@@ -1,7 +1,7 @@
 package cn.liguohao.ikaros.store.diskfile.handler;
 
 import cn.liguohao.ikaros.config.ServerConfig;
-import cn.liguohao.ikaros.constant.ConfigItemEnum;
+import cn.liguohao.ikaros.enums.ConfigItemEnum;
 import cn.liguohao.ikaros.store.database.DBFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

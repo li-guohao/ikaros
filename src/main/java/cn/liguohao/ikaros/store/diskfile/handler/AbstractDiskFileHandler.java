@@ -1,7 +1,7 @@
 package cn.liguohao.ikaros.store.diskfile.handler;
 
 import cn.liguohao.ikaros.annotation.IkarosCache;
-import cn.liguohao.ikaros.constant.ConfigItemEnum;
+import cn.liguohao.ikaros.enums.ConfigItemEnum;
 import cn.liguohao.ikaros.service.ConfigService;
 import cn.liguohao.ikaros.store.database.Config;
 import cn.liguohao.ikaros.store.database.DBFile;

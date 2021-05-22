@@ -1,9 +1,7 @@
-package cn.liguohao.ikaros.controller;
+package cn.liguohao.ikaros.rest.controller;
 
 import cn.liguohao.ikaros.service.DBFileService;
 import cn.liguohao.ikaros.store.database.DBFile;
-import cn.liguohao.ikaros.vo.PageQuery;
-import cn.liguohao.ikaros.vo.PagingData;
 import cn.liguohao.ikaros.vo.Result;
 import cn.liguohao.ikaros.vo.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/dbfile")
-public class DBFileController extends BaseController<DBFile>{
+public class DBFileRestController extends BaseRestController<DBFile> {
 
     @Autowired
     private DBFileService dbFileService;

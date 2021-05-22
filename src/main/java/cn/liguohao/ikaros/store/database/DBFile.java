@@ -2,7 +2,6 @@ package cn.liguohao.ikaros.store.database;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**文件数据
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
@@ -68,7 +67,7 @@ public class DBFile {
 
     /**
      * 文件储存的地方 具体请查看
-     * @see cn.liguohao.ikaros.constant.DiskFilePlaceEnum
+     * @see cn.liguohao.ikaros.enums.DiskFilePlaceEnum
      */
     private String place;
 

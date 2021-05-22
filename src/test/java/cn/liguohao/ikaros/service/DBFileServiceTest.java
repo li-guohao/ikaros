@@ -1,6 +1,6 @@
 package cn.liguohao.ikaros.service;
 
-import cn.liguohao.ikaros.constant.DiskFilePlaceEnum;
+import cn.liguohao.ikaros.enums.DiskFilePlaceEnum;
 import cn.liguohao.ikaros.store.database.DBFile;
 import cn.liguohao.ikaros.vo.PageQuery;
 import cn.liguohao.ikaros.vo.PagingData;

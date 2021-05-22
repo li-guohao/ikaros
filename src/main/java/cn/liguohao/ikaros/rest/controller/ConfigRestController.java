@@ -1,18 +1,12 @@
-package cn.liguohao.ikaros.controller;
+package cn.liguohao.ikaros.rest.controller;
 
 import cn.liguohao.ikaros.service.ConfigService;
 import cn.liguohao.ikaros.store.database.Config;
-import cn.liguohao.ikaros.vo.PageQuery;
-import cn.liguohao.ikaros.vo.PagingData;
 import cn.liguohao.ikaros.vo.Result;
 import cn.liguohao.ikaros.vo.Status;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 /**系统配置
@@ -21,7 +15,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/config")
-public class ConfigController extends BaseController<Config>{
+public class ConfigRestController extends BaseRestController<Config> {
 
     @Autowired
     private ConfigService configService;

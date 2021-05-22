@@ -1,4 +1,4 @@
-package cn.liguohao.ikaros.controller;
+package cn.liguohao.ikaros.rest.controller;
 
 import cn.liguohao.ikaros.dto.UserDTO;
 import cn.liguohao.ikaros.service.UserService;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserRestController {
 
     @Autowired
     private UserService userService;

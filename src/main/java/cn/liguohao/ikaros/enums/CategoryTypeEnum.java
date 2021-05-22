@@ -1,4 +1,4 @@
-package cn.liguohao.ikaros.constant;
+package cn.liguohao.ikaros.enums;
 
 /**分类类型
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>

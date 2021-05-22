@@ -1,6 +1,6 @@
 package cn.liguohao.ikaros.store.diskfile.builder;
 
-import cn.liguohao.ikaros.constant.DiskFilePlaceEnum;
+import cn.liguohao.ikaros.enums.DiskFilePlaceEnum;
 import cn.liguohao.ikaros.store.diskfile.handler.DiskFileHandler;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
