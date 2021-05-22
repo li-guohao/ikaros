@@ -27,59 +27,54 @@ public class RestControllerExceptionHandler {
 
     @ExceptionHandler(IkarosNotFoundException.class)
     public Result ikarosNotFoundException(IkarosNotFoundException ikarosNotFoundException) {
-        String detail = "[伊卡洛斯]数据不存在异常 ==> " + ikarosNotFoundException.getClass().getName() + "==>" + ikarosNotFoundException.getMessage();
         logger.error("[伊卡洛斯]数据不存在异常 ==> " ,ikarosNotFoundException);
         return Result.build()
                 .setStatus(Status.serverError)
                 .setMessage(ikarosNotFoundException.getMessage())
-                .setDetail(detail)
+                .setException(ikarosNotFoundException)
                 ;//END
     }
 
 
     @ExceptionHandler(UserOperateException.class)
     public Result userOperateException(UserOperateException userOperateException) {
-        String detail = "[伊卡洛斯]用户请求异常 ==> " + userOperateException.getClass().getName() + "==>" + userOperateException.getMessage();
         logger.error("[伊卡洛斯]用户请求异常 ==> ", userOperateException);
         return Result.build()
                 .setStatus(Status.serverError)
                 .setMessage(userOperateException.getMessage())
-                .setDetail(detail)
+                .setException(userOperateException)
                 ;//END
     }
 
 
     @ExceptionHandler(IkarosException.class)
     public Result ikarosException(IkarosException ikarosException) {
-        String detail = "[伊卡洛斯]出现了异常情况 ==> " + ikarosException.getClass().getName() + "==>" + ikarosException.getMessage();
         logger.error("[伊卡洛斯]出现了异常情况 ==> ", ikarosException);
         return Result.build()
                 .setStatus(Status.serverError)
                 .setMessage(ikarosException.getMessage())
-                .setDetail(detail)
+                .setException(ikarosException)
                 ;//END
     }
 
 
     @ExceptionHandler(IOException.class)
     public Result exception(IOException ioException) {
-        String detail = "[伊卡洛斯]IO操作出现了异常情况 ==> " + ioException.getClass().getName() + "==>" + ioException.getMessage();
         logger.error("[伊卡洛斯]IO操作出现了异常情况 ==> ", ioException);
         return Result.build()
                 .setStatus(Status.serverError)
                 .setMessage(ioException.getMessage())
-                .setDetail(detail)
+                .setException(ioException)
                 ;//END
     }
 
     @ExceptionHandler(Exception.class)
     public Result exception(Exception exception) {
-        String detail = "[SpringBoot]出现了异常情况 ==> " + exception.getClass().getName() + "==>" + exception.getMessage();
         logger.error("[SpringBoot]出现了异常情况 ==> ", exception);
         return Result.build()
                 .setStatus(Status.serverError)
                 .setMessage(exception.getMessage())
-                .setDetail(detail)
+                .setException(exception)
                 ;//END
     }
 }

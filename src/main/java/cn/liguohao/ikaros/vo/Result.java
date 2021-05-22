@@ -26,7 +26,7 @@ public class Result<T> {
     /**
      * 详细信息 给程序员看
      */
-    private String detail;
+    private Exception exception;
 
     /**
      * 无参构造，链式设置返回值
@@ -103,12 +103,12 @@ public class Result<T> {
         return this;
     }
 
-    public String getDetail() {
-        return detail;
+    public Exception getException() {
+        return exception;
     }
 
-    public Result<T> setDetail(String detail) {
-        this.detail = detail;
+    public Result<T> setException(Exception exception) {
+        this.exception = exception;
         return this;
     }
 
