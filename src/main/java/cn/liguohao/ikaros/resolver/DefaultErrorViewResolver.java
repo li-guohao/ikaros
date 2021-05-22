@@ -1,4 +1,4 @@
-package cn.liguohao.ikaros.handler;
+package cn.liguohao.ikaros.resolver;
 
 import cn.liguohao.ikaros.service.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
