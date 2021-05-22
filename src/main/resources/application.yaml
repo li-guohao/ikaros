@@ -1,4 +1,8 @@
 # 主配置文件
+ikaros:
+  config:
+    theme:
+      default-download-url: https://static.liguohao.cn/.ikaros/theme/simple.zip
 
 #内置Tomcat服务器
 server:

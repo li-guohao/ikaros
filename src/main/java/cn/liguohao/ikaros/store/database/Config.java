@@ -5,7 +5,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**配置
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
@@ -26,13 +25,15 @@ public class Config {
     private Long configId;
 
     /**
-     * 名称
+     * 配置项键
      */
-    private String name;
+    @Column(name = "item_key")
+    private String key;
 
     /**
-     * 名称对应的值
+     * 配置项值
      */
+    @Column(name = "item_value")
     private String value;
 
     /**
@@ -63,12 +64,12 @@ public class Config {
         return this;
     }
 
-    public String getName() {
-        return name;
+    public String getKey() {
+        return key;
     }
 
-    public Config setName(String name) {
-        this.name = name;
+    public Config setKey(String key) {
+        this.key = key;
         return this;
     }
 

@@ -1,5 +1,6 @@
 package cn.liguohao.ikaros.store.database;
 
+import cn.liguohao.ikaros.enums.db.article.CategoryType;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -25,7 +26,7 @@ public class Category {
 
     /**
      * 类型
-     * @see cn.liguohao.ikaros.enums.CategoryTypeEnum
+     * @see CategoryType
      */
     private String type;
 

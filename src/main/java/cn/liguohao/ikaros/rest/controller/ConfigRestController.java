@@ -1,11 +1,12 @@
 package cn.liguohao.ikaros.rest.controller;
 
 import cn.liguohao.ikaros.service.ConfigService;
-import cn.liguohao.ikaros.store.database.Config;
 import cn.liguohao.ikaros.vo.Result;
 import cn.liguohao.ikaros.vo.Status;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
 
@@ -15,7 +16,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/config")
-public class ConfigRestController extends BaseRestController<Config> {
+public class ConfigRestController{
 
     @Autowired
     private ConfigService configService;

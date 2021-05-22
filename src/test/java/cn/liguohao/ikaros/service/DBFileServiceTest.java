@@ -1,6 +1,6 @@
 package cn.liguohao.ikaros.service;
 
-import cn.liguohao.ikaros.enums.DiskFilePlaceEnum;
+import cn.liguohao.ikaros.enums.db.config.DiskFileStrategyValue;
 import cn.liguohao.ikaros.store.database.DBFile;
 import cn.liguohao.ikaros.vo.PageQuery;
 import cn.liguohao.ikaros.vo.PagingData;
@@ -32,7 +32,7 @@ public class DBFileServiceTest {
                 DBFile.build()
                 .setOriginalName("test.png")
                 .setDescription("测试文件数据记录")
-                .setPlace(DiskFilePlaceEnum.LOCAL.getName())
+                .setPlace(DiskFileStrategyValue.LOCAL.name())
                 .setSuffix("png")
                 .setUploadTime(LocalDateTime.now())
         );
@@ -40,19 +40,19 @@ public class DBFileServiceTest {
 
     @Test
     public void findOne(){
-        DBFile dbFile = dbFileService.findOne(Example.of(
+        DBFile dbFile = dbFileService.findOne(
                 DBFile.build()
                         .setSuffix("png")
                         .setFileId(2L)
-        ));
+        );
         System.out.println(JSON.toJSON(dbFile));
     }
 
     @Test
     public void findList(){
-        List<DBFile> dbFileList = dbFileService.findList(Example.of(
-                DBFile.build()
-                        .setSuffix("png")));
+        List<DBFile> dbFileList = dbFileService.findAll(
+                DBFile.build().setSuffix("png")
+        );
         System.out.println(JSON.toJSON(dbFileList));
     }
 

@@ -1,53 +1,271 @@
 package cn.liguohao.ikaros.service;
 
+import cn.liguohao.ikaros.annotation.IkarosCache;
+import cn.liguohao.ikaros.annotation.IkarosUpdateCache;
+import cn.liguohao.ikaros.dao.ConfigDao;
+import cn.liguohao.ikaros.enums.db.config.*;
+import cn.liguohao.ikaros.exception.IkarosException;
 import cn.liguohao.ikaros.store.database.Config;
+import cn.liguohao.ikaros.util.HttpClientUtils;
+import cn.liguohao.ikaros.util.IkarosAssert;
+import cn.liguohao.ikaros.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
+import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-/**服务层-系统配置
+/**
+ * 服务层实现-系统配置
+ *
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/3
  */
-public interface ConfigService extends BaseService<Config> {
+@Service
+public class ConfigService {
+
+    private Logger logger = LoggerFactory.getLogger(ConfigService.class);
+
+    @Autowired
+    private ConfigDao configDao;
+    @Autowired
+    private ConfigService configService;
+
+    @Value("${spring.profiles.active}")
+    private String springProfilesActive;
+
+    @Value("${ikaros.config.theme.default-download-url}")
+    private String defaultThemeZipUrl ;
+
+
+    /**
+     * 根据类型和键新增或更新配置项
+     * 先查询后保存，保证不会插入重复的数据
+     *
+     * @param type  配置类型
+     * @param key   键
+     * @param description 配置项描述
+     * @param value 新值
+     */
+    @IkarosUpdateCache
+    public void saveByTypeAndKey(String type, String key, String description, String value) {
+        // 查询是否存在
+        Optional<Config> configOptional = configDao.findOne(Example.of(
+                Config.build()
+                        .setType(type)
+                        .setKey(key)
+        ));
+        Config config = new Config();
+        if (configOptional.isPresent()) {
+            config = configOptional.get();
+        }
+        // 保存
+        configDao.save(
+                config.setType(type)
+                        .setKey(key)
+                        .setValue(value)
+                        .setDescription(description)
+        );
+
+    }
 
     /**
      * 应用是否已经初始化
+     *
      * @return true-已经初始化 false-未初始化
      */
-    boolean isInited();
+    @IkarosCache
+    public boolean isInited() {
+        Optional<Config> configOptional = configDao.findOne(Example.of(
+                Config.build().setType(ConfigType.APP_INIT.name())
+                        .setKey(APPInitKey.IS_INITED.name())
+        ));
+        // 如果设置表有对应的记录，并且记录值为1，才代表已经初始化了
+        return configOptional.isPresent() && "1".equals(configOptional.get().getValue());
+    }
+
 
     /**
      * 应用初始化
+     *
      * @return true-初始化成功 false-初始化失败
      */
-    boolean init();
+    @Transactional(rollbackOn = Exception.class)
+    @IkarosUpdateCache
+    public boolean init() {
+        logger.info("[伊卡洛斯]开始初始化操作");
+        // 初始化配置项
+        initConfigItem();
+
+        // 生产环境 ==> 初始化下载默认的主题文件
+        if ("pro".equals(springProfilesActive)) {
+            downloadDefaultTheme();
+        }
+
+        // 初始化完毕 更新数据库配置表对应记录
+        configService.saveByTypeAndKey(ConfigType.APP_INIT.name(),APPInitKey.IS_INITED.name(), APPInitKey.IS_INITED.getDescription(), "1");
+        logger.info("[伊卡洛斯]初始化完毕");
+        return true;
+    }
 
     /**
-     * 根据指定条件查询对应的配置信息
-     * @param configExample 查询添加对象
-     * @return 对应的配置信息
+     * 下载默认的主题文件
      */
-    @Override
-    Config findOne(Example<Config> configExample);
+    private void downloadDefaultTheme() {
+
+        // 获取主题文件URL
+        String themeSimpleZipUrl = configDao.findOne(Example.of(
+                Config.build().setType(ConfigType.THEME.name())
+                        .setKey(ThemeKey.DEFAULT_DOWNLOAD_URL.name())
+        )).get().getValue();
+
+        String ikarosUserHome = System.getProperty("user.home") + "/.ikaros";
+        String defaultThemeDir = ikarosUserHome + "/theme";
+        String defaultSimpleThemeFilePath = defaultThemeDir + themeSimpleZipUrl.substring(themeSimpleZipUrl.lastIndexOf("/"));
+
+        // 默认主题ZIP文件
+        File ikarosThemeDefaultFile = new File(defaultSimpleThemeFilePath); // .ikaros/theme/simple.zip
+        if (!ikarosThemeDefaultFile.getParentFile().exists()) {
+            ikarosThemeDefaultFile.getParentFile().mkdirs();
+        }
+
+        // 下载默认的主题文件 文件到错误目录之下
+        defaultSimpleThemeFilePath = defaultSimpleThemeFilePath.replace("/", "\\");
+        try {
+            HttpClientUtils.downloadFile(themeSimpleZipUrl, defaultSimpleThemeFilePath);
+            logger.info("成功下载默认主题(simple)文件 ==> url: " + themeSimpleZipUrl + " 目录：" + defaultSimpleThemeFilePath);
+
+            // 解压缩到指定目录下
+            File defaultSimpleThemeFile = new File(defaultSimpleThemeFilePath);
+            HttpClientUtils.unzip(defaultSimpleThemeFile, defaultThemeDir);
+            logger.info("成功解压默认主题压缩文件包(simple.zip)至指定目录下 ==> " + defaultThemeDir);
+
+            // 删除压缩包文件
+            if (defaultSimpleThemeFile.isFile() && defaultSimpleThemeFile.exists()) {
+                boolean isDelSuccess = defaultSimpleThemeFile.delete();
+                if (isDelSuccess) {
+                    logger.info("成功删除下载的默认主题压缩包文件 ==> " + defaultSimpleThemeFile.getAbsolutePath());
+                } else {
+                    logger.warn("删除文件失败 ==> 默认主题压缩包文件: " + defaultSimpleThemeFile.getAbsolutePath());
+                }
+            }
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            logger.error(ioException.getMessage());
+            throw new IkarosException(ioException.getMessage());
+        }
+    }
 
     /**
-     * 根据添加查询对应的多个配置信息
-     * @param configExample 查询条件
-     * @return 配置信息集合
+     * 初始化配置项
+     *
      */
-    List<Config> findList(Example<Config> configExample);
+    private void initConfigItem() {
+
+        configService.saveByTypeAndKey(ConfigType.APP_INIT.name(), APPInitKey.IS_INITED.name(), APPInitKey.IS_INITED.getDescription(), "0");
+
+        configService.saveByTypeAndKey(ConfigType.CACHE.name(), CacheKey.STRATEGY.name(), CacheKey.STRATEGY.getDescription(), CacheStrategyValue.MEMORY.name());
+
+        configService.saveByTypeAndKey(ConfigType.THEME.name(), ThemeKey.DEFAULT_DOWNLOAD_URL.name(),ThemeKey.DEFAULT_DOWNLOAD_URL.getDescription(), defaultThemeZipUrl);
+        configService.saveByTypeAndKey(ConfigType.THEME.name(), ThemeKey.CURRENT.name(),ThemeKey.CURRENT.getDescription(), defaultThemeZipUrl.substring(defaultThemeZipUrl.lastIndexOf("/") + 1, defaultThemeZipUrl.lastIndexOf(".")));
+
+        configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ACCESS_KEY_ID.name(), AliyunOSSKey.ACCESS_KEY_ID.getDescription(), "");
+        configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ACCESS_DOMAIN.name(), AliyunOSSKey.ACCESS_DOMAIN.getDescription(), "");
+        configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ACCESS_KEY_SECRET.name(), AliyunOSSKey.ACCESS_KEY_SECRET.getDescription(), "");
+        configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ACCESS_PROTOCOL.name(), AliyunOSSKey.ACCESS_PROTOCOL.getDescription(), AliyunOSSAccessProtocolValue.HTTPS.name());
+        configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ENDPOINT.name(), AliyunOSSKey.ENDPOINT.getDescription(), "");
+        configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.OBJECT_NAME_PREFIX.name(), AliyunOSSKey.OBJECT_NAME_PREFIX.getDescription(), ".ikaros/upload");
+        configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.BUCKET_NAME.name(), AliyunOSSKey.BUCKET_NAME.getDescription(), "");
+
+        configService.saveByTypeAndKey(ConfigType.DISK_FILE.name(), DiskFileKey.STRATEGY.name(),DiskFileKey.STRATEGY.getDescription(), DiskFileStrategyValue.LOCAL.name());
+
+    }
 
     /**
      * 查询所有的配置类型
+     *
      * @return 配置类型集合
      */
-    Set<String> findTypes();
+    @IkarosCache
+    public Set<String> findTypes() {
+        List<Config> configs = configDao.findAll();
+        Set<String> types = new HashSet<>();
+        configs.forEach(config -> types.add(config.getType()));
+        return types;
+    }
 
     /**
      * 查询DB获取主题名称
+     *
      * @return 主题名称
      */
-    String getThemeName();
+    @IkarosCache
+    public String getThemeName() {
+        String themeName = "";
+        if (StringUtils.isEmpty(themeName)) {
+            // 获取主题文件URL
+            Optional<Config> configOptional = configDao.findOne(Example.of(
+                    Config.build().setType(ConfigType.THEME.name())
+                            .setKey(ThemeKey.CURRENT.name())
+            ));
+            if(configOptional.isEmpty()) {
+                themeName = "simple";
+            } else {
+                themeName = configOptional.get().getValue();
+            }
+        }
+        return themeName;
+    }
+
+    /**
+     * @return 当前的文件存储策略
+     */
+    @IkarosCache
+    public DiskFileStrategyValue getCurrentDiskFileStrategyValue() {
+        DiskFileStrategyValue currentStrategy = null;
+        Optional<Config> configOptional = configDao.findOne(Example.of(
+                Config.build()
+                        .setType(ConfigType.DISK_FILE.name())
+                        .setKey(DiskFileKey.STRATEGY.name())
+        ));
+        if (configOptional.isPresent()) {
+            currentStrategy = DiskFileStrategyValue.valueOf(configOptional.get().getValue());
+        }
+        return currentStrategy;
+    }
+
+    /**
+     * 查询所有
+     * @param config 查询条件
+     * @return 集合
+     */
+    public List<Config> findAll(Config config) {
+        return configDao.findAll(Example.of(config));
+    }
+
+    /**
+     * 查询所有
+     * @return 集合
+     */
+    public List<Config> findAll() {
+        return configDao.findAll();
+    }
+
+    /**
+     * 保存
+     * @param config 待保存对象
+     */
+    public void save(Config config) {
+        configDao.save(config);
+    }
 }

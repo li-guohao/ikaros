@@ -1,17 +1,17 @@
-package cn.liguohao.ikaros.enums;
+package cn.liguohao.ikaros.enums.db.article;
 
 /**分类类型
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/2/13
  */
-public enum CategoryTypeEnum {
+public enum CategoryType {
 
     /**
      * 文章分类
       */
     ARTICLE("article");
 
-    CategoryTypeEnum(String name) {
+    CategoryType(String name) {
         this.name = name;
     }
 
@@ -24,7 +24,7 @@ public enum CategoryTypeEnum {
         return name;
     }
 
-    public CategoryTypeEnum setName(String name) {
+    public CategoryType setName(String name) {
         this.name = name;
         return this;
     }

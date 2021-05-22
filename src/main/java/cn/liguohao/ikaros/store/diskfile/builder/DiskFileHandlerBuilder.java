@@ -1,6 +1,6 @@
 package cn.liguohao.ikaros.store.diskfile.builder;
 
-import cn.liguohao.ikaros.enums.DiskFilePlaceEnum;
+import cn.liguohao.ikaros.enums.db.config.DiskFileStrategyValue;
 import cn.liguohao.ikaros.store.diskfile.handler.DiskFileHandler;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -22,11 +22,11 @@ public class DiskFileHandlerBuilder  implements InitializingBean, ApplicationCon
 
     /**
      * 根据储存类型构建具体进行工作的磁盘文件处理器
-     * @param diskFilePlaceEnum 储存商指定
+     * @param diskFileStrategyValue 磁盘文件存储策略
      * @return
      */
-    public DiskFileHandler builderDefiniteDiskFileHandler(DiskFilePlaceEnum diskFilePlaceEnum){
-        return diskFileHandlerImplMap.get(diskFilePlaceEnum.getSimpleClassName());
+    public DiskFileHandler builderDefiniteDiskFileHandler(DiskFileStrategyValue diskFileStrategyValue){
+        return diskFileHandlerImplMap.get(diskFileStrategyValue.getSimpleClassName());
     }
 
     @Override

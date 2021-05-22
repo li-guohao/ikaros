@@ -4,7 +4,9 @@ import cn.liguohao.ikaros.store.cache.CacheStore;
 import cn.liguohao.ikaros.vo.Result;
 import cn.liguohao.ikaros.vo.Status;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**缓存控制层
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>

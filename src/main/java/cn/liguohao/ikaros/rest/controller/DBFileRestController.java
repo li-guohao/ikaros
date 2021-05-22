@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/dbfile")
-public class DBFileRestController extends BaseRestController<DBFile> {
+public class DBFileRestController {
 
     @Autowired
     private DBFileService dbFileService;
@@ -31,7 +31,7 @@ public class DBFileRestController extends BaseRestController<DBFile> {
      */
     @PostMapping("/one")
     public Result<DBFile> findOne(@RequestBody DBFile dbFile){
-        return Result.build().setDSM(dbFileService.findOne(Example.of(dbFile)),"查询单个文件记录成功","查询单个文件记录失败");
+        return Result.build().setDSM(dbFileService.findOne(dbFile),"查询单个文件记录成功","查询单个文件记录失败");
     }
 
     /**
@@ -41,7 +41,7 @@ public class DBFileRestController extends BaseRestController<DBFile> {
      */
     @PostMapping("/list")
     public Result<List<DBFile>> findList(@RequestBody DBFile dbFile){
-        return Result.build().setDSM(dbFileService.findList(Example.of(dbFile)),"查询文件记录成功","查询文件记录失败");
+        return Result.build().setDSM(dbFileService.findAll(dbFile),"查询文件记录成功","查询文件记录失败");
     }
 
     /**

@@ -1,17 +1,14 @@
 package cn.liguohao.ikaros.store.diskfile.handler;
 
 import cn.liguohao.ikaros.config.ServerConfig;
-import cn.liguohao.ikaros.enums.ConfigItemEnum;
+import cn.liguohao.ikaros.enums.db.config.DiskFileStrategyValue;
 import cn.liguohao.ikaros.store.database.DBFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -29,13 +26,12 @@ public class LocalDiskFileHandler extends AbstractDiskFileHandler{
     /**
      *  获取用户路径
      */
-    private final static String CUTTENT_USER_DIRECTORY_PATH = System.getProperty("user.home") + "/.ikaros/upload";
+    private final static String CURRENT_USER_DIRECTORY_PATH = System.getProperty("user.home") + "/.ikaros/upload";
 
     /**
      * 获取操作系统名字
      */
     private final static String CURRENT_OS_NAME = System.getProperties().get("os.name").toString();
-
 
     @Autowired
     private ServerConfig serverConfig;
@@ -44,22 +40,21 @@ public class LocalDiskFileHandler extends AbstractDiskFileHandler{
         logger.info("系统运行于操作系统 --> " + CURRENT_OS_NAME);
     }
 
-
     /**
-     * @see AbstractDiskFileHandler#getDefiniteTypeObjectStorageInfoMap() 
+     * @see AbstractDiskFileHandler#getDefiniteDiskFileConfigMap()
      */
     @Override
-    protected Map<String, String> getDefiniteTypeObjectStorageInfoMap() {
-        return getObjectStorageInfoMap();
+    protected Map<String, String> getDefiniteDiskFileConfigMap() {
+        return getDiskFileConfigMap(DiskFileStrategyValue.LOCAL);
     }
 
     /**
-     * @see AbstractDiskFileHandler#definiteObjectStorageFileUpload(Map, byte[], DBFile) 
+     * @see AbstractDiskFileHandler#definiteFileUpload(Map, InputStream, DBFile)
      */
     @Override
-    protected DBFile definiteObjectStorageFileUpload(Map<String, String> objectStorageInfoMap, byte[] dataBtyes, DBFile dbFile) throws IOException {
+    protected DBFile definiteFileUpload(Map<String, String> objectStorageInfoMap, InputStream fileInputStream, DBFile dbFile) throws IOException {
         // 构建磁盘路径文件
-        String diskPath = CUTTENT_USER_DIRECTORY_PATH + dbFile.getRelativePath();
+        String diskPath = CURRENT_USER_DIRECTORY_PATH + dbFile.getRelativePath();
         // 判断操作系统 Windows系统适配
         diskPath = osDirectoryAdaptator(diskPath);
         // 构建文件
@@ -69,29 +64,31 @@ public class LocalDiskFileHandler extends AbstractDiskFileHandler{
         }
         logger.info("将要上传文件到：" + diskPath);
         dbFile.setDiskPath(diskPath);
-        //  这里直接使用MultipartFile接口的transferTo方法会出现临时文件找不到的FileNotFoundException
-        //  multipartFile.transferTo(dest); //保存文件
-        // 上传文件，使用文件字节流
+        // 上传文件
         FileOutputStream fileOutputStream = new FileOutputStream(dest);
-        fileOutputStream.write(dataBtyes);
+        fileInputStream.transferTo(fileOutputStream);
         String fileWebUrl = serverConfig.getUrl() + "/upload" + dbFile.getRelativePath();
         logger.info("上传文件成功，访问路径为：" + fileWebUrl);
         dbFile.setWebUrl(fileWebUrl);
         // 上传时间
         dbFile.setUploadTime(LocalDateTime.now());
         // 其它默认值设置
-        dbFile.setPlace(ConfigItemEnum.DISK_FILE_PLACE_LOCAL.getValue());
+        dbFile.setPlace(DiskFileStrategyValue.LOCAL.name());
 
         // 释放资源
         fileOutputStream.close();
+        fileInputStream.close();
 
         // 返回数据库文件对象
         return dbFile;
     }
 
+    /**
+     * @see AbstractDiskFileHandler#definiteDiskFileDelete(Map, String)
+     */
     @Override
-    protected void definiteObjectStorageFileDelete(Map<String, String> objectStorageInfoMap, String relativePath) throws FileNotFoundException {
-        File destFile = new File(CUTTENT_USER_DIRECTORY_PATH + relativePath);
+    protected void definiteDiskFileDelete(Map<String, String> objectStorageInfoMap, String relativePath) throws FileNotFoundException {
+        File destFile = new File(CURRENT_USER_DIRECTORY_PATH + relativePath);
         if(!destFile.exists()) {throw new FileNotFoundException("文件为在磁盘上无法找到 路径 ==> "+relativePath);}
         destFile.delete();
         logger.info("文件删除成功，被删除的文件磁盘路径为 ==> "+relativePath);

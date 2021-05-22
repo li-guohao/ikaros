@@ -28,7 +28,7 @@ public class ConfigServiceTest {
         configService.findAll().forEach(e ->{
             System.out.println(JSON.toJSON(e));
         });
-        configService.save(Config.build().setType("").setName("test").setDescription("测试").setUpdateTime(LocalDateTime.now()));
+        configService.save(Config.build().setType("").setKey("test").setDescription("测试").setUpdateTime(LocalDateTime.now()));
         System.out.println("--------------------");
         configService.findAll().forEach(e ->{
             System.out.println(JSON.toJSON(e));
