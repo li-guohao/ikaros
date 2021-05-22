@@ -122,23 +122,35 @@ public class ConfigServiceImpl extends BaseServiceImpl<Config> implements Config
         )).get().getValue();
 
         String ikarosUserHome = System.getProperty("user.home") + "/.ikaros";
-        String iakrosThemeDir = ikarosUserHome + "/theme";
-        String iakrosThemeFilePath = iakrosThemeDir + themeSimpleZipUrl.substring(themeSimpleZipUrl.lastIndexOf("/"));
+        String defaultThemeDir = ikarosUserHome + "/theme";
+        String defaultSimpleThemeFilePath = defaultThemeDir + themeSimpleZipUrl.substring(themeSimpleZipUrl.lastIndexOf("/"));
 
         // 默认主题ZIP文件
-        File ikarosThemeDefaultFile = new File(iakrosThemeFilePath); // .ikaros/theme/simple.zip
+        File ikarosThemeDefaultFile = new File(defaultSimpleThemeFilePath); // .ikaros/theme/simple.zip
         if(!ikarosThemeDefaultFile.getParentFile().exists()){
             ikarosThemeDefaultFile.getParentFile().mkdirs();
         }
 
         // 下载默认的主题文件 文件到错误目录之下
-        iakrosThemeFilePath = iakrosThemeFilePath.replace("/","\\");
+        defaultSimpleThemeFilePath = defaultSimpleThemeFilePath.replace("/","\\");
         try{
-            HttpClientUtils.downloadFile(themeSimpleZipUrl,iakrosThemeFilePath);
+            HttpClientUtils.downloadFile(themeSimpleZipUrl,defaultSimpleThemeFilePath);
+            logger.info("成功下载默认主题(simple)文件 ==> url: " + themeSimpleZipUrl + " 目录：" + defaultSimpleThemeFilePath);
 
             // 解压缩到指定目录下
-            HttpClientUtils.unzip(new File(iakrosThemeFilePath),iakrosThemeDir);
+            File defaultSimpleThemeFile = new File(defaultSimpleThemeFilePath);
+            HttpClientUtils.unzip(defaultSimpleThemeFile,defaultThemeDir);
+            logger.info("成功解压默认主题压缩文件包(simple.zip)至指定目录下 ==> " + defaultThemeDir);
 
+            // 删除压缩包文件
+            if(defaultSimpleThemeFile.isFile() && defaultSimpleThemeFile.exists()) {
+                boolean isDelSuccess = defaultSimpleThemeFile.delete();
+                if(isDelSuccess) {
+                   logger.info("成功删除下载的默认主题压缩包文件 ==> " + defaultSimpleThemeFile.getAbsolutePath());
+                } else {
+                    logger.warn("删除文件失败 ==> 默认主题压缩包文件: " + defaultSimpleThemeFile.getAbsolutePath());
+                }
+            }
         }catch (IOException ioException){
             ioException.printStackTrace();
             logger.error(ioException.getMessage());
