@@ -1,5 +1,5 @@
 # ikaros
-伊卡洛斯是单体架构、好友模块去中心化的个人主页系统
+伊卡洛斯是面向个人的资源管理应用
 
 
 
@@ -23,6 +23,7 @@
 
 # 技术栈
 - 项目架构: 单体应用架构，好友系统去中心化分布式设计
+- JDK: adopt-openjdk-11
 - 开发语言: Java
 - 后端框架: Spring, SpringMVC, SpringDataJpa, Hibernate
 - 数据库: H2，MySQL
