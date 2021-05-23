@@ -23,27 +23,20 @@ public class PanBaiduDiskFileHandler extends AbstractDiskFileHandler{
      */
     private static final Logger logger = LoggerFactory.getLogger(PanBaiduDiskFileHandler.class);
 
-    /**
-     * @see AbstractDiskFileHandler#getDefiniteDiskFileConfigMap()
-     */
-    @Override
-    protected Map<String, String> getDefiniteDiskFileConfigMap() {
-        return getDiskFileConfigMap(DiskFileStrategyValue.PAN_BAIDU);
-    }
 
     /**
-     * @see AbstractDiskFileHandler#definiteFileUpload(Map, InputStream, DBFile)
+     * @see AbstractDiskFileHandler#definiteFileUpload(InputStream, DBFile)
      */
     @Override
-    protected DBFile definiteFileUpload(Map<String, String> objectStorageInfoMap,InputStream fileInputStream, DBFile dbFile) throws IOException {
+    protected DBFile definiteFileUpload(InputStream fileInputStream, DBFile dbFile) throws IOException {
         return null;
     }
 
     /**
-     * @see AbstractDiskFileHandler#definiteDiskFileDelete(Map, String)
+     * @see AbstractDiskFileHandler#definiteDiskFileDelete(String)
      */
     @Override
-    protected void definiteDiskFileDelete(Map<String, String> objectStorageInfoMap, String relativePath) throws FileNotFoundException {
+    protected void definiteDiskFileDelete(String relativePath) throws FileNotFoundException {
 
     }
 }

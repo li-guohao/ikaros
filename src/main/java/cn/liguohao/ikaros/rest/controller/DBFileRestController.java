@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**数据库文件记录 控制层
+/**
+ * 数据库文件记录 控制层
+ *
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
  * @since 2021/1/2
  */
@@ -26,37 +28,46 @@ public class DBFileRestController {
 
     /**
      * 根据精确条件查询单个对象
+     *
      * @param dbFile 数据库文件记录对象
      * @return 带数据库文件记录对象的结果
      */
     @PostMapping("/one")
-    public Result<DBFile> findOne(@RequestBody DBFile dbFile){
-        return Result.build().setDSM(dbFileService.findOne(dbFile),"查询单个文件记录成功","查询单个文件记录失败");
+    public Result<DBFile> findOne(@RequestBody DBFile dbFile) {
+        return Result.build().setDSM(dbFileService.findOne(dbFile), "查询单个文件记录成功", "查询单个文件记录失败");
     }
 
     /**
      * 查询文件列表
+     *
      * @param dbFile 数据库文件记录对象
      * @return 带数据的结果
      */
     @PostMapping("/list")
-    public Result<List<DBFile>> findList(@RequestBody DBFile dbFile){
-        return Result.build().setDSM(dbFileService.findAll(dbFile),"查询文件记录成功","查询文件记录失败");
+    public Result<List<DBFile>> findList(@RequestBody DBFile dbFile) {
+        return Result.build().setDSM(dbFileService.findAll(dbFile), "查询文件记录成功", "查询文件记录失败");
     }
 
     /**
      * 上传文件
+     *
      * @param file 待上传的文件
      * @return 带数据库文件记录对象的结果
      * @throws IOException IO读写异常
      */
     @PutMapping("/one/upload")
     public Result<DBFile> uploadPut(MultipartFile file) throws IOException {
-        return Result.build().setDSM(dbFileService.upload(file),Status.created,"上传文件成功",Status.serverError,"上传文件失败");
+        return Result.build().setDSM(dbFileService.upload(file), Status.created, "上传文件成功", Status.serverError, "上传文件失败");
+    }
+
+    @DeleteMapping("/one/{id}")
+    public Result<DBFile> deleteById(@PathVariable Long id) throws IOException {
+        return Result.build().setDSM(dbFileService.deleteById(id), Status.created, "删除文件成功", Status.serverError, "删除文件失败");
     }
 
     /**
      * 上传文件
+     *
      * @param file 待上传的文件
      * @return 带数据库文件记录对象的结果
      * @throws IOException IO读写异常
@@ -67,10 +78,10 @@ public class DBFileRestController {
         try {
             result.setData(dbFileService.upload(file));
             result.setStatus(Status.created).setMessage("上传文件成功");
-        }catch (Exception exception){
+        } catch (Exception exception) {
             response.setStatus(500);
             exception.printStackTrace();
-            result.setStatus(Status.serverError).setMessage("上传文件失败 ==> "+exception.getMessage());
+            result.setStatus(Status.serverError).setMessage("上传文件失败 ==> " + exception.getMessage());
         }
         return result;
     }

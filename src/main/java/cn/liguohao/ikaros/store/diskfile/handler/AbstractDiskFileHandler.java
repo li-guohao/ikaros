@@ -35,52 +35,6 @@ public abstract class AbstractDiskFileHandler implements DiskFileHandler {
     private ConfigService configService;
 
     /**
-     * 获取具体类型的对象存储信息Map集合
-     * 由子类实现
-     *
-     * @return 具体类型信息的Map集合
-     */
-    protected abstract Map<String, String> getDefiniteDiskFileConfigMap();
-
-    /**
-     * 根据文件存储策略 查询对应的策略配置信息键值对
-     * 文件存储策略的值 对应着 配置的类型
-     * @param currentDiskFileStrategyValue 当前的文件存储策略
-     * @return 磁盘文件存储相关配置键值对
-     */
-    @IkarosCache
-    protected Map<String, String> getDiskFileConfigMap(DiskFileStrategyValue currentDiskFileStrategyValue) {
-        HashMap<String, String> diskFileConfigMap = new HashMap<>(25);
-
-        // 文件存储策略的值 对应着 配置的类型
-        List<Config> configs = configService.findAll(
-                Config.build().setType(currentDiskFileStrategyValue.name())
-        );
-        // 将储存策略的配置项储存到集合中
-        for (Config config : configs) {
-            diskFileConfigMap.put(config.getKey(), config.getValue());
-        }
-
-        // 参数缺省提醒
-        if(currentDiskFileStrategyValue == DiskFileStrategyValue.ALIYUN_OSS) {
-            // 阿里云对象存储，确保参数有值
-            IkarosAssert.isFalse(
-                    (StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.ACCESS_DOMAIN.name())) || StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.ACCESS_INTERNAL_DOMAIN.name())))
-                    || StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.ACCESS_KEY_SECRET.name()))
-                    || StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.ACCESS_PROTOCOL.name()))
-                    || StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.ACCESS_KEY_ID.name()))
-                    || StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.OBJECT_NAME_PREFIX.name()))
-                    || StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.ENDPOINT.name()))
-                    || StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.BUCKET_NAME.name()))
-                    , "阿里云对象存储配置信息缺失，需要的信息有：" + JSON.toJSON(AliyunOSSKey.values())
-            );
-        }
-
-        // 返回结果
-        return diskFileConfigMap;
-    }
-
-    /**
      * @see DiskFileHandler#uploadFile(MultipartFile)
      */
     @Override
@@ -90,8 +44,6 @@ public abstract class AbstractDiskFileHandler implements DiskFileHandler {
         final String defaultDbfileDescription = "这是一段默认的对于该文件的描述QAQ";
 
         IkarosAssert.isNotEmpty(multipartFile, "上传的文件不能为空");
-        // 获取信息
-        Map<String, String> diskFileConfigMap = getDefiniteDiskFileConfigMap();
 
         // 根据multipartFile 构建 dBFile
         DBFile dbFile = new DBFile();
@@ -127,35 +79,31 @@ public abstract class AbstractDiskFileHandler implements DiskFileHandler {
         }
 
         // 执行具体的文件上传
-        return definiteFileUpload(diskFileConfigMap, multipartFile.getInputStream(), dbFile);
+        return definiteFileUpload(multipartFile.getInputStream(), dbFile);
     }
 
     /**
      * 具体的文件上传操作
      * 由子类实现
      *
-     * @param diskFileConfigMap 储存策略配置项信息Map集合
      * @param fileInputStream 文件数据输入流
      * @param dbFile 数据库文件记录对象
      * @return 完整的数据库文件记录对象
      * @throws IOException
      */
-    protected abstract DBFile definiteFileUpload(Map<String, String> diskFileConfigMap, InputStream fileInputStream, DBFile dbFile) throws IOException;
+    protected abstract DBFile definiteFileUpload(InputStream fileInputStream, DBFile dbFile) throws IOException;
 
     @Override
     public void deleteFile(String relativePath) throws IOException {
-        // 获取信息
-        Map<String, String> objectStorageInfoMap = getDefiniteDiskFileConfigMap();
         // 具体的删除文件操作
-        definiteDiskFileDelete(objectStorageInfoMap, relativePath);
+        definiteDiskFileDelete(relativePath);
     }
 
     /**
      * 具体的文件移除操作
      *
-     * @param objectStorageInfoMap 储存策略配置项信息Map集合
      * @param relativePath         文件的相对路径
      * @throws FileNotFoundException 删除操作文件未找到
      */
-    protected abstract void definiteDiskFileDelete(Map<String, String> objectStorageInfoMap, String relativePath) throws FileNotFoundException;
+    protected abstract void definiteDiskFileDelete(String relativePath) throws FileNotFoundException;
 }

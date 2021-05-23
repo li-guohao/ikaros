@@ -41,18 +41,10 @@ public class LocalDiskFileHandler extends AbstractDiskFileHandler{
     }
 
     /**
-     * @see AbstractDiskFileHandler#getDefiniteDiskFileConfigMap()
+     * @see AbstractDiskFileHandler#definiteFileUpload(InputStream, DBFile)
      */
     @Override
-    protected Map<String, String> getDefiniteDiskFileConfigMap() {
-        return getDiskFileConfigMap(DiskFileStrategyValue.LOCAL);
-    }
-
-    /**
-     * @see AbstractDiskFileHandler#definiteFileUpload(Map, InputStream, DBFile)
-     */
-    @Override
-    protected DBFile definiteFileUpload(Map<String, String> objectStorageInfoMap, InputStream fileInputStream, DBFile dbFile) throws IOException {
+    protected DBFile definiteFileUpload(InputStream fileInputStream, DBFile dbFile) throws IOException {
         // 构建磁盘路径文件
         String diskPath = CURRENT_USER_DIRECTORY_PATH + dbFile.getRelativePath();
         // 判断操作系统 Windows系统适配
@@ -83,11 +75,12 @@ public class LocalDiskFileHandler extends AbstractDiskFileHandler{
         return dbFile;
     }
 
+
     /**
-     * @see AbstractDiskFileHandler#definiteDiskFileDelete(Map, String)
+     * @see AbstractDiskFileHandler#definiteDiskFileDelete(String)
      */
     @Override
-    protected void definiteDiskFileDelete(Map<String, String> objectStorageInfoMap, String relativePath) throws FileNotFoundException {
+    protected void definiteDiskFileDelete(String relativePath) throws FileNotFoundException {
         File destFile = new File(CURRENT_USER_DIRECTORY_PATH + relativePath);
         if(!destFile.exists()) {throw new FileNotFoundException("文件为在磁盘上无法找到 路径 ==> "+relativePath);}
         destFile.delete();

@@ -317,8 +317,24 @@ public class ConfigService {
      *
      * @param config 待保存对象
      */
-    @IkarosCache
+    @IkarosUpdateCache
     public void save(Config config) {
         configDao.save(config);
     }
+
+    /**
+     * 根据配置类型获取对应的配置信息
+     * @param configType 配置项类型
+     * @return 对应配置项的信息集合
+     */
+    @IkarosCache
+    public Map<String, String> getConfigInfoByType(ConfigType configType) {
+        HashMap<String, String> configMap = new HashMap<>();
+        List<Config> configList = configDao.findAll(Example.of(
+                Config.build().setType(configType.name())
+        ));
+        configList.forEach(config -> configMap.put(config.getKey(),config.getValue()));
+        return configMap;
+    }
+
 }
