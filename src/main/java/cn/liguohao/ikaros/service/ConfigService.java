@@ -90,8 +90,8 @@ public class ConfigService {
                 Config.build().setType(ConfigType.APP_INIT.name())
                         .setKey(APPInitKey.IS_INITED.name())
         ));
-        // 如果设置表有对应的记录，并且记录值为1，才代表已经初始化了
-        return configOptional.isPresent() && "1".equals(configOptional.get().getValue());
+        // 如果设置表有对应的记录，并且已经初始化了
+        return configOptional.isPresent() && (AppIsInitedValue.valueOf(configOptional.get().getValue()) == AppIsInitedValue.INITED);
     }
 
 
@@ -113,7 +113,7 @@ public class ConfigService {
         }
 
         // 初始化完毕 更新数据库配置表对应记录
-        configService.saveByTypeAndKey(ConfigType.APP_INIT.name(),APPInitKey.IS_INITED.name(), APPInitKey.IS_INITED.getDescription(), "1");
+        configService.saveByTypeAndKey(ConfigType.APP_INIT.name(),APPInitKey.IS_INITED.name(), APPInitKey.IS_INITED.getDescription(), AppIsInitedValue.INITED.name());
         logger.info("[伊卡洛斯]初始化完毕");
         return true;
     }
@@ -172,7 +172,7 @@ public class ConfigService {
      */
     private void initConfigItem() {
 
-        configService.saveByTypeAndKey(ConfigType.APP_INIT.name(), APPInitKey.IS_INITED.name(), APPInitKey.IS_INITED.getDescription(), "0");
+        configService.saveByTypeAndKey(ConfigType.APP_INIT.name(), APPInitKey.IS_INITED.name(), APPInitKey.IS_INITED.getDescription(), AppIsInitedValue.NOT_INITED.name());
 
         configService.saveByTypeAndKey(ConfigType.CACHE.name(), CacheKey.STRATEGY.name(), CacheKey.STRATEGY.getDescription(), CacheStrategyValue.MEMORY.name());
 
@@ -181,6 +181,7 @@ public class ConfigService {
 
         configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ACCESS_KEY_ID.name(), AliyunOSSKey.ACCESS_KEY_ID.getDescription(), "");
         configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ACCESS_DOMAIN.name(), AliyunOSSKey.ACCESS_DOMAIN.getDescription(), "");
+        configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ACCESS_INTERNAL_DOMAIN.name(), AliyunOSSKey.ACCESS_INTERNAL_DOMAIN.getDescription(), "");
         configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ACCESS_KEY_SECRET.name(), AliyunOSSKey.ACCESS_KEY_SECRET.getDescription(), "");
         configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ACCESS_PROTOCOL.name(), AliyunOSSKey.ACCESS_PROTOCOL.getDescription(), AliyunOSSAccessProtocolValue.HTTPS.name());
         configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ENDPOINT.name(), AliyunOSSKey.ENDPOINT.getDescription(), "");

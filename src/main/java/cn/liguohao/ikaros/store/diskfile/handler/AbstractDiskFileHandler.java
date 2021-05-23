@@ -65,7 +65,7 @@ public abstract class AbstractDiskFileHandler implements DiskFileHandler {
         if(currentDiskFileStrategyValue == DiskFileStrategyValue.ALIYUN_OSS) {
             // 阿里云对象存储，确保参数有值
             IkarosAssert.isFalse(
-                    StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.ACCESS_DOMAIN.name()))
+                    (StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.ACCESS_DOMAIN.name())) || StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.ACCESS_INTERNAL_DOMAIN.name())))
                     || StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.ACCESS_KEY_SECRET.name()))
                     || StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.ACCESS_PROTOCOL.name()))
                     || StringUtils.isEmpty(diskFileConfigMap.get(AliyunOSSKey.ACCESS_KEY_ID.name()))

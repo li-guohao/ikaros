@@ -10,9 +10,14 @@ package cn.liguohao.ikaros.enums.db.config;
 public enum AliyunOSSKey {
 
     /**
-     * 阿里云对象存储-文件HTTP访问域名
+     * 阿里云对象存储-文件HTTP外网访问域名
      */
     ACCESS_DOMAIN("阿里云对象存储-文件HTTP访问域名")
+    ,
+    /**
+     * 阿里云对象存储-文件HTTP内网访问域名
+     */
+    ACCESS_INTERNAL_DOMAIN("阿里云对象存储-文件HTTP内网访问域名")
     ,
 
     /**
@@ -23,8 +28,11 @@ public enum AliyunOSSKey {
 
     /**
      * 阿里云对象存储-文件允许的访问协议
+     * HTTP, HTTPS
+     * @see AliyunOSSAccessProtocolValue#HTTP
+     * @see AliyunOSSAccessProtocolValue#HTTPS
      */
-    ACCESS_PROTOCOL("阿里云对象存储-文件允许的访问协议")
+    ACCESS_PROTOCOL("阿里云对象存储-文件允许的访问协议 HTTP, HTTPS")
     ,
 
     /**

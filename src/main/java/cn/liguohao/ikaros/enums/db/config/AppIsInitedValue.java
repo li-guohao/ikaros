@@ -1,25 +1,20 @@
 package cn.liguohao.ikaros.enums.db.config;
 
 /**
- * 数据缓存策略 对应的值
+ * 应用初始化 对应键的值
  *
  * @author <a href="mailto:liguohao_cn@qq.com">liguohao_cn@qq.com</a>
- * @see CacheKey#STRATEGY
  * @since 2021/5/23
+ * @see APPInitKey#IS_INITED
  */
-public enum CacheStrategyValue {
-
+public enum AppIsInitedValue {
     /**
-     * 内存缓存
+     * 已经初始化
      */
-    MEMORY
-    ,
-
+    INITED,
     /**
-     * redis缓存
+     * 未初始化
      */
-    REDIS
-    ,
-
+    NOT_INITED
     ;
 }

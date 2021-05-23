@@ -11,8 +11,11 @@ public enum CacheKey {
 
     /**
      * 缓存策略: 默认内存缓存
+     * MEMORY-内存缓存 REDIS-redis缓存
+     * @see CacheStrategyValue#MEMORY
+     * @see CacheStrategyValue#REDIS
      */
-    STRATEGY("缓存策略: 默认内存缓存")
+    STRATEGY("缓存策略: 默认内存缓存 MEMORY-内存缓存 REDIS-redis缓存")
     ,
 
     ;

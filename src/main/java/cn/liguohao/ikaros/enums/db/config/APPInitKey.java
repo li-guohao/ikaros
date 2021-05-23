@@ -10,10 +10,12 @@ package cn.liguohao.ikaros.enums.db.config;
 public enum APPInitKey {
 
     /**
-     * 是否已经初始化
-     * 1-已初始化 0-未初始化
+     * 应用初始化配置
+     * INITED-已初始化 NOT_INITED-未初始化
+     * @see AppIsInitedValue#INITED
+     * @see AppIsInitedValue#NOT_INITED
      */
-    IS_INITED("应用初始化配置 1-已初始化 0-未初始化")
+    IS_INITED("应用初始化配置 INITED-已初始化 NOT_INITED-未初始化")
     ,
 
     ;

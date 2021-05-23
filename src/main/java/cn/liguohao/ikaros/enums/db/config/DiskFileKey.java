@@ -10,9 +10,15 @@ package cn.liguohao.ikaros.enums.db.config;
 public enum DiskFileKey {
 
     /**
-     * 文件存储策略：local-本地 aliyun_oss-阿里云对象存储
+     * 文件存储策略：
+     * LOCAL-本地文件存储 ALIYUN_OSS-阿里云对象存储
+     * PAN_BAIDU-百度网盘 TENCENT_CLOUD_COS-腾讯云对象存储
+     * @see DiskFileStrategyValue#LOCAL
+     * @see DiskFileStrategyValue#ALIYUN_OSS
+     * @see DiskFileStrategyValue#PAN_BAIDU
+     * @see DiskFileStrategyValue#TENCENT_CLOUD_COS
      */
-    STRATEGY("文件存储策略：local-本地 aliyun_oss-阿里云对象存储")
+    STRATEGY("文件存储策略：LOCAL-本地文件存储 ALIYUN_OSS-阿里云对象存储 PAN_BAIDU-百度网盘 TENCENT_CLOUD_COS-腾讯云对象存储")
     ,
 
     ;
