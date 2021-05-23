@@ -20,10 +20,10 @@ import org.springframework.util.ObjectUtils;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
 
 /**
  * 服务层实现-系统配置
@@ -45,17 +45,17 @@ public class ConfigService {
     private String springProfilesActive;
 
     @Value("${ikaros.config.theme.default-download-url}")
-    private String defaultThemeZipUrl ;
+    private String defaultThemeZipUrl;
 
 
     /**
      * 根据类型和键新增或更新配置项
      * 先查询后保存，保证不会插入重复的数据
      *
-     * @param type  配置类型
-     * @param key   键
+     * @param type        配置类型
+     * @param key         键
      * @param description 配置项描述
-     * @param value 新值
+     * @param value       新值
      */
     @IkarosUpdateCache
     public void saveByTypeAndKey(String type, String key, String description, String value) {
@@ -113,7 +113,7 @@ public class ConfigService {
         }
 
         // 初始化完毕 更新数据库配置表对应记录
-        configService.saveByTypeAndKey(ConfigType.APP_INIT.name(),APPInitKey.IS_INITED.name(), APPInitKey.IS_INITED.getDescription(), AppIsInitedValue.INITED.name());
+        configService.saveByTypeAndKey(ConfigType.APP_INIT.name(), APPInitKey.IS_INITED.name(), APPInitKey.IS_INITED.getDescription(), AppIsInitedValue.INITED.name());
         logger.info("[伊卡洛斯]初始化完毕");
         return true;
     }
@@ -168,7 +168,6 @@ public class ConfigService {
 
     /**
      * 初始化配置项
-     *
      */
     private void initConfigItem() {
 
@@ -176,8 +175,8 @@ public class ConfigService {
 
         configService.saveByTypeAndKey(ConfigType.CACHE.name(), CacheKey.STRATEGY.name(), CacheKey.STRATEGY.getDescription(), CacheStrategyValue.MEMORY.name());
 
-        configService.saveByTypeAndKey(ConfigType.THEME.name(), ThemeKey.DEFAULT_DOWNLOAD_URL.name(),ThemeKey.DEFAULT_DOWNLOAD_URL.getDescription(), defaultThemeZipUrl);
-        configService.saveByTypeAndKey(ConfigType.THEME.name(), ThemeKey.CURRENT.name(),ThemeKey.CURRENT.getDescription(), defaultThemeZipUrl.substring(defaultThemeZipUrl.lastIndexOf("/") + 1, defaultThemeZipUrl.lastIndexOf(".")));
+        configService.saveByTypeAndKey(ConfigType.THEME.name(), ThemeKey.DEFAULT_DOWNLOAD_URL.name(), ThemeKey.DEFAULT_DOWNLOAD_URL.getDescription(), defaultThemeZipUrl);
+        configService.saveByTypeAndKey(ConfigType.THEME.name(), ThemeKey.CURRENT.name(), ThemeKey.CURRENT.getDescription(), defaultThemeZipUrl.substring(defaultThemeZipUrl.lastIndexOf("/") + 1, defaultThemeZipUrl.lastIndexOf(".")));
 
         configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ACCESS_KEY_ID.name(), AliyunOSSKey.ACCESS_KEY_ID.getDescription(), "");
         configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.ACCESS_DOMAIN.name(), AliyunOSSKey.ACCESS_DOMAIN.getDescription(), "");
@@ -188,7 +187,7 @@ public class ConfigService {
         configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.OBJECT_NAME_PREFIX.name(), AliyunOSSKey.OBJECT_NAME_PREFIX.getDescription(), ".ikaros/upload");
         configService.saveByTypeAndKey(ConfigType.ALIYUN_OSS.name(), AliyunOSSKey.BUCKET_NAME.name(), AliyunOSSKey.BUCKET_NAME.getDescription(), "");
 
-        configService.saveByTypeAndKey(ConfigType.DISK_FILE.name(), DiskFileKey.STRATEGY.name(),DiskFileKey.STRATEGY.getDescription(), DiskFileStrategyValue.LOCAL.name());
+        configService.saveByTypeAndKey(ConfigType.DISK_FILE.name(), DiskFileKey.STRATEGY.name(), DiskFileKey.STRATEGY.getDescription(), DiskFileStrategyValue.LOCAL.name());
 
     }
 
@@ -219,7 +218,7 @@ public class ConfigService {
                     Config.build().setType(ConfigType.THEME.name())
                             .setKey(ThemeKey.CURRENT.name())
             ));
-            if(configOptional.isEmpty()) {
+            if (configOptional.isEmpty()) {
                 themeName = "simple";
             } else {
                 themeName = configOptional.get().getValue();
@@ -247,25 +246,78 @@ public class ConfigService {
 
     /**
      * 查询所有
+     *
      * @param config 查询条件
      * @return 集合
      */
+    @IkarosCache
     public List<Config> findAll(Config config) {
         return configDao.findAll(Example.of(config));
     }
 
     /**
      * 查询所有
+     *
      * @return 集合
      */
+    @IkarosCache
     public List<Config> findAll() {
         return configDao.findAll();
     }
 
     /**
+     * 根据文件初始化配置项
+     *
+     * @param properties 带有配置信息的文件
+     * @param configType 待初始化的配置类型
+     */
+    @IkarosUpdateCache
+    @Transactional(rollbackOn = Exception.class)
+    public void readProperties2initItem(ConfigType configType, Properties properties) {
+        // 获取对应的键Class
+        Class keyEnumClass = configType.getKeyEnumClass();
+        Object keyEnum = Arrays.stream(keyEnumClass.getEnumConstants()).filter(configKey -> configKey.getClass().equals(keyEnumClass)).findFirst().get();
+        Method nameMethod = null;
+        Method getDescriptionMethod = null;
+        Method valuesMethod = null;
+        for (Method method : keyEnumClass.getMethods()) {
+            if ("name".equals(method.getName())) {
+                nameMethod = method;
+            }
+            if ("getDescription".equals(method.getName())) {
+                getDescriptionMethod = method;
+            }
+            if ("values".equals(method.getName())) {
+                valuesMethod = method;
+            }
+        }
+        try {
+            // 遍历键枚举所有的值
+            for (Object configKey : (Object[]) valuesMethod.invoke(null)) {
+                String configKeyName = nameMethod.invoke(configKey).toString();
+                // 参数缺省校验 校验Properties文件中对应的值是否为空
+                IkarosAssert.isNotEmpty(properties.get(configKeyName), getDescriptionMethod.invoke(configKey) + "=>不能为空");
+                // 保存文件中的对应值到数据库对应的记录中
+                configService.saveByTypeAndKey(
+                        configType.name()
+                        , configKeyName
+                        , getDescriptionMethod.invoke(keyEnum).toString()
+                        , properties.get(configKeyName).toString()
+                );
+            }
+        } catch (IllegalAccessException e) {
+            logger.error("参数异常 ==> ", e);
+        } catch (InvocationTargetException e) {
+            logger.error("反射执行异常 ==> ", e);
+        }
+    }
+
+    /**
      * 保存
+     *
      * @param config 待保存对象
      */
+    @IkarosCache
     public void save(Config config) {
         configDao.save(config);
     }

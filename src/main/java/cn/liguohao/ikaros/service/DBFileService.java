@@ -1,5 +1,6 @@
 package cn.liguohao.ikaros.service;
 
+import cn.liguohao.ikaros.annotation.IkarosCache;
 import cn.liguohao.ikaros.annotation.IkarosUpdateCache;
 import cn.liguohao.ikaros.dao.ConfigDao;
 import cn.liguohao.ikaros.dao.DBFileDao;
@@ -170,6 +171,7 @@ public class DBFileService {
      * @param dbFile 查询条件
      * @return 结果
      */
+    @IkarosCache
     public DBFile findOne(DBFile dbFile) {
         return dbFileDao.findOne(Example.of(dbFile)).get();
     }
@@ -178,6 +180,7 @@ public class DBFileService {
      * @param dbFile 查询条件
      * @return 结果List集合
      */
+    @IkarosCache
     public List<DBFile> findAll(DBFile dbFile) {
         return dbFileDao.findAll(Example.of(dbFile));
     }
@@ -187,6 +190,7 @@ public class DBFileService {
      * @param pageQuery 查询参数
      * @return 分页结果集
      */
+    @IkarosCache
     public PagingData<DBFile> findByPaging(PageQuery<DBFile> pageQuery) {
 
         // 获取对象
@@ -218,6 +222,7 @@ public class DBFileService {
      * 保存
      * @param dbFile 待保存的对象
      */
+    @IkarosUpdateCache
     public void save(DBFile dbFile) {
         dbFileDao.save(dbFile);
     }

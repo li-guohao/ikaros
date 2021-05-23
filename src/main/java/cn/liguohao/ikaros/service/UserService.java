@@ -101,6 +101,7 @@ public class UserService{
      * @param uuid 用户ID
      * @return Token信息
      */
+    @IkarosCache
     public String findTokenByUuid(Long uuid) {
         IkarosAssert.isNotEmpty(uuid,"执行[findTokenByUuid(Long uuid)]查询Token需要指定uuid的值");
         Optional<User> userOptional = userDao.findById(uuid);
