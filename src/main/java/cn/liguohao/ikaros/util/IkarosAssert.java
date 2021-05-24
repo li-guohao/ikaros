@@ -55,6 +55,17 @@ public class IkarosAssert extends Assert {
         }
     }
 
+    /**
+     * 对象不为null
+     * @param object 待校验的值-Object类型
+     * @param message 对象为null时抛出的异常情况的消息
+     */
+    public static void isNotNull(Object object, String message) {
+        if (object == null) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
 
 
 }
